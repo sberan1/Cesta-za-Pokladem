@@ -9,15 +9,17 @@ package logika;
  */
 public class PrikazJdi implements IPrikaz {
     private static final String NAZEV = "jdi";
+    private Hra hra;
     private HerniPlan plan;
     
     /**
     *  Konstruktor třídy
     *  
-    *  @param plan herní plán, ve kterém se bude ve hře "chodit" 
+    *  @param hra hvrac9 objekt hry, ze které je možné získat herní plán"
     */    
-    public PrikazJdi(HerniPlan plan) {
-        this.plan = plan;
+    public PrikazJdi(Hra hra) {
+        this.hra = hra;
+        this.plan = hra.getHerniPlan();
     }
 
     /**
@@ -46,6 +48,11 @@ public class PrikazJdi implements IPrikaz {
         }
         else {
             plan.setAktualniProstor(sousedniProstor);
+            if (sousedniProstor.equals(plan.getVyherniProstor())){
+                hra.setEpilog("Vyhrals PYCO");
+                hra.setKonecHry(true);
+                return "Uspech";
+            }
             return sousedniProstor.dlouhyPopis();
         }
     }

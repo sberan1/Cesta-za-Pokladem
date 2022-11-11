@@ -51,6 +51,7 @@ public class Prostor {
      */
     public void setVychod(Prostor vedlejsi) {
         vychody.add(vedlejsi);
+
     }
 
     /**

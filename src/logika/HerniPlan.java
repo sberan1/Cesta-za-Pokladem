@@ -15,6 +15,7 @@ package logika;
 public class HerniPlan {
     
     private Prostor aktualniProstor;
+    private Prostor vyherniProstor;
     
      /**
      *  Konstruktor který vytváří jednotlivé prostory a propojuje je pomocí východů.
@@ -35,6 +36,10 @@ public class HerniPlan {
         Prostor jeskyne = new Prostor("jeskyně","stará plesnivá jeskyně");
         Prostor les = new Prostor("les","les s jahodami, malinami a pramenem vody");
         Prostor hlubokyLes = new Prostor("hluboký_les","temný les, ve kterém lze potkat vlka");
+
+        Prostor sousedniDomecek = new Prostor("Sousedni_domecek", "zde bydli sousedi Karkulky");
+
+
         
         // přiřazují se průchody mezi prostory (sousedící prostory)
         domecek.setVychod(les);
@@ -43,9 +48,12 @@ public class HerniPlan {
         hlubokyLes.setVychod(les);
         hlubokyLes.setVychod(jeskyne);
         hlubokyLes.setVychod(chaloupka);
+        hlubokyLes.setVychod(sousedniDomecek);
         jeskyne.setVychod(hlubokyLes);
         chaloupka.setVychod(hlubokyLes);
-                
+        sousedniDomecek.setVychod(hlubokyLes);
+
+        vyherniProstor = chaloupka;
         aktualniProstor = domecek;  // hra začíná v domečku       
     }
     
@@ -68,4 +76,7 @@ public class HerniPlan {
        aktualniProstor = prostor;
     }
 
+    public Prostor getVyherniProstor() {
+        return vyherniProstor;
+    }
 }
