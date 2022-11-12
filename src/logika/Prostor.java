@@ -24,6 +24,8 @@ public class Prostor {
     private String nazev;
     private String popis;
     private Set<Prostor> vychody;   // obsahuje sousední místnosti
+    private boolean zamceno; //obsahuje informaci o tom, zda je mistnost zamcena
+    private Set<Vec> veciVMistnosti; //
 
     /**
      * Vytvoření prostoru se zadaným popisem, např. "kuchyň", "hala", "trávník

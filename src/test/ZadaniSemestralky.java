@@ -30,8 +30,19 @@ public class ZadaniSemestralky {
 
     }
 
+
+    // zde bude probihat test Hry, ktery bude slouzit jako zadani semestralni prace
     @Test
     void testHry() {
+
+        /**
+         * Mapa generovana pomoci online nastroje - inkarnate.com
+         *
+         * Mapa se nachazi v adresari souboru ve slozce dalsi soubory - nazev souboru mapa.jpeg
+         *
+         * ve slozce se take nachazi textovy soubor popisujici co jde v jakych prostorech najit za vychody a predmety
+         *
+         */
         //Uvítání - zapnutí hry
         assertEquals(hra.vratUvitani(), "Vítejte!\n" +
                 "Toto je příběh o Červené Karkulce, babičce a vlkovi.\n" +

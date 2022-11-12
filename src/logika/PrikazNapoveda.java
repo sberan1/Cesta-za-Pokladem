@@ -10,7 +10,7 @@ package logika;
  */
 public class PrikazNapoveda implements IPrikaz {
     
-    private static final String NAZEV = "nápověda";
+    private static final String NAZEV = "pomoc";
     private SeznamPrikazu platnePrikazy;
     
     
