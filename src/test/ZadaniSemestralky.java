@@ -58,5 +58,7 @@ public class ZadaniSemestralky {
         //2. krok jdi hluboký_les
         assertEquals(hra.zpracujPrikaz("jdi hluboký_les"), "Jsi v mistnosti/prostoru temný les, ve kterém lze potkat vlka.\n" +
                 "východy: Sousedni_domecek chaloupka jeskyně les");
+
+        assertEquals(hra.zpracujPrikaz("jdi chaloupka"), "Uspech");
     }
 }

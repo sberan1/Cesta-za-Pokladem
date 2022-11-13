@@ -2,17 +2,17 @@
 
 **HORY**
 - Vychody
-  - Mesto, Les, HlubokyLes 
+  - Město, Les, HlubokýLes 
 - Veci
   - Kamen, Strom
 
 **MESTO**
 - Vychody
-  - Hory, Les, HlubokyLes, Hospoda, Kostel
+  - Hory, Les, HlubokýLes, Hospoda, Kostel
 - Zamcene vychody
   - DumKovare, Stodola
 - Veci
-  - MrtvaKrysa, Strepy, Barel, Lampa
+  - MrtváKrysa, Střepy, Barel, Lampa
 
 **HOSPODA**
 - Vychody
@@ -24,64 +24,85 @@
 - Vychody
   - Mesto
 - Veci
-  - Róba, Žezlo, Lavice, Klíč(schovaný)
+  - Róba, Žezlo, Lavice
+- Schované věci
+  - Klíč, lektvarŽivota 
 
 **DŮM KOVÁŘE**
 - Vychody
   - Mesto
 - Veci
-  - neco
+  - Meč, stůl, nůž
 
 **STODOLA**
 - Vychody
   - Mesto
 - Veci
-  - NECO
+  - Sláma, seno
 
 **VESNICE**
 - Vychody
   - Les, Pustina, PiratskaLod
 - Veci
-  - neco
+  - Kámen, Klacek, Barel
+- Vymena
 
 **PUSTINA**
 - Vychody
-  - CarodejovaVez, HlubokyLes, Les, Vesnice
+  - HlubokyLes, Les, Vesnice
+- Zamcene vychody
+  - ČarodějovaVěž
 - Veci
-  - neco
+  - Písek
+- -10 životů
 
 **PIRÁTSKÁ LOĎ**
 - Vychody
   - Vesnice
 - Veci
-  - klic(schovany) 
+  - Barel, kanón, provaz
+- Schované věci
+  - Klíč
+- Vymena
+- -30 životů
 
 **LES**
 - Vychody
-  - Vesnice, Taboriste, Hory, Pustina
+  - Vesnice, Tábořiště, Hory, Pustina
 - Veci
-  - neco
+  - Klacek, Kámen, Strom
+- Schované věci
+  - LektvarŽivota 
+- -10 životů
 
 **HLUBOKÝ LES**
 - Vychody
   - Mesto, Hory, Taborak, Pustina
 - Veci
-  - neco
+  - Klacek, Kámen, Strom
+- Schované věci
+  - Klíč
+- -20 životů
     
 **TÁBOŘIŠTĚ**
 - Vychody
   - Les
 - Veci
-  - neco
+  - Stan
+- Schované věci
+  - Klíč
 
 **ČARODĚJOVA VĚŽ**
 - Vychody
   - Pustina
+- Schovane vychody
+  - TajnáPokladnice
 - Veci
-  - neco
+  - nic
 
 **TÁBORÁK**
 - Vychody
   - HlubokyLes
 - Veci
-  - neco
+  - Pařez, Klacek, 
+- Vymena 
