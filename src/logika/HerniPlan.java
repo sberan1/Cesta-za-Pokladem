@@ -16,6 +16,7 @@ public class HerniPlan {
     
     private Prostor aktualniProstor;
     private Prostor vyherniProstor;
+    private Batoh batuzek = new Batoh(10);
     
      /**
      *  Konstruktor který vytváří jednotlivé prostory a propojuje je pomocí východů.

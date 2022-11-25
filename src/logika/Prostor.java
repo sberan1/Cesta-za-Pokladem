@@ -1,10 +1,6 @@
 package logika;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Set;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -25,7 +21,7 @@ public class Prostor {
     private String popis;
     private Set<Prostor> vychody;   // obsahuje sousední místnosti
     private boolean zamceno; //obsahuje informaci o tom, zda je mistnost zamcena
-    private Set<Vec> veciVMistnosti; //
+    private List<Vec> veciVMistnosti; //obsahuje seznam veci
 
     /**
      * Vytvoření prostoru se zadaným popisem, např. "kuchyň", "hala", "trávník
@@ -39,6 +35,7 @@ public class Prostor {
         this.nazev = nazev;
         this.popis = popis;
         vychody = new HashSet<>();
+        veciVMistnosti = new ArrayList<>();
     }
 
     /**
@@ -56,6 +53,65 @@ public class Prostor {
 
     }
 
+    /**
+     * Vloz veci do mistnosti, se kterymi bude clovek interagovat
+     *
+     * @param vec vec, ktera se nachazi v mistnosti
+     */
+    public void vlozVec(Vec vec) {
+        veciVMistnosti.add(vec);
+
+    }
+
+    /**
+     *
+     * @param vec
+     * @return
+     */
+    public boolean obsahujeVec(String vec){
+        for (Vec neco : veciVMistnosti){
+            if (neco.getNazev().equals(vec)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     *
+     * @param nazev
+     * @return
+     */
+    public Vec vyberVeci(String nazev){
+        Vec vybranaVec = null;
+        for (Vec neco : veciVMistnosti) {
+            if (neco.getNazev().equals(nazev)) {
+                vybranaVec = neco;
+            }
+        }
+
+        if (vybranaVec != null){
+            if (vybranaVec.jePrenositelna()){
+                veciVMistnosti.remove(vybranaVec);
+            }
+            else {
+                vybranaVec = null;
+            }
+        }
+        return vybranaVec;
+    }
+
+    /**
+     *
+     * @return
+     */
+    private String seznamVeci(){
+        String seznam = "Věci v místnosti: ";
+        for(Vec neco : veciVMistnosti){
+            seznam += neco.getNazev() + " ";
+        }
+        return seznam;
+    }
     /**
      * Metoda equals pro porovnání dvou prostorů. Překrývá se metoda equals ze
      * třídy Object. Dva prostory jsou shodné, pokud mají stejný název. Tato
@@ -121,6 +177,7 @@ public class Prostor {
      */
     public String dlouhyPopis() {
         return "Jsi v mistnosti/prostoru " + popis + ".\n"
+                + seznamVeci() + "\n"
                 + popisVychodu();
     }
 
