@@ -22,6 +22,7 @@ public class Prostor {
     private Set<Prostor> vychody;   // obsahuje sousední místnosti
     private boolean zamceno; //obsahuje informaci o tom, zda je mistnost zamcena
     private List<Vec> veciVMistnosti; //obsahuje seznam veci
+    private int modifikatorZivotu; // obsahuje informaci o tom kolik je treba ubrat zivotu pri vstupu do mistnosti
 
     /**
      * Vytvoření prostoru se zadaným popisem, např. "kuchyň", "hala", "trávník
@@ -36,6 +37,8 @@ public class Prostor {
         this.popis = popis;
         vychody = new HashSet<>();
         veciVMistnosti = new ArrayList<>();
+        this.zamceno = false;
+        this.modifikatorZivotu = 0;
     }
 
     /**
@@ -60,7 +63,6 @@ public class Prostor {
      */
     public void vlozVec(Vec vec) {
         veciVMistnosti.add(vec);
-
     }
 
     /**
@@ -177,23 +179,13 @@ public class Prostor {
      */
     public String dlouhyPopis() {
         return "Jsi v mistnosti/prostoru " + popis + ".\n"
-                + seznamVeci() + "\n"
-                + popisVychodu();
+                + "Počet životů " + HerniPlan.getPocetZivotu() +"/100"+ "\n"
+                + "Momentálně se nacházíš v prostoru: " + this.getNazev() + "\n"
+                + "Věci v místnosti: " + seznamVeci() + "\n"
+                + "Východy: " + getOdemceneVychody() + "\n"
+                + "Zamčené východy: " + getZamceneVychody() + "\n";
     }
 
-    /**
-     * Vrací textový řetězec, který popisuje sousední východy, například:
-     * "vychody: hala ".
-     *
-     * @return Popis východů - názvů sousedních prostorů
-     */
-    private String popisVychodu() {
-        String vracenyText = "východy:";
-        for (Prostor sousedni : vychody) {
-            vracenyText += " " + sousedni.getNazev();
-        }
-        return vracenyText;
-    }
 
     /**
      * Vrací prostor, který sousedí s aktuálním prostorem a jehož název je zadán
@@ -215,6 +207,74 @@ public class Prostor {
         else {
             return hledaneProstory.get(0);
         }
+    }
+
+    /**
+     *
+     * @return
+     */
+    public String getOdemceneVychody() {
+        String pomoc = "";
+        for (var item : vychody){
+            if (!item.getStav()){
+            pomoc += item.getNazev() + " ";
+            }
+        }
+        return pomoc;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public String getZamceneVychody() {
+        String pomoc = "";
+        for (var item : vychody){
+            if (item.getStav()){
+                pomoc += item.getNazev() + " ";
+            }
+        }
+        return pomoc;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public boolean getStav() {
+        return zamceno;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public boolean odemknoutMistnost() {
+        if (this.zamceno == true){
+            zamceno = false;
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public boolean zamknoutMistnost() {
+    if (this.zamceno == false){
+        zamceno = false;
+        return true;
+    }
+    return false;
+    }
+
+    /**
+     *
+     * @param modifikatorZivotu
+     */
+    public void setModifikatorZivotu(int modifikatorZivotu) {
+        this.modifikatorZivotu = modifikatorZivotu;
     }
 
     /**

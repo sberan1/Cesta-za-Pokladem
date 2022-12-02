@@ -15,7 +15,7 @@ public class PrikazSeber implements IPrikaz {
         if (parametry.length == 0){
             return "Coze mam sebrat? Vyber si!";
         }
-        if (parametry.length >= 0){
+        if (parametry.length > 1){
             return "Co z toho chces sebrat? Blazne!";
         }
 
@@ -29,16 +29,18 @@ public class PrikazSeber implements IPrikaz {
             }
             else {
                 //TODO vlozit tu sracku do batohu
-                return nazevVeci + "jsi hodil do batohu" + plan.getAktualniProstor().dlouhyPopis();
+                if (plan.getBatuzek().vlozVec(pozadovanaVec))
+                {
+                return "sebral jsi" + nazevVeci +"\n"+ plan.getAktualniProstor().dlouhyPopis();
+                }
+                return "Tam už se nic nevejde hele";
             }
-        }else {
-            return nazevVeci + "tu neni ty blazne";
         }
-
+        return nazevVeci + "tu neni ty blazne";
     }
 
     @Override
     public String getNazev() {
-        return null;
+        return NAZEV;
     }
 }

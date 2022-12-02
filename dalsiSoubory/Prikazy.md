@@ -2,7 +2,6 @@
 
 prikazy: Jdi, pomoc, konec, seber, poloz, odemkni, pouzij, vymen, prozkoumej 
 
-idealni pruchod - jdi kostel, prozkoumej kostel, seber klic,
 
 1. Úvod
 - Vítej v adventuře, kde je tvým cílem dojít do zamčené shované místnosti v čarodějově věži kde čaroděj shovává všechno ukradené zlato. 

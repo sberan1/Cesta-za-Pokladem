@@ -16,7 +16,8 @@ public class HerniPlan {
     
     private Prostor aktualniProstor;
     private Prostor vyherniProstor;
-    private Batoh batuzek = new Batoh(10);
+    private Batoh batuzek = new Batoh(15);
+    private static int pocetZivotu = 100;
     
      /**
      *  Konstruktor který vytváří jednotlivé prostory a propojuje je pomocí východů.
@@ -40,7 +41,11 @@ public class HerniPlan {
 
         Prostor sousedniDomecek = new Prostor("Sousedni_domecek", "zde bydli sousedi Karkulky");
 
+        Vec stul = new Vec("stul", false);
+        Vec borgir = new Vec("borgir", true);
 
+        les.vlozVec(stul);
+        les.vlozVec(borgir);
         
         // přiřazují se průchody mezi prostory (sousedící prostory)
         domecek.setVychod(les);
@@ -55,7 +60,9 @@ public class HerniPlan {
         sousedniDomecek.setVychod(hlubokyLes);
 
         vyherniProstor = chaloupka;
-        aktualniProstor = domecek;  // hra začíná v domečku       
+        aktualniProstor = domecek;  // hra začíná v domečku
+
+
     }
     
     /**
@@ -77,7 +84,37 @@ public class HerniPlan {
        aktualniProstor = prostor;
     }
 
+    /**
+     *
+     * @return
+     */
     public Prostor getVyherniProstor() {
         return vyherniProstor;
     }
+
+    /**
+     *
+     * @return
+     */
+    public Batoh getBatuzek() {
+        return batuzek;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public static int getPocetZivotu() {
+        return pocetZivotu;
+    }
+
+    /**
+     *
+     * @param decrement
+     */
+    public static void uberZivoty(int decrement) {
+        pocetZivotu -= decrement;
+    }
+
+
 }

@@ -34,10 +34,10 @@ public class Hra implements IHra {
      *  Vrátí úvodní zprávu pro hráče.
      */
     public String vratUvitani() {
-        return "Vítejte!\n" +
-               "Toto je příběh o Červené Karkulce, babičce a vlkovi.\n" +
-               "Napište 'nápověda', pokud si nevíte rady, jak hrát dál.\n" +
-               "\n" +
+        return "Vítej v adventuře, kde je tvým cílem dojít do zamčené " +
+                "shované místnosti v čarodějově věži kde čaroděj shovává všechno ukradené zlato. " +
+                "Čeká tě těžký průchod a budeš muset cestou posbírat několik předmětů. Napište 'nápověda', " +
+                "pokud si nevíte rady, jak hrát dál." +
                herniPlan.getAktualniProstor().dlouhyPopis();
     }
     
