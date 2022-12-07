@@ -6,14 +6,17 @@ public class Vec {
 
     private boolean prenositelna;
 
+    private boolean viditelna;
+
     /**
      *
      * @param nazev - nazev veci, jednoznacny identifikator
      * @param prenositelnost - Parametr, ktery urcuje jestli je mozne vec umistit do batohu a prenaset
      */
-    public Vec(String nazev, boolean prenositelnost) {
+    public Vec(String nazev, boolean prenositelnost, boolean viditelnost) {
         this.nazev = nazev;
         this.prenositelna = prenositelnost;
+        this.viditelna = viditelnost;
     }
 
     /**
@@ -32,5 +35,23 @@ public class Vec {
      */
     public boolean jePrenositelna() {
         return prenositelna;
+    }
+
+    /**
+     * Vraci viditelnost predmetu, respektive informaci o tom, zda je predmet v mistnosti schovany, nebo je videt na prvni pohled.
+     *
+     * @return viditelnost veci
+     */
+    public boolean isViditelna() {
+        return viditelna;
+    }
+
+    /**
+     * Dovoluje nam nastavit viditelnost predmetu v mistnosti
+     *
+     * @param viditelna - parametr urcujici jestli ma byt predmet viditelny v mistnosti //TODO prikaz prozkoumej
+     */
+    public void setViditelna(boolean viditelna) {
+        this.viditelna = viditelna;
     }
 }

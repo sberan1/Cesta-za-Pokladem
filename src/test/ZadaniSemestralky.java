@@ -44,20 +44,37 @@ public class ZadaniSemestralky {
          *
          */
         //Uvítání - zapnutí hry
-        assertEquals(hra.vratUvitani(), "Vítejte!\n" +
-                "Toto je příběh o Červené Karkulce, babičce a vlkovi.\n" +
-                "Napište 'nápověda', pokud si nevíte rady, jak hrát dál.\n" +
-                "\n" +
-                "Jsi v mistnosti/prostoru domeček, ve kterém bydlí Karkulka.\n" +
-                "východy: les");
+        assertEquals(hra.vratUvitani(),  "Vítej v adventuře, kde je tvým cílem dojít do zamčené " +
+                "shované místnosti v čarodějově věži kde čaroděj shovává všechno ukradené zlato.\n" +
+                "Čeká tě těžký průchod a budeš muset cestou posbírat několik předmětů.\n " +
+                "Napište 'nápověda', pokud si nevíte rady, jak hrát dál. \n" +
+                "Počet životů 100/100\n" +
+                "Momentálně se nacházíš v prostoru: Město\n" +
+                "Věci v místnosti: MrtváKrysa Střepy Barel Lampa\n" +
+                "Východy: Hospoda Kostel Les HlubokýLes Hory\n" +
+                "Zamčené východy: DůmKováře Stodola\n" +
+                "Aktuální předměty v batohu: V batohu nemáš nic\n" +
+                "Kapacita batohu: 0/15");
 
-        //1. krok jdi les
-        assertEquals(hra.zpracujPrikaz("jdi les"), "Jsi v mistnosti/prostoru les s jahodami, malinami a pramenem vody.\n" +
-                "východy: domeček hluboký_les");
+        //1. krok jdi kostel
+        assertEquals(hra.zpracujPrikaz("jdi kostel"),
+                "Kostel -  Místo, kde jsme blíže bohu a můžeme zde najít\n" +
+                "Počet životů 100/100\n" +
+                "Momentálně se nacházíš v prostoru: Kostel\n" +
+                "Věci v místnosti: Róba Žezlo Lavice\n" +
+                "Východy: Město\n" +
+                "Aktuální předměty v batohu: V batohu nemáš nic\n" +
+                "Kapacita batohu: 0/15");
 
-        //2. krok jdi hluboký_les
-        assertEquals(hra.zpracujPrikaz("jdi hluboký_les"), "Jsi v mistnosti/prostoru temný les, ve kterém lze potkat vlka.\n" +
-                "východy: Sousedni_domecek chaloupka jeskyně les");
+        //2. krok prozkoumej kostel
+        assertEquals(hra.zpracujPrikaz("prozkoumej kostel"),
+                "V místnosti Kostel jsi našel Klíč LektvarŽivota\n" +
+                "Počet životů 100/100\n" +
+                "Momentálně se nacházíš v prostoru: Kostel\n" +
+                "Věci v místnosti: Róba Žezlo Lavice Klíč LektvarŽivota\n" +
+                "Východy: Město\n" +
+                "Aktuální předměty v batohu: V batohu nemáš nic\n" +
+                "Kapacita batohu: 0/15");
 
         assertEquals(hra.zpracujPrikaz("jdi chaloupka"), "Uspech");
     }

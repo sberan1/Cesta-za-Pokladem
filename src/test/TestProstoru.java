@@ -20,8 +20,8 @@ public class TestProstoru {
 
     @Test
     void testLzeProjit() {
-        Prostor prostor1 = new Prostor("hala", "xxxx");
-        Prostor prostor2 = new Prostor("bufet", "yyyy");
+        Prostor prostor1 = new Prostor("hala", "xxxx", new HerniPlan());
+        Prostor prostor2 = new Prostor("bufet", "yyyy", new HerniPlan());
 
         prostor1.setVychod(prostor2);
         prostor2.setVychod(prostor1);

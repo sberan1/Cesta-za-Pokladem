@@ -1,5 +1,7 @@
 package logika;
 
+import java.text.Normalizer;
+
 /**
  *  Třída PrikazJdi implementuje pro hru příkaz jdi.
  *  Tato třída je součástí jednoduché textové hry.
@@ -38,7 +40,9 @@ public class PrikazJdi implements IPrikaz {
             return "Kam mám jít? Musíš zadat jméno východu";
         }
 
-        String smer = parametry[0];
+        String smer = Normalizer
+                .normalize(parametry[0], Normalizer.Form.NFD)
+                .replaceAll("[^\\p{ASCII}]", "").toLowerCase();
 
         // zkoušíme přejít do sousedního prostoru
         Prostor sousedniProstor = plan.getAktualniProstor().vratSousedniProstor(smer);
@@ -46,14 +50,19 @@ public class PrikazJdi implements IPrikaz {
         if (sousedniProstor == null) {
             return "Tam se odsud jít nedá!";
         }
-        else {
+        else if (sousedniProstor.isZamceno()){
+            return "Tam je zamčeno, tam se nedostaneš\n";
+        } else if (!sousedniProstor.isViditelny()) {
+            return "Tam se odsud jít nedá!";
+        } else {
             plan.setAktualniProstor(sousedniProstor);
             if (sousedniProstor.equals(plan.getVyherniProstor())){
                 hra.setEpilog("Vyhrals PYCO");
                 hra.setKonecHry(true);
                 return "Uspech";
             }
-            return sousedniProstor.dlouhyPopis();
+            plan.uberZivoty(plan.getAktualniProstor().getModifikatorZivotu());
+            return sousedniProstor.getPopis() + "\n" + sousedniProstor.dlouhyPopis();
         }
     }
     

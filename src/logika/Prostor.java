@@ -1,5 +1,6 @@
 package logika;
 
+import java.text.Normalizer;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -23,6 +24,8 @@ public class Prostor {
     private boolean zamceno; //obsahuje informaci o tom, zda je mistnost zamcena
     private List<Vec> veciVMistnosti; //obsahuje seznam veci
     private int modifikatorZivotu; // obsahuje informaci o tom kolik je treba ubrat zivotu pri vstupu do mistnosti
+    private HerniPlan plan;
+    private boolean viditelny;
 
     /**
      * Vytvoření prostoru se zadaným popisem, např. "kuchyň", "hala", "trávník
@@ -32,14 +35,17 @@ public class Prostor {
      * víceslovný název bez mezer.
      * @param popis Popis prostoru.
      */
-    public Prostor(String nazev, String popis) {
+    public Prostor(String nazev, String popis, HerniPlan plan) {
         this.nazev = nazev;
         this.popis = popis;
         vychody = new HashSet<>();
         veciVMistnosti = new ArrayList<>();
         this.zamceno = false;
         this.modifikatorZivotu = 0;
+        this.plan = plan;
+        viditelny = true;
     }
+
 
     /**
      * Definuje východ z prostoru (sousední/vedlejsi prostor). Vzhledem k tomu,
@@ -108,9 +114,11 @@ public class Prostor {
      * @return
      */
     private String seznamVeci(){
-        String seznam = "Věci v místnosti: ";
+        String seznam = "";
         for(Vec neco : veciVMistnosti){
-            seznam += neco.getNazev() + " ";
+            if (neco.isViditelna()){
+            seznam += " " + neco.getNazev();
+            }
         }
         return seznam;
     }
@@ -166,8 +174,19 @@ public class Prostor {
      *
      * @return název prostoru
      */
-    public String getNazev() {
-        return nazev;       
+    public String getnNormalnizedNazev() {
+        return  Normalizer
+                .normalize(nazev, Normalizer.Form.NFD)
+                .replaceAll("[^\\p{ASCII}]", "").toLowerCase();
+    }
+    /**
+     * Vrací název prostoru (byl zadán při vytváření prostoru jako parametr
+     * konstruktoru)
+     *
+     * @return název prostoru
+     */
+    public String getNazev(){
+        return nazev;
     }
 
     /**
@@ -178,12 +197,22 @@ public class Prostor {
      * @return Dlouhý popis prostoru
      */
     public String dlouhyPopis() {
-        return "Jsi v mistnosti/prostoru " + popis + ".\n"
-                + "Počet životů " + HerniPlan.getPocetZivotu() +"/100"+ "\n"
+        if (getZamceneVychody().equals(""))
+        {
+           return "Počet životů " + plan.getPocetZivotu() +"/100"+ "\n"
+                    + "Momentálně se nacházíš v prostoru: " + this.getNazev() + "\n"
+                    + "Věci v místnosti:" + seznamVeci() + "\n"
+                    + "Východy:" + getOdemceneVychody() + "\n"
+                    + "Aktuální předměty v batohu: " + plan.getBatuzek().getPredmetyVBatohu() + "\n"
+                    + "Kapacita batohu: " + plan.getBatuzek().getVelikostBatuzku() + "/15";
+        }
+        return  "Počet životů " + plan.getPocetZivotu() +"/100"+ "\n"
                 + "Momentálně se nacházíš v prostoru: " + this.getNazev() + "\n"
-                + "Věci v místnosti: " + seznamVeci() + "\n"
-                + "Východy: " + getOdemceneVychody() + "\n"
-                + "Zamčené východy: " + getZamceneVychody() + "\n";
+                + "Věci v místnosti:" + seznamVeci() + "\n"
+                + "Východy:" + getOdemceneVychody() + "\n"
+                + "Zamčené východy:" + getZamceneVychody() + "\n"
+                + "Aktuální předměty v batohu: " + plan.getBatuzek().getPredmetyVBatohu() + "\n"
+                + "Kapacita batohu: " + plan.getBatuzek().getVelikostBatuzku() + "/15";
     }
 
 
@@ -199,7 +228,7 @@ public class Prostor {
     public Prostor vratSousedniProstor(String nazevSouseda) {
         List<Prostor>hledaneProstory = 
             vychody.stream()
-                   .filter(sousedni -> sousedni.getNazev().equals(nazevSouseda))
+                   .filter(sousedni -> sousedni.getnNormalnizedNazev().equals(nazevSouseda))
                    .collect(Collectors.toList());
         if(hledaneProstory.isEmpty()){
             return null;
@@ -217,7 +246,7 @@ public class Prostor {
         String pomoc = "";
         for (var item : vychody){
             if (!item.getStav()){
-            pomoc += item.getNazev() + " ";
+            pomoc += " " + item.getNazev();
             }
         }
         return pomoc;
@@ -231,7 +260,7 @@ public class Prostor {
         String pomoc = "";
         for (var item : vychody){
             if (item.getStav()){
-                pomoc += item.getNazev() + " ";
+                pomoc += " " + item.getNazev();
             }
         }
         return pomoc;
@@ -263,7 +292,7 @@ public class Prostor {
      */
     public boolean zamknoutMistnost() {
     if (this.zamceno == false){
-        zamceno = false;
+        zamceno = true;
         return true;
     }
     return false;
@@ -277,6 +306,10 @@ public class Prostor {
         this.modifikatorZivotu = modifikatorZivotu;
     }
 
+    public int getModifikatorZivotu() {
+        return modifikatorZivotu;
+    }
+
     /**
      * Vrací kolekci obsahující prostory, se kterými tento prostor sousedí.
      * Takto získaný seznam sousedních prostor nelze upravovat (přidávat,
@@ -288,5 +321,41 @@ public class Prostor {
      */
     public Collection<Prostor> getVychody() {
         return Collections.unmodifiableCollection(vychody);
+    }
+
+    public String getPopis() {
+        return popis;
+    }
+
+    public boolean isZamceno() {
+        return zamceno;
+    }
+
+    public boolean isViditelny() {
+        return viditelny;
+    }
+
+    public void setViditelnost(boolean viditelnost) {
+        this.viditelny = viditelnost;
+    }
+
+    public ArrayList<Prostor> schovaneProstory(){
+        ArrayList<Prostor> mistni = new ArrayList<>();
+        for (var item : vychody){
+            if (!item.isViditelny()){
+                mistni.add(item);
+            }
+        }
+        return mistni;
+    }
+
+    public ArrayList<Vec> getSchovaneSchovaneVeci() {
+        ArrayList<Vec> mistniList = new ArrayList<>();
+        for (var item : veciVMistnosti){
+            if (!item.isViditelna()){
+                mistniList.add(item);
+            }
+        }
+        return mistniList;
     }
 }

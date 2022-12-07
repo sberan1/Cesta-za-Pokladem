@@ -28,6 +28,7 @@ public class Hra implements IHra {
         platnePrikazy.vlozPrikaz(new PrikazJdi(this));
         platnePrikazy.vlozPrikaz(new PrikazKonec(this));
         platnePrikazy.vlozPrikaz(new PrikazSeber(herniPlan));
+        platnePrikazy.vlozPrikaz(new PrikazProzkoumej(herniPlan));
     }
 
     /**
@@ -35,9 +36,9 @@ public class Hra implements IHra {
      */
     public String vratUvitani() {
         return "Vítej v adventuře, kde je tvým cílem dojít do zamčené " +
-                "shované místnosti v čarodějově věži kde čaroděj shovává všechno ukradené zlato. " +
-                "Čeká tě těžký průchod a budeš muset cestou posbírat několik předmětů. Napište 'nápověda', " +
-                "pokud si nevíte rady, jak hrát dál." +
+                "shované místnosti v čarodějově věži kde čaroděj shovává všechno ukradené zlato.\n" +
+                "Čeká tě těžký průchod a budeš muset cestou posbírat několik předmětů.\n " +
+                "Napište 'nápověda', pokud si nevíte rady, jak hrát dál. \n" +
                herniPlan.getAktualniProstor().dlouhyPopis();
     }
     

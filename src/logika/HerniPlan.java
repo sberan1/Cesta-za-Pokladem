@@ -1,6 +1,9 @@
 package logika;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *  Class HerniPlan - třída představující mapu a stav adventury.
  * 
@@ -17,58 +20,21 @@ public class HerniPlan {
     private Prostor aktualniProstor;
     private Prostor vyherniProstor;
     private Batoh batuzek = new Batoh(15);
-    private static int pocetZivotu = 100;
+    private int pocetZivotu = 100;
     
      /**
      *  Konstruktor který vytváří jednotlivé prostory a propojuje je pomocí východů.
      *  Jako výchozí aktuální prostor nastaví halu.
      */
     public HerniPlan() {
-        zalozProstoryHry();
+        inicializaceProstoru();
 
     }
-    /**
-     *  Vytváří jednotlivé prostory a propojuje je pomocí východů.
-     *  Jako výchozí aktuální prostor nastaví domeček.
-     */
-    private void zalozProstoryHry() {
-        // vytvářejí se jednotlivé prostory
-        Prostor domecek = new Prostor("domeček","domeček, ve kterém bydlí Karkulka");
-        Prostor chaloupka = new Prostor("chaloupka", "chaloupka, ve které bydlí babička Karkulky");
-        Prostor jeskyne = new Prostor("jeskyně","stará plesnivá jeskyně");
-        Prostor les = new Prostor("les","les s jahodami, malinami a pramenem vody");
-        Prostor hlubokyLes = new Prostor("hluboký_les","temný les, ve kterém lze potkat vlka");
 
-        Prostor sousedniDomecek = new Prostor("Sousedni_domecek", "zde bydli sousedi Karkulky");
-
-        Vec stul = new Vec("stul", false);
-        Vec borgir = new Vec("borgir", true);
-
-        les.vlozVec(stul);
-        les.vlozVec(borgir);
-        
-        // přiřazují se průchody mezi prostory (sousedící prostory)
-        domecek.setVychod(les);
-        les.setVychod(domecek);
-        les.setVychod(hlubokyLes);
-        hlubokyLes.setVychod(les);
-        hlubokyLes.setVychod(jeskyne);
-        hlubokyLes.setVychod(chaloupka);
-        hlubokyLes.setVychod(sousedniDomecek);
-        jeskyne.setVychod(hlubokyLes);
-        chaloupka.setVychod(hlubokyLes);
-        sousedniDomecek.setVychod(hlubokyLes);
-
-        vyherniProstor = chaloupka;
-        aktualniProstor = domecek;  // hra začíná v domečku
-
-
-    }
-    
     /**
      *  Metoda vrací odkaz na aktuální prostor, ve ktetém se hráč právě nachází.
      *
-     *@return     aktuální prostor
+     *@return aktuální prostor
      */
     
     public Prostor getAktualniProstor() {
@@ -85,36 +51,110 @@ public class HerniPlan {
     }
 
     /**
+     * Metoda vraci prostor, ve kterem hra skonci uspesnym koncem
      *
-     * @return
+     * @return vyherni prostor
      */
     public Prostor getVyherniProstor() {
         return vyherniProstor;
     }
 
     /**
+     * vraci instanci tridy batoh, se kterou je pak mozne pracovat
      *
-     * @return
+     * @return mistni instanci tridy batoh
      */
     public Batoh getBatuzek() {
         return batuzek;
     }
 
     /**
+     * metoda get pro vlastnost pocetZivotu, vraci pouze int s momentalni hodnotou zivotu
      *
-     * @return
+     * @return momentalni pocet zivotu
      */
-    public static int getPocetZivotu() {
+    public int getPocetZivotu() {
         return pocetZivotu;
     }
 
     /**
+     * stanovuje o kolik by se mel snizit vlastnost zivoty pri vstupu do mistnosti
      *
-     * @param decrement
+     * @param decrement - volba kolik bychom meli ubrat zivotu
      */
-    public static void uberZivoty(int decrement) {
+    public void uberZivoty(int decrement) {
         pocetZivotu -= decrement;
     }
 
+
+    /**
+     *  Vytváří jednotlivé prostory a propojuje je pomocí východů.
+     *  Jako výchozí aktuální prostor nastaví domeček.
+     */
+    public void inicializaceProstoru(){
+        // vytvářejí se jednotlivé prostory
+        Prostor hory = new Prostor("Hory", "TODO", this);
+        Prostor mesto = new Prostor("Město","Město - Tady se děje všechno svaté i nesvaté", this);
+        Prostor stodola = new Prostor("Stodola", "Stodola - tady je seno a par vandraku, muzes se tu klidne i vyspat nebo tak", this);
+        Prostor kostel = new Prostor("Kostel", "Kostel -  Místo, kde jsme blíže bohu a můžeme zde najít" , this);
+        Prostor dumKovare = new Prostor("DůmKováře","DůmKováře - tady bydlí kovář" , this);
+        Prostor hospoda = new Prostor("Hospoda","Hospoda - tady se pije" , this);
+        Prostor hlubokyLes = new Prostor("HlubokýLes","HlubokýLes - Při vstupu do Hlubokého lesa tě napadli vlci a ubrali ti 20 životů než jsi je stihl zahnat." , this);
+        Prostor pustina = new Prostor("Pustina", "Pustina - tady krom suché hlíny nic nenajdeš, cestou jsi z vyčerpání ztratil 10 životů.", this);
+        Prostor vesnice = new Prostor("Vesnice", "Vesnice - Tady se neděje absolutně nic zajímavého, potkal jsi pár ovcí, a zvláštního kupce co ti za LahevAlkoholu nabízí svůj nůž a kámen.", this);
+        Prostor piratskaLod = new Prostor("PirátskáLoď", "PirátskáLoď - byl jsi napaden a obklíčen, piráti ti nabízejí výměnu lahveAlkoholu a meče za tvůj život.", this);
+        Prostor carodejovaVez = new Prostor("ČarodějovaVěž", "ČarodějovaVěž - Vešel jsi dovnitř, kde tě napadl čaroděj, po dlouhé bitvě jsi ho svými magickými schopnostmi překonal. Přišel jsi o 70 životů.", this);
+        Prostor tajnaPokladnice = new Prostor("TajnáPokladnice", "Vyhrál jsi", this);
+        Prostor les = new Prostor("Les", "TODO", this);
+
+
+        //zalozeni veci
+        Vec mrtvaKrysa = new Vec("MrtváKrysa", true, true);
+        Vec strepy = new Vec("Střepy", true, true);
+        Vec barel = new Vec("Barel", false, true);
+        Vec lampa = new Vec("Lampa", false, true);
+        Vec roba = new Vec("Róba", true, true);
+        Vec zezlo = new Vec("Žezlo", true, true);
+        Vec lavice = new Vec("Lavice", false, true);
+        Vec klicKostel = new Vec("Klíč", true, false);
+        Vec lektvarZivota = new Vec("LektvarŽivota", true, false);
+
+
+        stodola.zamknoutMistnost();
+        dumKovare.zamknoutMistnost();
+
+        // přiřazují se průchody mezi prostory (sousedící prostory)
+
+        //mesto setup
+        mesto.setVychod(hory);
+        mesto.setVychod(hospoda);
+        mesto.setVychod(kostel);
+        mesto.setVychod(les);
+        mesto.setVychod(stodola);
+        mesto.setVychod(dumKovare);
+        mesto.setVychod(hlubokyLes);
+        mesto.vlozVec(mrtvaKrysa);
+        mesto.vlozVec(strepy);
+        mesto.vlozVec(barel);
+        mesto.vlozVec(lampa);
+
+        //kostel setup
+        kostel.setVychod(mesto);
+        kostel.vlozVec(roba);
+        kostel.vlozVec(zezlo);
+        kostel.vlozVec(lavice);
+        kostel.vlozVec(klicKostel);
+        kostel.vlozVec(lektvarZivota);
+
+
+
+
+
+
+        vyherniProstor = tajnaPokladnice;
+        aktualniProstor = mesto;  // hra začíná v domečku
+
+
+    }
 
 }
