@@ -20,7 +20,7 @@ public class Prostor {
 
     private String nazev;
     private String popis;
-    private Set<Prostor> vychody;   // obsahuje sousední místnosti
+    private ArrayList<Prostor> vychody;   // obsahuje sousední místnosti
     private boolean zamceno; //obsahuje informaci o tom, zda je mistnost zamcena
     private List<Vec> veciVMistnosti; //obsahuje seznam veci
     private int modifikatorZivotu; // obsahuje informaci o tom kolik je treba ubrat zivotu pri vstupu do mistnosti
@@ -38,7 +38,7 @@ public class Prostor {
     public Prostor(String nazev, String popis, HerniPlan plan) {
         this.nazev = nazev;
         this.popis = popis;
-        vychody = new HashSet<>();
+        vychody = new ArrayList<>();
         veciVMistnosti = new ArrayList<>();
         this.zamceno = false;
         this.modifikatorZivotu = 0;
@@ -58,8 +58,15 @@ public class Prostor {
      *
      */
     public void setVychod(Prostor vedlejsi) {
-        vychody.add(vedlejsi);
-
+        boolean pomocna = false;
+       for(Prostor item : vychody){
+           if (item.equals(vedlejsi)){
+               pomocna = true;
+           }
+       }
+       if (!pomocna){
+           vychody.add(vedlejsi);
+       }
     }
 
     /**
@@ -99,9 +106,9 @@ public class Prostor {
         for (Vec neco : veciVMistnosti) {
             if (Normalizer
                     .normalize(neco.getNazev(), Normalizer.Form.NFD)
-                    .replaceAll("[^\\p{ASCII}]", "").toLowerCase().equals(Normalizer
+                    .replaceAll("[^\\p{ASCII}]", "").equalsIgnoreCase(Normalizer
                             .normalize(nazev, Normalizer.Form.NFD)
-                            .replaceAll("[^\\p{ASCII}]", "").toLowerCase())) {
+                            .replaceAll("[^\\p{ASCII}]", ""))) {
                 vybranaVec = neco;
             }
         }
@@ -122,13 +129,16 @@ public class Prostor {
      * @return
      */
     private String seznamVeci(){
-        String seznam = "";
+        StringBuilder seznam = new StringBuilder();
         for(Vec neco : veciVMistnosti){
             if (neco.isViditelna()){
-            seznam += " " + neco.getNazev();
+            seznam.append(" ").append(neco.getNazev());
             }
         }
-        return seznam;
+        if (seznam.isEmpty()){
+            return " Tady nic není";
+        }
+        return seznam.toString();
     }
     /**
      * Metoda equals pro porovnání dvou prostorů. Překrývá se metoda equals ze
@@ -150,10 +160,10 @@ public class Prostor {
         if (!(o instanceof Prostor)) {
             return false;    // pokud parametr není typu Prostor, vrátíme false
         }
-        // přetypujeme parametr na typ Prostor 
+        // přetypujeme parametr na typ Prostor
         Prostor druhy = (Prostor) o;
 
-        //metoda equals třídy java.util.Objects porovná hodnoty obou názvů. 
+        //metoda equals třídy java.util.Objects porovná hodnoty obou názvů.
         //Vrátí true pro stejné názvy a i v případě, že jsou oba názvy null,
         //jinak vrátí false.
 
@@ -233,10 +243,9 @@ public class Prostor {
      * null, pokud prostor zadaného jména není sousedem.
      */
     public Prostor vratSousedniProstor(String nazevSouseda) {
-        List<Prostor>hledaneProstory = 
-            vychody.stream()
-                   .filter(sousedni -> sousedni.getnNormalnizedNazev().equals(nazevSouseda))
-                   .collect(Collectors.toList());
+        List<Prostor>hledaneProstory =
+                vychody.stream()
+                        .filter(sousedni -> sousedni.getnNormalnizedNazev().equals(nazevSouseda)).toList();
         if(hledaneProstory.isEmpty()){
             return null;
         }
@@ -250,13 +259,13 @@ public class Prostor {
      * @return
      */
     public String getOdemceneVychody() {
-        String pomoc = "";
+        StringBuilder pomoc = new StringBuilder();
         for (var item : vychody){
             if (!item.getStav()){
-            pomoc += " " + item.getNazev();
+            pomoc.append(" ").append(item.getNazev());
             }
         }
-        return pomoc;
+        return pomoc.toString();
     }
 
     /**
@@ -264,13 +273,13 @@ public class Prostor {
      * @return
      */
     public String getZamceneVychody() {
-        String pomoc = "";
+        StringBuilder pomoc = new StringBuilder();
         for (var item : vychody){
             if (item.getStav()){
-                pomoc += " " + item.getNazev();
+                pomoc.append(" ").append(item.getNazev());
             }
         }
-        return pomoc;
+        return pomoc.toString();
     }
 
     /**
@@ -286,7 +295,7 @@ public class Prostor {
      * @return
      */
     public boolean odemknoutMistnost() {
-        if (this.zamceno == true){
+        if (this.zamceno){
             zamceno = false;
             return true;
         }
@@ -298,7 +307,7 @@ public class Prostor {
      * @return
      */
     public boolean zamknoutMistnost() {
-    if (this.zamceno == false){
+    if (!this.zamceno){
         zamceno = true;
         return true;
     }
@@ -313,6 +322,10 @@ public class Prostor {
         this.modifikatorZivotu = modifikatorZivotu;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getModifikatorZivotu() {
         return modifikatorZivotu;
     }
@@ -330,22 +343,43 @@ public class Prostor {
         return Collections.unmodifiableCollection(vychody);
     }
 
+    /**
+     *
+     * @return
+     */
     public String getPopis() {
         return popis;
     }
+
+    /**
+     *
+     * @return
+     */
 
     public boolean isZamceno() {
         return zamceno;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isViditelny() {
         return viditelny;
     }
 
+    /**
+     *
+     * @param viditelnost
+     */
     public void setViditelnost(boolean viditelnost) {
         this.viditelny = viditelnost;
     }
 
+    /**
+     *
+     * @return
+     */
     public ArrayList<Prostor> schovaneProstory(){
         ArrayList<Prostor> mistni = new ArrayList<>();
         for (var item : vychody){
@@ -356,6 +390,10 @@ public class Prostor {
         return mistni;
     }
 
+    /**
+     *
+     * @return
+     */
     public ArrayList<Vec> getSchovaneSchovaneVeci() {
         ArrayList<Vec> mistniList = new ArrayList<>();
         for (var item : veciVMistnosti){
@@ -365,17 +403,28 @@ public class Prostor {
         }
         return mistniList;
     }
+
+    /**
+     *
+     * @param normalizovanyNazev
+     * @return
+     */
     public String nazevVeciZpatky(String normalizovanyNazev){
         for (var vec : veciVMistnosti){
-            if (Normalizer.normalize(vec.getNazev(), Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "").toLowerCase().equals(Normalizer
+            if (Normalizer.normalize(vec.getNazev(), Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "").equalsIgnoreCase(Normalizer
                     .normalize(normalizovanyNazev, Normalizer.Form.NFD)
-                    .replaceAll("[^\\p{ASCII}]", "").toLowerCase())) {
+                    .replaceAll("[^\\p{ASCII}]", ""))) {
                 return vec.getNazev();
             }
 
         }
         return normalizovanyNazev;
     }
+
+    /**
+     *
+     * @return
+     */
     public ArrayList<Prostor> zamceneProstoryList(){
         ArrayList<Prostor> mistni = new ArrayList<>();
         for (var item : vychody){

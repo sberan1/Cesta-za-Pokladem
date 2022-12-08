@@ -2,11 +2,12 @@ package logika;
 
 import java.text.Normalizer;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Batoh {
     private int velikostBatuzku;
-    private List<Vec> obsah;
+    private ArrayList<Vec> obsah;
 
     /**
      *
@@ -65,5 +66,9 @@ public class Batoh {
             return " V batohu nemáš nic";
         }
         return predmety;
+    }
+
+    public ArrayList<Vec> getObsah(){
+        return (ArrayList<Vec>) obsah.clone();
     }
 }

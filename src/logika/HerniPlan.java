@@ -104,6 +104,7 @@ public class HerniPlan {
         Prostor carodejovaVez = new Prostor("ČarodějovaVěž", "ČarodějovaVěž - Vešel jsi dovnitř, kde tě napadl čaroděj, po dlouhé bitvě jsi ho svými magickými schopnostmi překonal. Přišel jsi o 70 životů.", this);
         Prostor tajnaPokladnice = new Prostor("TajnáPokladnice", "Vyhrál jsi", this);
         Prostor les = new Prostor("Les", "TODO", this);
+        Prostor taborak = new Prostor("Táborák", "TODO", this);
 
 
         //zalozeni veci
@@ -119,6 +120,13 @@ public class HerniPlan {
         Vec mec = new Vec("Meč", true, true);
         Vec stul = new Vec("Stůl", false, true);
         Vec nuz = new Vec("Nůž", true, true);
+        Vec pullitr = new Vec("Půllitr", true, true);
+        Vec zidle = new Vec("Židle", false, true);
+        Vec lahevAlkoholu = new Vec("LahevAlkoholu", true, true);
+        Vec klacek = new Vec("Klacek", true, true);
+        Vec kamen = new Vec("Kámen", true, true);
+        Vec strom = new Vec("Strom", false, true);
+        Vec klicHlubokyLes = new Vec("Klíč", true, false);
 
 
         stodola.zamknoutMistnost();
@@ -128,12 +136,12 @@ public class HerniPlan {
 
         //mesto setup
         mesto.setVychod(hory);
+        mesto.setVychod(les);
+        mesto.setVychod(hlubokyLes);
         mesto.setVychod(hospoda);
         mesto.setVychod(kostel);
-        mesto.setVychod(les);
-        mesto.setVychod(stodola);
         mesto.setVychod(dumKovare);
-        mesto.setVychod(hlubokyLes);
+        mesto.setVychod(stodola);
         mesto.vlozVec(mrtvaKrysa);
         mesto.vlozVec(strepy);
         mesto.vlozVec(barel);
@@ -153,8 +161,24 @@ public class HerniPlan {
         dumKovare.vlozVec(stul);
         dumKovare.vlozVec(nuz);
 
+        //hospoda setup
+        hospoda.setVychod(mesto);
+        hospoda.vlozVec(pullitr);
+        hospoda.vlozVec(nuz);
+        hospoda.vlozVec(stul);
+        hospoda.vlozVec(zidle);
+        hospoda.vlozVec(lahevAlkoholu);
 
-
+        //hlubokyles setup
+        hlubokyLes.setModifikatorZivotu(20);
+        hlubokyLes.setVychod(mesto);
+        hlubokyLes.setVychod(hory);
+        hlubokyLes.setVychod(taborak);
+        hlubokyLes.setVychod(pustina);
+        hlubokyLes.vlozVec(klacek);
+        hlubokyLes.vlozVec(kamen);
+        hlubokyLes.vlozVec(strom);
+        hlubokyLes.vlozVec(klicHlubokyLes);
 
 
         vyherniProstor = tajnaPokladnice;

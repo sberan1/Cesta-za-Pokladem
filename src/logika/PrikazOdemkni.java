@@ -18,24 +18,22 @@ public class PrikazOdemkni implements IPrikaz{
     @Override
     public String provedPrikaz(String... parametry) {
         if (parametry.length == 0) {
+            //pokud chybi nazev mistnosti kterou chce nekdo odemknout
             return "Musite mit jasno v tom co chcete odemknout, co sem vubec lezete takhle nepripravenej sakra";
         }
         if (parametry.length > 1) {
+            //pokud uzivatel zada vice mistnosti
             return "jezisi kriste a co z toho mam asi odemknout, vy jste jak z jara";
         }
 
         String nazevMistnosti = Normalizer.normalize(parametry[0], Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "").toLowerCase();
         for (var mistnost : plan.getAktualniProstor().zamceneProstoryList()){
-            if(nazevMistnosti.equals(mistnost.getnNormalnizedNazev())) {
-                if (plan.getBatuzek().odeberVec("klic")) {
+            if(nazevMistnosti.equals(mistnost.getnNormalnizedNazev()) && plan.getBatuzek().odeberVec("klic") && mistnost.isViditelny()) {
                     mistnost.odemknoutMistnost();
                     return "Odemkl jsi " + mistnost.getNazev() + "\n" + plan.getAktualniProstor().dlouhyPopis();
-                }
-                return "A jak bys to chtel bez klice odemknout prosimte?";
             }
-            return "Tahle mistnost tu neni sefe";
         }
-        return "Tohle by se nemelo stat";
+        return "Hele, tak bud nemas klic, nebo tam odsud cesta nevede, takze se pakuj";
     }
 
     /**

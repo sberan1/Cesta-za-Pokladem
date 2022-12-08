@@ -28,15 +28,15 @@ public class PrikazProzkoumej implements IPrikaz{
             return "Co z toho chces prozkoumat?";
         }
 
-        if (Normalizer.normalize(parametry[0], Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "").toLowerCase().equals(Normalizer.normalize(plan.getAktualniProstor().getNazev(), Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "").toLowerCase())){
-            String navratovaHodnota = "";
+        if (Normalizer.normalize(parametry[0], Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "").equalsIgnoreCase(Normalizer.normalize(plan.getAktualniProstor().getNazev(), Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", ""))){
+            StringBuilder navratovaHodnota = new StringBuilder();
             for (var item : plan.getAktualniProstor().schovaneProstory()) {
                 item.setViditelnost(true);
-                navratovaHodnota += " " + item.getNazev();
+                navratovaHodnota.append(" ").append(item.getNazev());
             }
             for (var item : plan.getAktualniProstor().getSchovaneSchovaneVeci()) {
                 item.setViditelna(true);
-                navratovaHodnota += " " + item.getNazev();
+                navratovaHodnota.append(" ").append(item.getNazev());
             }
 
             return "V místnosti " + plan.getAktualniProstor().getNazev() + " jsi našel" + navratovaHodnota + "\n" + plan.getAktualniProstor().dlouhyPopis();

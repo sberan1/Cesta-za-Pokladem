@@ -39,6 +39,10 @@ public class PrikazJdi implements IPrikaz {
             // pokud chybí druhé slovo (sousední prostor), tak ....
             return "Kam mám jít? Musíš zadat jméno východu";
         }
+        if (parametry.length > 1) {
+            return "No a prosimvas to si mam jako vybrat do jake mistnosti mam jit?";
+        }
+
 
         String smer = Normalizer
                 .normalize(parametry[0], Normalizer.Form.NFD)
@@ -61,7 +65,7 @@ public class PrikazJdi implements IPrikaz {
                 hra.setKonecHry(true);
                 return "Uspech";
             }
-            plan.uberZivoty(plan.getAktualniProstor().getModifikatorZivotu());
+            plan.uberZivoty(sousedniProstor.getModifikatorZivotu());
             return sousedniProstor.getPopis() + "\n" + sousedniProstor.dlouhyPopis();
         }
     }

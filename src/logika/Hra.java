@@ -16,7 +16,7 @@ public class Hra implements IHra {
     private SeznamPrikazu platnePrikazy;    // obsahuje seznam přípustných příkazů
     private HerniPlan herniPlan;
     private boolean konecHry = false;
-    private String epilog = "Dík, že jste si zahráli.  Ahoj.";
+    private String epilog = "Dohrál jsi tuto úžasnou hru, našel jsi ukradené zlato a je už jen na tobě, jestli si ho necháš, nebo ho půjdeš vrátit do města. Děkuji za zahrání!";
 
     /**
      *  Vytváří hru a inicializuje místnosti (prostřednictvím třídy HerniPlan) a seznam platných příkazů.
@@ -30,6 +30,7 @@ public class Hra implements IHra {
         platnePrikazy.vlozPrikaz(new PrikazSeber(herniPlan));
         platnePrikazy.vlozPrikaz(new PrikazProzkoumej(herniPlan));
         platnePrikazy.vlozPrikaz(new PrikazOdemkni(herniPlan));
+        platnePrikazy.vlozPrikaz(new PrikazPoloz(herniPlan));
     }
 
     /**
