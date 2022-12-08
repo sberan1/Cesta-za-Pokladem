@@ -1,5 +1,6 @@
 package logika;
 
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +28,22 @@ public class Batoh {
             return false;
 
     }
+
+    /**
+     *
+     * @param nazev
+     * @return
+     */
+    public boolean odeberVec(String nazev){
+        String normalizedNazev = Normalizer.normalize(nazev, Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "").toLowerCase();
+        for (var item : obsah){
+            if (normalizedNazev.equals(item.getNormalizedNazev())){
+                obsah.remove(item);
+                return true;
+            }
+        }
+        return false;
+    }
     /**
      *
      * @return
@@ -44,8 +61,8 @@ public class Batoh {
         for (var item : obsah) {
             predmety += " " + item.getNazev();
         }
-        if (predmety == ""){
-            return "V batohu nemáš nic";
+        if (predmety.equals("")){
+            return " V batohu nemáš nic";
         }
         return predmety;
     }

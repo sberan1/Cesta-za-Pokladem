@@ -1,8 +1,6 @@
 package logika;
 
 
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *  Class HerniPlan - třída představující mapu a stav adventury.
@@ -118,6 +116,9 @@ public class HerniPlan {
         Vec lavice = new Vec("Lavice", false, true);
         Vec klicKostel = new Vec("Klíč", true, false);
         Vec lektvarZivota = new Vec("LektvarŽivota", true, false);
+        Vec mec = new Vec("Meč", true, true);
+        Vec stul = new Vec("Stůl", false, true);
+        Vec nuz = new Vec("Nůž", true, true);
 
 
         stodola.zamknoutMistnost();
@@ -146,6 +147,11 @@ public class HerniPlan {
         kostel.vlozVec(klicKostel);
         kostel.vlozVec(lektvarZivota);
 
+        //dumkovare setup
+        dumKovare.setVychod(mesto);
+        dumKovare.vlozVec(mec);
+        dumKovare.vlozVec(stul);
+        dumKovare.vlozVec(nuz);
 
 
 

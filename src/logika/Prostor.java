@@ -78,7 +78,11 @@ public class Prostor {
      */
     public boolean obsahujeVec(String vec){
         for (Vec neco : veciVMistnosti){
-            if (neco.getNazev().equals(vec)){
+            if (Normalizer
+                    .normalize(neco.getNazev(), Normalizer.Form.NFD)
+                    .replaceAll("[^\\p{ASCII}]", "").toLowerCase().equals(Normalizer
+                            .normalize(vec, Normalizer.Form.NFD)
+                            .replaceAll("[^\\p{ASCII}]", "").toLowerCase())){
                 return true;
             }
         }
@@ -93,7 +97,11 @@ public class Prostor {
     public Vec vyberVeci(String nazev){
         Vec vybranaVec = null;
         for (Vec neco : veciVMistnosti) {
-            if (neco.getNazev().equals(nazev)) {
+            if (Normalizer
+                    .normalize(neco.getNazev(), Normalizer.Form.NFD)
+                    .replaceAll("[^\\p{ASCII}]", "").toLowerCase().equals(Normalizer
+                            .normalize(nazev, Normalizer.Form.NFD)
+                            .replaceAll("[^\\p{ASCII}]", "").toLowerCase())) {
                 vybranaVec = neco;
             }
         }
@@ -169,10 +177,9 @@ public class Prostor {
       
 
     /**
-     * Vrací název prostoru (byl zadán při vytváření prostoru jako parametr
-     * konstruktoru)
+     * Vrací normalizovany název prostoru (bez hacku a carek, vsechno malym pro zjednoduseni user inputu)
      *
-     * @return název prostoru
+     * @return normalizovany název prostoru
      */
     public String getnNormalnizedNazev() {
         return  Normalizer
@@ -203,7 +210,7 @@ public class Prostor {
                     + "Momentálně se nacházíš v prostoru: " + this.getNazev() + "\n"
                     + "Věci v místnosti:" + seznamVeci() + "\n"
                     + "Východy:" + getOdemceneVychody() + "\n"
-                    + "Aktuální předměty v batohu: " + plan.getBatuzek().getPredmetyVBatohu() + "\n"
+                    + "Aktuální předměty v batohu:" + plan.getBatuzek().getPredmetyVBatohu() + "\n"
                     + "Kapacita batohu: " + plan.getBatuzek().getVelikostBatuzku() + "/15";
         }
         return  "Počet životů " + plan.getPocetZivotu() +"/100"+ "\n"
@@ -211,7 +218,7 @@ public class Prostor {
                 + "Věci v místnosti:" + seznamVeci() + "\n"
                 + "Východy:" + getOdemceneVychody() + "\n"
                 + "Zamčené východy:" + getZamceneVychody() + "\n"
-                + "Aktuální předměty v batohu: " + plan.getBatuzek().getPredmetyVBatohu() + "\n"
+                + "Aktuální předměty v batohu:" + plan.getBatuzek().getPredmetyVBatohu() + "\n"
                 + "Kapacita batohu: " + plan.getBatuzek().getVelikostBatuzku() + "/15";
     }
 
@@ -357,5 +364,25 @@ public class Prostor {
             }
         }
         return mistniList;
+    }
+    public String nazevVeciZpatky(String normalizovanyNazev){
+        for (var vec : veciVMistnosti){
+            if (Normalizer.normalize(vec.getNazev(), Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "").toLowerCase().equals(Normalizer
+                    .normalize(normalizovanyNazev, Normalizer.Form.NFD)
+                    .replaceAll("[^\\p{ASCII}]", "").toLowerCase())) {
+                return vec.getNazev();
+            }
+
+        }
+        return normalizovanyNazev;
+    }
+    public ArrayList<Prostor> zamceneProstoryList(){
+        ArrayList<Prostor> mistni = new ArrayList<>();
+        for (var item : vychody){
+            if (item.getStav()) {
+                mistni.add(item);
+            }
+        }
+        return mistni;
     }
 }

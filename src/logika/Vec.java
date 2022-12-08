@@ -1,5 +1,7 @@
 package logika;
 
+import java.text.Normalizer;
+
 public class Vec {
 
     private String nazev;
@@ -49,9 +51,13 @@ public class Vec {
     /**
      * Dovoluje nam nastavit viditelnost predmetu v mistnosti
      *
-     * @param viditelna - parametr urcujici jestli ma byt predmet viditelny v mistnosti //TODO prikaz prozkoumej
+     * @param viditelna - parametr urcujici jestli ma byt predmet viditelny v mistnosti
      */
     public void setViditelna(boolean viditelna) {
         this.viditelna = viditelna;
+    }
+
+    public String getNormalizedNazev(){
+        return Normalizer.normalize(nazev, Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "").toLowerCase();
     }
 }

@@ -75,7 +75,55 @@ public class ZadaniSemestralky {
                 "Východy: Město\n" +
                 "Aktuální předměty v batohu: V batohu nemáš nic\n" +
                 "Kapacita batohu: 0/15");
+        //3. krok seber klic
+        assertEquals(hra.zpracujPrikaz("seber klic"), "Sebral jsi Klíč\n" +
+                "Počet životů 100/100\n" +
+                "Momentálně se nacházíš v prostoru: Kostel\n" +
+                "Věci v místnosti: Róba Žezlo Lavice LektvarŽivota\n" +
+                "Východy: Město\n" +
+                "Aktuální předměty v batohu: Klíč\n" +
+                "Kapacita batohu: 1/15");
+        //4.krok seber lektvarzivota
+        assertEquals(hra.zpracujPrikaz("seber lektvarzivota"), "Sebral jsi LektvarŽivota\n" +
+                "Počet životů 100/100\n" +
+                "Momentálně se nacházíš v prostoru: Kostel\n" +
+                "Věci v místnosti: Róba Žezlo Lavice\n" +
+                "Východy: Město\n" +
+                "Aktuální předměty v batohu: Klíč LektvarŽivota\n" +
+                "Kapacita batohu: 2/15");
+        //5. krok jdi mesto
+        assertEquals(hra.zpracujPrikaz("jdi mesto"),"Město - Tady se děje všechno svaté i nesvaté\n" +
+                "Počet životů 100/100\n" +
+                "Momentálně se nacházíš v prostoru: Město\n" +
+                "Věci v místnosti: MrtváKrysa Střepy Barel Lampa\n" +
+                "Východy: Hospoda Kostel Les HlubokýLes Hory\n" +
+                "Zamčené východy: DůmKováře Stodola\n" +
+                "Aktuální předměty v batohu: Klíč LektvarŽivota\n" +
+                "Kapacita batohu: 2/15");
+        //6.krok odemkni dumkovare
+        assertEquals(hra.zpracujPrikaz("odemkni dumkovare"),"Odemkl jsi DůmKováře\n" +
+                "Počet životů 100/100\n" +
+                "Momentálně se nacházíš v prostoru: Město\n" +
+                "Věci v místnosti: MrtváKrysa Střepy Barel Lampa\n" +
+                "Východy: Hospoda Kostel Les DůmKováře HlubokýLes Hory\n" +
+                "Zamčené východy: Stodola\n" +
+                "Aktuální předměty v batohu: LektvarŽivota\n" +
+                "Kapacita batohu: 1/15");
+        //7.krok jdi dumkovare
+        assertEquals(hra.zpracujPrikaz("jdi dumkovare"),"DůmKováře - tady bydlí kovář\n" +
+                "Počet životů 100/100\n" +
+                "Momentálně se nacházíš v prostoru: DůmKováře\n" +
+                "Věci v místnosti: Meč Stůl Nůž\n" +
+                "Východy: Město\n" +
+                "Aktuální předměty v batohu: LektvarŽivota\n" +
+                "Kapacita batohu: 1/15");
+        assertEquals(hra.zpracujPrikaz("seber lektvarzivota"),"");
+        assertEquals(hra.zpracujPrikaz("seber lektvarzivota"),"");
+        assertEquals(hra.zpracujPrikaz("seber lektvarzivota"),"");
+        assertEquals(hra.zpracujPrikaz("seber lektvarzivota"),"");
+        assertEquals(hra.zpracujPrikaz("seber lektvarzivota"),"");
+        assertEquals(hra.zpracujPrikaz("seber lektvarzivota"),"");
 
-        assertEquals(hra.zpracujPrikaz("jdi chaloupka"), "Uspech");
+
     }
 }

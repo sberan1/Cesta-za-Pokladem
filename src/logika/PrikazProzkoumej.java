@@ -1,5 +1,7 @@
 package logika;
 
+import java.text.Normalizer;
+
 public class PrikazProzkoumej implements IPrikaz{
 
     HerniPlan plan;
@@ -10,27 +12,36 @@ public class PrikazProzkoumej implements IPrikaz{
     }
 
     /**
-     * Metoda pro provedení příkazu ve hře.
-     * Počet parametrů je závislý na konkrétním příkazu,
-     * např. příkazy konec a napoveda nemají parametry
-     * příkazy jdi, seber, polož mají jeden parametr
-     * příkaz pouzij může mít dva parametry.
+     *
+     *
      *
      * @param parametry počet parametrů závisí na konkrétním příkazu.
+     *
+     * @return textovy retezec obsahujici zpravu o tom co se stalo a dlouhy popis mistnosti
      */
     @Override
     public String provedPrikaz(String... parametry) {
-        String navratovaHodnota = "";
-        for (var item : plan.getAktualniProstor().schovaneProstory()) {
-            item.setViditelnost(true);
-            navratovaHodnota += " " + item.getNazev();
+        if (parametry.length == 0) {
+            return "musis napsat co mam prozkoumat sakra";
         }
-        for (var item : plan.getAktualniProstor().getSchovaneSchovaneVeci()){
-            item.setViditelna(true);
-            navratovaHodnota += " " + item.getNazev();
+        if (parametry.length > 1) {
+            return "Co z toho chces prozkoumat?";
         }
 
-        return "V místnosti " + plan.getAktualniProstor().getNazev() + " jsi našel" + navratovaHodnota + "\n" + plan.getAktualniProstor().dlouhyPopis();
+        if (Normalizer.normalize(parametry[0], Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "").toLowerCase().equals(Normalizer.normalize(plan.getAktualniProstor().getNazev(), Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "").toLowerCase())){
+            String navratovaHodnota = "";
+            for (var item : plan.getAktualniProstor().schovaneProstory()) {
+                item.setViditelnost(true);
+                navratovaHodnota += " " + item.getNazev();
+            }
+            for (var item : plan.getAktualniProstor().getSchovaneSchovaneVeci()) {
+                item.setViditelna(true);
+                navratovaHodnota += " " + item.getNazev();
+            }
+
+            return "V místnosti " + plan.getAktualniProstor().getNazev() + " jsi našel" + navratovaHodnota + "\n" + plan.getAktualniProstor().dlouhyPopis();
+        }
+        return "tam nejsi, tak to prece nemuzes prozkoumat";
     }
 
     /**

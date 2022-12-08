@@ -1,5 +1,7 @@
 package logika;
 
+import java.text.Normalizer;
+
 public class PrikazSeber implements IPrikaz {
 
     private static final String NAZEV = "seber";
@@ -19,25 +21,29 @@ public class PrikazSeber implements IPrikaz {
             return "Co z toho chces sebrat? Blazne!";
         }
 
+        String nazevVeci = Normalizer
+                .normalize(parametry[0], Normalizer.Form.NFD)
+                .replaceAll("[^\\p{ASCII}]", "").toLowerCase();
 
-        String nazevVeci = parametry[0];
         Prostor aktualniProstor = plan.getAktualniProstor();
+
+        String standartniNazev = aktualniProstor.nazevVeciZpatky(nazevVeci);
+
         if (aktualniProstor.obsahujeVec(nazevVeci)){
             Vec pozadovanaVec = aktualniProstor.vyberVeci(nazevVeci);
             if (pozadovanaVec == null){
-                return nazevVeci + "je moc tezka, tu neuneses";
+                return standartniNazev + "je moc tezka, tu neuneses";
             } else if (!pozadovanaVec.isViditelna()) {
-                return nazevVeci + "tu neni ty blazne";
+                return standartniNazev + "tu neni ty blazne";
             } else {
-                //TODO vlozit tu sracku do batohu
                 if (plan.getBatuzek().vlozVec(pozadovanaVec))
                 {
-                return "sebral jsi" + nazevVeci +"\n"+ plan.getAktualniProstor().dlouhyPopis();
+                return "Sebral jsi " + standartniNazev +"\n"+ plan.getAktualniProstor().dlouhyPopis();
                 }
                 return "Tam už se nic nevejde hele";
             }
         }
-        return nazevVeci + "tu neni ty blazne";
+        return standartniNazev + "tu neni ty blazne";
     }
 
     @Override
