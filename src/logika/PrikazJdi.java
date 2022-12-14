@@ -48,26 +48,41 @@ public class PrikazJdi implements IPrikaz {
                 .normalize(parametry[0], Normalizer.Form.NFD)
                 .replaceAll("[^\\p{ASCII}]", "").toLowerCase();
 
+
         // zkoušíme přejít do sousedního prostoru
         Prostor sousedniProstor = plan.getAktualniProstor().vratSousedniProstor(smer);
+
 
         if (sousedniProstor == null) {
             return "Tam se odsud jít nedá!";
         }
         else if (sousedniProstor.isZamceno()){
             return "Tam je zamčeno, tam se nedostaneš\n";
-        } else if (!sousedniProstor.isViditelny()) {
+        } else if (!sousedniProstor.isViditelny() && sousedniProstor.getZivotnost()>0) {
             return "Tam se odsud jít nedá!";
         } else {
             plan.setAktualniProstor(sousedniProstor);
             if (sousedniProstor.equals(plan.getVyherniProstor())){
-                hra.setEpilog("Vyhrals PYCO");
                 hra.setKonecHry(true);
                 return "Uspech";
             }
+            if (sousedniProstor.equals(plan.getProherniProstor())){
+                hra.setEpilog("Skocils na starej, jednoduchej trik a prohrals troubo");
+                hra.setKonecHry(true);
+                return "zkus to radsi znovu, jo?";
+            }
             plan.uberZivoty(sousedniProstor.getModifikatorZivotu());
+            for (var item : sousedniProstor.getVychody()){
+                if (item.getZivotnost() == 999){
+
+                }
+                else {
+                    item.nastavPast(item.getZivotnost()-1);
+                }
+            }
             return sousedniProstor.getPopis() + "\n" + sousedniProstor.dlouhyPopis();
         }
+
     }
     
     /**

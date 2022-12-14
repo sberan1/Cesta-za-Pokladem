@@ -4,7 +4,7 @@ import java.text.Normalizer;
 
 public class PrikazOdemkni implements IPrikaz{
 
-    private final String NAZEV = "odemkni";
+    final String NAZEV = "odemkni";
     private HerniPlan plan;
 
     public PrikazOdemkni(HerniPlan plan) {

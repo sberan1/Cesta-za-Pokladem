@@ -1,10 +1,12 @@
 package logika;
 
 
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *  Class HerniPlan - třída představující mapu a stav adventury.
- * 
+ * <p>
  *  Tato třída inicializuje prvky ze kterých se hra skládá:
  *  vytváří všechny prostory,
  *  propojuje je vzájemně pomocí východů 
@@ -17,6 +19,7 @@ public class HerniPlan {
     
     private Prostor aktualniProstor;
     private Prostor vyherniProstor;
+    private Prostor proherniProstor;
     private Batoh batuzek = new Batoh(15);
     private int pocetZivotu = 100;
     
@@ -56,6 +59,8 @@ public class HerniPlan {
     public Prostor getVyherniProstor() {
         return vyherniProstor;
     }
+
+    public Prostor getProherniProstor(){return proherniProstor;}
 
     /**
      * vraci instanci tridy batoh, se kterou je pak mozne pracovat
@@ -105,6 +110,7 @@ public class HerniPlan {
         Prostor tajnaPokladnice = new Prostor("TajnáPokladnice", "Vyhrál jsi", this);
         Prostor les = new Prostor("Les", "TODO", this);
         Prostor taborak = new Prostor("Táborák", "TODO", this);
+        Prostor pastStodola = new Prostor("Stodola", "past", this);
 
 
         //zalozeni veci
@@ -127,6 +133,21 @@ public class HerniPlan {
         Vec kamen = new Vec("Kámen", true, true);
         Vec strom = new Vec("Strom", false, true);
         Vec klicHlubokyLes = new Vec("Klíč", true, false);
+
+        //zalozeni vymen
+        Vymena vymenaVesnice = new Vymena("zvláštní kupec ti nabizi za LahevAlkoholu svůj nůž a kámen", "lahev", "tak to byla naprosto silena vymena, jak myslis, dostals kamen a nuz, uzivej");
+        vymenaVesnice.setOcekavaneVeci(lahevAlkoholu);
+        vymenaVesnice.setNavratovaHodnota(nuz);
+        vymenaVesnice.setNavratovaHodnota(kamen);
+
+        Vymena zivotPiratskaLod = new Vymena(" piráti ti nabízejí výměnu lahveAlkoholu a meče za tvůj život", "zivot", "Když tě piráti okrádali tak jsi jim začal utíkat do Vesnice, zvládl jsi jednomu z nich ukrást klíč, přišel jsi o věci co po tobě chtěli a byl jsi postřelen za 50 životů.");
+        zivotPiratskaLod.setOcekavaneVeci(lahevAlkoholu);
+        zivotPiratskaLod.setOcekavaneVeci(mec);
+        zivotPiratskaLod.setNavratovaHodnota(50);
+        zivotPiratskaLod.setNavratovaHodnota(klicHlubokyLes);
+        zivotPiratskaLod.setNavratovaHodnota(vesnice);
+        zivotPiratskaLod.setTrestZaNesplneni(100);
+
 
 
         stodola.zamknoutMistnost();
@@ -180,9 +201,32 @@ public class HerniPlan {
         hlubokyLes.vlozVec(strom);
         hlubokyLes.vlozVec(klicHlubokyLes);
 
+        //pustina setup
+        pustina.setModifikatorZivotu(10);
+        pustina.setVychod(hlubokyLes);
+        pustina.setVychod(les);
+        pustina.setVychod(vesnice);
+        pastStodola.zamknoutMistnost();
+        pastStodola.nastavPast(2);
+        pustina.setVychod(pastStodola);
+
+        //vesnice setup
+        vesnice.setVychod(les);
+        vesnice.setVychod(pustina);
+        vesnice.setVychod(piratskaLod);
+        vesnice.vlozVec(kamen);
+        vesnice.vlozVec(klacek);
+        vesnice.vlozVec(barel);
+        vesnice.setVymena(vymenaVesnice);
+
+        //piratskalod setup
+        piratskaLod.setVymena(zivotPiratskaLod);
+        piratskaLod.nastavPast(2);
+
 
         vyherniProstor = tajnaPokladnice;
         aktualniProstor = mesto;  // hra začíná v domečku
+        proherniProstor = pastStodola;
 
 
     }

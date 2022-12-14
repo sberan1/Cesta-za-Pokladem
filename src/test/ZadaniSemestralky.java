@@ -223,10 +223,34 @@ public class ZadaniSemestralky {
                 Východy: HlubokýLes Les Vesnice
                 Zamčené východy: Stodola
                 Aktuální předměty v batohu: LektvarŽivota Meč LahevAlkoholu Klíč
-                Kapacita batohu: 4/15"""); //TODO pridat mistnost co se tam objevi presne jednou, po odemceni se smaze
-        assertEquals(hra.zpracujPrikaz("seber lektvarzivota"),"");
-        assertEquals(hra.zpracujPrikaz("seber lektvarzivota"),"");
-        assertEquals(hra.zpracujPrikaz("seber lektvarzivota"),"");
+                Kapacita batohu: 4/15""");
+        //17. krok jdi vesnice
+        assertEquals(hra.zpracujPrikaz("jdi vesnice"), """
+                Vesnice - Tady se neděje absolutně nic zajímavého, potkal jsi pár ovcí, a zvláštního kupce co ti za LahevAlkoholu nabízí svůj nůž a kámen.
+                Počet životů 70/100
+                Momentálně se nacházíš v prostoru: Vesnice
+                Věci v místnosti: Kámen Klacek Barel
+                Východy: Les Pustina PirátskáLoď
+                Aktuální předměty v batohu: LektvarŽivota Meč LahevAlkoholu Klíč
+                Kapacita batohu: 4/15""");
+        //jdi pirátskálod
+        assertEquals(hra.zpracujPrikaz("jdi pirátskálod"), """
+                PirátskáLoď - byl jsi napaden a obklíčen, piráti ti nabízejí výměnu lahveAlkoholu a meče za tvůj život.
+                Počet životů 70/100
+                Momentálně se nacházíš v prostoru: PirátskáLoď
+                Věci v místnosti: Tady nic není
+                Východy: Odsud jentak neutečeš.
+                Aktuální předměty v batohu: LektvarŽivota Meč LahevAlkoholu Klíč
+                Kapacita batohu: 4/15""");
+
+        assertEquals(hra.zpracujPrikaz("vymen zivot"), """
+                Když tě piráti okrádali tak jsi jim začal utíkat do Vesnice, zvládl jsi jednomu z nich ukrást klíč, přišel jsi o věci co po tobě chtěli a byl jsi postřelen za 50 životů.
+                Počet životů 20/100
+                Momentálně se nacházíš v prostoru: Vesnice
+                Věci v místnosti: Kámen Klacek Barel
+                Východy: Les Pustina
+                Aktuální předměty v batohu: LektvarŽivota Klíč Klíč
+                Kapacita batohu: 3/15""");
         assertEquals(hra.zpracujPrikaz("seber lektvarzivota"),"");
 
 

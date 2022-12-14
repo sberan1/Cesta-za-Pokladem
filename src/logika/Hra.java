@@ -31,6 +31,8 @@ public class Hra implements IHra {
         platnePrikazy.vlozPrikaz(new PrikazProzkoumej(herniPlan));
         platnePrikazy.vlozPrikaz(new PrikazOdemkni(herniPlan));
         platnePrikazy.vlozPrikaz(new PrikazPoloz(herniPlan));
+        platnePrikazy.vlozPrikaz(new PrikazVymen(herniPlan));
+        platnePrikazy.vlozPrikaz(new PrikazVymeny(herniPlan.getAktualniProstor()));
     }
 
     /**
@@ -67,21 +69,24 @@ public class Hra implements IHra {
      *@return          vrací se řetězec, který se má vypsat na obrazovku
      */
      public String zpracujPrikaz(String radek) {
+         if (herniPlan.getPocetZivotu() > 0) {
         String [] slova = radek.split("[ \t]+");
         String slovoPrikazu = slova[0];
         String []parametry = new String[slova.length-1];
         for(int i=0 ;i<parametry.length;i++){
            	parametry[i]= slova[i+1];  	
         }
-        String textKVypsani=" .... ";
-        if (platnePrikazy.jePlatnyPrikaz(slovoPrikazu)) {
-            IPrikaz prikaz = platnePrikazy.vratPrikaz(slovoPrikazu);
-            textKVypsani = prikaz.provedPrikaz(parametry);
+        String textKVypsani;
+            if (platnePrikazy.jePlatnyPrikaz(slovoPrikazu)) {
+                IPrikaz prikaz = platnePrikazy.vratPrikaz(slovoPrikazu);
+                textKVypsani = prikaz.provedPrikaz(parametry);
+            } else {
+                textKVypsani = "Nevím co tím myslíš? Tento příkaz neznám. ";
+            }
+            return textKVypsani;
         }
-        else {
-            textKVypsani="Nevím co tím myslíš? Tento příkaz neznám. ";
-        }
-        return textKVypsani;
+        konecHry = true;
+        return "umrel jsi, zkus to znovu kamo";
     }
     
     

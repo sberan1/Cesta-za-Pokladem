@@ -5,7 +5,7 @@ import java.text.Normalizer;
 public class PrikazProzkoumej implements IPrikaz{
 
     HerniPlan plan;
-    private final String NAZEV = "prozkoumej";
+    final String NAZEV = "prozkoumej";
 
     public PrikazProzkoumej(HerniPlan plan) {
         this.plan = plan;

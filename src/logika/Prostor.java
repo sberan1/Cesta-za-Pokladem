@@ -26,6 +26,8 @@ public class Prostor {
     private int modifikatorZivotu; // obsahuje informaci o tom kolik je treba ubrat zivotu pri vstupu do mistnosti
     private HerniPlan plan;
     private boolean viditelny;
+    private int zivotnost;
+    private Vymena vymena;
 
     /**
      * Vytvoření prostoru se zadaným popisem, např. "kuchyň", "hala", "trávník
@@ -44,6 +46,8 @@ public class Prostor {
         this.modifikatorZivotu = 0;
         this.plan = plan;
         viditelny = true;
+        zivotnost = 999;
+        vymena = null;
     }
 
 
@@ -261,9 +265,12 @@ public class Prostor {
     public String getOdemceneVychody() {
         StringBuilder pomoc = new StringBuilder();
         for (var item : vychody){
-            if (!item.getStav()){
+            if (!item.getStav() && item.zivotnost > 0){
             pomoc.append(" ").append(item.getNazev());
             }
+        }
+        if (vychody.isEmpty()){
+            return " Odsud jentak neutečeš.";
         }
         return pomoc.toString();
     }
@@ -275,7 +282,7 @@ public class Prostor {
     public String getZamceneVychody() {
         StringBuilder pomoc = new StringBuilder();
         for (var item : vychody){
-            if (item.getStav()){
+            if (item.getStav() && item.zivotnost > 0){
                 pomoc.append(" ").append(item.getNazev());
             }
         }
@@ -433,5 +440,37 @@ public class Prostor {
             }
         }
         return mistni;
+    }
+
+    /**
+     *
+     * @param zivotnost
+     */
+    public void nastavPast(int zivotnost){
+        this.zivotnost = zivotnost;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public int getZivotnost() {
+        return zivotnost;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public Vymena getVymena() {
+        return vymena;
+    }
+
+    /**
+     *
+     * @param vymena
+     */
+    public void setVymena(Vymena vymena) {
+        this.vymena = vymena;
     }
 }
