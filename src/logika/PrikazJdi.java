@@ -64,7 +64,7 @@ public class PrikazJdi implements IPrikaz {
             plan.setAktualniProstor(sousedniProstor);
             if (sousedniProstor.equals(plan.getVyherniProstor())){
                 hra.setKonecHry(true);
-                return "Uspech";
+                return "Vyhrál jsi\n"+ hra.vratEpilog();
             }
             if (sousedniProstor.equals(plan.getProherniProstor())){
                 hra.setEpilog("Skocils na starej, jednoduchej trik a prohrals troubo");

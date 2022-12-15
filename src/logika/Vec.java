@@ -10,6 +10,19 @@ public class Vec {
 
     private boolean viditelna;
 
+    private boolean pouzitelna;
+    private Pouzitelnosti typ;
+    private int modifikator;
+
+    public Vec(String nazev, boolean prenositelna, boolean viditelna, Pouzitelnosti typ, int modifikator) {
+        this.nazev = nazev;
+        this.prenositelna = prenositelna;
+        this.viditelna = viditelna;
+        pouzitelna = true;
+        this.typ = typ;
+        this.modifikator = modifikator;
+    }
+
     /**
      *
      * @param nazev - nazev veci, jednoznacny identifikator
@@ -19,6 +32,8 @@ public class Vec {
         this.nazev = nazev;
         this.prenositelna = prenositelnost;
         this.viditelna = viditelnost;
+        pouzitelna = false;
+        typ = null;
     }
 
     /**
@@ -59,5 +74,17 @@ public class Vec {
 
     public String getNormalizedNazev(){
         return Normalizer.normalize(nazev, Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "").toLowerCase();
+    }
+
+    public boolean isPouzitelna() {
+        return pouzitelna;
+    }
+
+    public Pouzitelnosti getTyp() {
+        return typ;
+    }
+
+    public int getModifikator() {
+        return modifikator;
     }
 }

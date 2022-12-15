@@ -1,8 +1,7 @@
 package logika;
 
 
-import java.util.ArrayList;
-import java.util.List;
+
 
 /**
  *  Class HerniPlan - třída představující mapu a stav adventury.
@@ -122,7 +121,7 @@ public class HerniPlan {
         Vec zezlo = new Vec("Žezlo", true, true);
         Vec lavice = new Vec("Lavice", false, true);
         Vec klicKostel = new Vec("Klíč", true, false);
-        Vec lektvarZivota = new Vec("LektvarŽivota", true, false);
+        Vec lektvarZivota = new Vec("LektvarŽivota", true, false, Pouzitelnosti.Lektvar, 100);
         Vec mec = new Vec("Meč", true, true);
         Vec stul = new Vec("Stůl", false, true);
         Vec nuz = new Vec("Nůž", true, true);
@@ -147,6 +146,7 @@ public class HerniPlan {
         zivotPiratskaLod.setNavratovaHodnota(klicHlubokyLes);
         zivotPiratskaLod.setNavratovaHodnota(vesnice);
         zivotPiratskaLod.setTrestZaNesplneni(100);
+        zivotPiratskaLod.setOdemceniMistnosti(pustina, carodejovaVez);
 
 
 
@@ -222,6 +222,14 @@ public class HerniPlan {
         //piratskalod setup
         piratskaLod.setVymena(zivotPiratskaLod);
         piratskaLod.nastavPast(2);
+
+        //carodejovavez setup
+        carodejovaVez.zamknoutMistnost();
+        carodejovaVez.setVychod(pustina);
+        carodejovaVez.setModifikatorZivotu(70);
+        tajnaPokladnice.setViditelnost(false);
+        tajnaPokladnice.zamknoutMistnost();
+        carodejovaVez.setVychod(tajnaPokladnice);
 
 
         vyherniProstor = tajnaPokladnice;

@@ -242,7 +242,7 @@ public class ZadaniSemestralky {
                 Východy: Odsud jentak neutečeš.
                 Aktuální předměty v batohu: LektvarŽivota Meč LahevAlkoholu Klíč
                 Kapacita batohu: 4/15""");
-
+        //vymen zivot
         assertEquals(hra.zpracujPrikaz("vymen zivot"), """
                 Když tě piráti okrádali tak jsi jim začal utíkat do Vesnice, zvládl jsi jednomu z nich ukrást klíč, přišel jsi o věci co po tobě chtěli a byl jsi postřelen za 50 životů.
                 Počet životů 20/100
@@ -251,8 +251,73 @@ public class ZadaniSemestralky {
                 Východy: Les Pustina
                 Aktuální předměty v batohu: LektvarŽivota Klíč Klíč
                 Kapacita batohu: 3/15""");
-        assertEquals(hra.zpracujPrikaz("seber lektvarzivota"),"");
+        //jdi Pustina
+        assertEquals(hra.zpracujPrikaz("jdi Pustina"), """
+                Pustina - tady krom suché hlíny nic nenajdeš, cestou jsi z vyčerpání ztratil 10 životů.
+                Počet životů 10/100
+                Momentálně se nacházíš v prostoru: Pustina
+                Věci v místnosti: Tady nic není
+                Východy: HlubokýLes Les Vesnice
+                Zamčené východy: ČarodějovaVěž
+                Aktuální předměty v batohu: LektvarŽivota Klíč Klíč
+                Kapacita batohu: 3/15""");
 
+        //pouzij LektvarZivota
+        assertEquals(hra.zpracujPrikaz("pouzij lektvarZivota"), """
+                Použil jsi LektvarŽivota
+                Počet životů 100/100
+                Momentálně se nacházíš v prostoru: Pustina
+                Věci v místnosti: Tady nic není
+                Východy: HlubokýLes Les Vesnice
+                Zamčené východy: ČarodějovaVěž
+                Aktuální předměty v batohu: Klíč Klíč
+                Kapacita batohu: 2/15""");
+
+        //odemkni CarodejovaVEZ
+        assertEquals(hra.zpracujPrikaz("odemkni CarodejovaVEZ"), """
+                Odemkl jsi ČarodějovaVěž
+                Počet životů 100/100
+                Momentálně se nacházíš v prostoru: Pustina
+                Věci v místnosti: Tady nic není
+                Východy: HlubokýLes Les Vesnice ČarodějovaVěž
+                Aktuální předměty v batohu: Klíč
+                Kapacita batohu: 1/15""");
+
+        //jdi CarodejovaVEZ
+        assertEquals(hra.zpracujPrikaz("jdi CarodejovaVEZ"), """
+                ČarodějovaVěž - Vešel jsi dovnitř, kde tě napadl čaroděj, po dlouhé bitvě jsi ho svými magickými schopnostmi překonal. Přišel jsi o 70 životů.
+                Počet životů 30/100
+                Momentálně se nacházíš v prostoru: ČarodějovaVěž
+                Věci v místnosti: Tady nic není
+                Východy: Pustina
+                Aktuální předměty v batohu: Klíč
+                Kapacita batohu: 1/15""");
+
+        //prozkoumej CarodejovaVEZ
+        assertEquals(hra.zpracujPrikaz("prozkoumej CarodejovaVEZ"), """
+                V místnosti ČarodějovaVěž jsi našel TajnáPokladnice
+                Počet životů 30/100
+                Momentálně se nacházíš v prostoru: ČarodějovaVěž
+                Věci v místnosti: Tady nic není
+                Východy: Pustina
+                Zamčené východy: TajnáPokladnice
+                Aktuální předměty v batohu: Klíč
+                Kapacita batohu: 1/15""");
+
+        //odemkni TajnáPokladnice
+        assertEquals(hra.zpracujPrikaz("odemkni TajnáPokladnice"), """             
+                Odemkl jsi TajnáPokladnice
+                Počet životů 30/100
+                Momentálně se nacházíš v prostoru: ČarodějovaVěž
+                Věci v místnosti: Tady nic není
+                Východy: Pustina TajnáPokladnice
+                Aktuální předměty v batohu: V batohu nemáš nic
+                Kapacita batohu: 0/15""");
+
+        //jdi TajnáPokladnice
+        assertEquals(hra.zpracujPrikaz("jdi TajnáPokladnice"), """
+                Vyhrál jsi
+                Dohrál jsi tuto úžasnou hru, našel jsi ukradené zlato a je už jen na tobě, jestli si ho necháš, nebo ho půjdeš vrátit do města. Děkuji za zahrání!""");
 
     }
 }

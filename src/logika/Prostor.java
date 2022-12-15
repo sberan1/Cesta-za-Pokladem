@@ -265,7 +265,7 @@ public class Prostor {
     public String getOdemceneVychody() {
         StringBuilder pomoc = new StringBuilder();
         for (var item : vychody){
-            if (!item.getStav() && item.zivotnost > 0){
+            if (!item.getStav() && item.zivotnost > 0 && item.isViditelny()){
             pomoc.append(" ").append(item.getNazev());
             }
         }
@@ -282,7 +282,7 @@ public class Prostor {
     public String getZamceneVychody() {
         StringBuilder pomoc = new StringBuilder();
         for (var item : vychody){
-            if (item.getStav() && item.zivotnost > 0){
+            if (item.getStav() && item.zivotnost > 0 && item.isViditelny()){
                 pomoc.append(" ").append(item.getNazev());
             }
         }

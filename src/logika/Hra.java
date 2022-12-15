@@ -33,6 +33,7 @@ public class Hra implements IHra {
         platnePrikazy.vlozPrikaz(new PrikazPoloz(herniPlan));
         platnePrikazy.vlozPrikaz(new PrikazVymen(herniPlan));
         platnePrikazy.vlozPrikaz(new PrikazVymeny(herniPlan.getAktualniProstor()));
+        platnePrikazy.vlozPrikaz(new PrikazPouzij(herniPlan));
     }
 
     /**

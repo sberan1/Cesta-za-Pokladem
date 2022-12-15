@@ -10,6 +10,7 @@ public class Vymena {
     private String kratkyNazev;
     private Object trestZaNesplneni;
     private String textKZobrazeni;
+    private Prostor[] odemceniMistnosti;
 
     /**
      * @param popisVymeny
@@ -22,6 +23,7 @@ public class Vymena {
         this.trestZaNesplneni = null;
         navratoveHodnoty = new ArrayList<>();
         ocekavaneVeci = new ArrayList<>();
+        odemceniMistnosti = new Prostor[2];
     }
 
     /**
@@ -56,13 +58,6 @@ public class Vymena {
     /**
      * @return
      */
-    public String getPopisVymeny() {
-        return popisVymeny;
-    }
-
-    /**
-     * @return
-     */
     public String getKratkyNazev() {
         return kratkyNazev;
     }
@@ -89,6 +84,24 @@ public class Vymena {
      */
     public String getTextKZobrazeni() {
         return textKZobrazeni;
+    }
+
+    /**
+     *
+     * @param kdePridatMistnost
+     * @param jakouMistnostPridat
+     */
+    public void setOdemceniMistnosti(Prostor kdePridatMistnost, Prostor jakouMistnostPridat) {
+        odemceniMistnosti[0] = kdePridatMistnost;
+        odemceniMistnosti[1] = jakouMistnostPridat;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public Prostor[] getOdemceniMistnosti() {
+        return odemceniMistnosti;
     }
 
     /**

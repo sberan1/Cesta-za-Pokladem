@@ -56,6 +56,9 @@ public class PrikazVymen implements IPrikaz{
                             plan.setAktualniProstor((Prostor) item);
                         }
                     }
+                    if (vymena.getOdemceniMistnosti()[0] != null && vymena.getOdemceniMistnosti()[1] != null){
+                        vymena.getOdemceniMistnosti()[0].setVychod(vymena.getOdemceniMistnosti()[1]);
+                    }
                     return vymena.getTextKZobrazeni() + "\n" + plan.getAktualniProstor().dlouhyPopis();
                 }
                 if (vymena.getTrestZaNesplneni() != null){
