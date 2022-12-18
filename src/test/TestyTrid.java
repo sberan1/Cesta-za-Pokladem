@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 
-public class TestProstoru {
+public class TestyTrid {
 
     @BeforeEach
     void setUp() {
