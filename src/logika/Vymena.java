@@ -1,33 +1,35 @@
 package logika;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class Vymena {
-    private String popisVymeny;
-    private ArrayList<Vec> ocekavaneVeci;
-    private ArrayList<Object> navratoveHodnoty;
-    private String kratkyNazev;
-    private Object trestZaNesplneni;
-    private String textKZobrazeni;
-    private Prostor[] odemceniMistnosti;
+    private String popisVymeny; //popis ktery se zobrazi hraci pri pouziti prikazu Vymeny
+    private ArrayList<Vec> ocekavaneVeci= new ArrayList<>(); //list veci ktere prikaz prijma
+    private ArrayList<Object> navratoveHodnoty = new ArrayList<>(); //list objektu, ktere budou navrat
+    private String kratkyNazev; //kratky nazev pouzivany k vyvolani prikazu
+    private Object trestZaNesplneni; //co se ma stat, pokud hrac nebude mit dostupne objekty
+    private String textKZobrazeni; //text k zobrazeni po uspesne vymene
+    private Prostor[] odemceniMistnosti; //dvourozmerne pole obsahujici v jake mistnosti se ma zobrazit jaka mistnost jako sousedni
 
     /**
-     * @param popisVymeny
-     * @param kratkyNazev
+     * Konstruktor tridy
+     *
+     * @param popisVymeny text o vymene obsahujici zakladni informace
+     * @param kratkyNazev nazev pro vyvolani vymeny prikazem vymena
+     * @param textKZobrazeni text po uspesnem spleneni vymeny
      */
     public Vymena(String popisVymeny, String kratkyNazev, String textKZobrazeni) {
         this.popisVymeny = popisVymeny;
         this.kratkyNazev = kratkyNazev;
         this.textKZobrazeni = textKZobrazeni;
         this.trestZaNesplneni = null;
-        navratoveHodnoty = new ArrayList<>();
-        ocekavaneVeci = new ArrayList<>();
         odemceniMistnosti = new Prostor[2];
     }
 
     /**
-     * @param ocekavanaVec
+     * metoda pro pridani ocekavane veci do Listu ocekavanych veci
+     *
+     * @param ocekavanaVec Vec, kterou chceme vlozit do listu ocekavanych veci
      */
 
     public void setOcekavaneVeci(Vec ocekavanaVec) {
@@ -35,61 +37,73 @@ public class Vymena {
     }
 
     /**
-     * @param navratovaHodnota
+     * metoda pro pridani vraceneho Objektu do Listu vracenych objektu
+     *
+     * @param navratovaHodnota Objekt, ktery chceme vlozit do listu vracenych objektu
      */
     public void setNavratovaHodnota(Object navratovaHodnota) {
         navratoveHodnoty.add(navratovaHodnota);
     }
 
     /**
-     * @return
+     * Vraci naklonovany seznam ocekavanych veci
+     *
+     * @return kopii listu s ocekavanymi vecmi
      */
     public ArrayList<Vec> getOcekavaneVeci() {
         return (ArrayList<Vec>) ocekavaneVeci.clone();
     }
 
     /**
-     * @return
+     * Vraci naklonovany seznam vracenych objektu
+     *
+     * @return kopii listu s vracenymi objekty
      */
     public ArrayList<Object> getNavratoveHodnoty() {
         return (ArrayList<Object>) navratoveHodnoty.clone();
     }
 
     /**
-     * @return
+     * Vraci kratky nazev, kterym volame vymenu
+     *
+     * @return string s nazvem vymeny
      */
     public String getKratkyNazev() {
         return kratkyNazev;
     }
 
     /**
+     * metoda pro nastaveni trestu za nesplneni
      *
-     * @param trestZaNesplneni
+     * @param trestZaNesplneni Objekt kterym potrestame hrace za pokus o vymenu bez vlastneni vsech veci
      */
     public void setTrestZaNesplneni(Object trestZaNesplneni) {
         this.trestZaNesplneni = trestZaNesplneni;
     }
 
     /**
+     * Vraci Objekt, ktery bude trest za nespleneni
      *
-     * @return
+     * @return trest za nespleni
      */
     public Object getTrestZaNesplneni() {
         return trestZaNesplneni;
     }
 
     /**
+     * Vraci zpravu za uspesnou vymenu
      *
-     * @return
+     * @return text k zobrazeni po uspesne vymene
      */
     public String getTextKZobrazeni() {
         return textKZobrazeni;
     }
 
     /**
+     * nastaveni pridani vychodu jako odmenu za vymenu
      *
-     * @param kdePridatMistnost
-     * @param jakouMistnostPridat
+     * @param kdePridatMistnost mistnost ktere pridame vychod
+     * @param jakouMistnostPridat mistnost kterou pridame prvni mistnosti jako vychod
      */
     public void setOdemceniMistnosti(Prostor kdePridatMistnost, Prostor jakouMistnostPridat) {
         odemceniMistnosti[0] = kdePridatMistnost;
@@ -97,19 +111,21 @@ public class Vymena {
     }
 
     /**
+     * Vraci pole s odemcenim mistnosti
      *
-     * @return
+     * @return pole s odemcenim mistnosti
      */
     public Prostor[] getOdemceniMistnosti() {
         return odemceniMistnosti;
     }
 
     /**
+     * Prepracovani metody toString vlastni vsem objektum
      *
-     * @return
+     * @return upraveny textovy retezec s navodem jak vyvolat vymenu
      */
     @Override
     public String toString() {
-        return popisVymeny + "pokud mas vsechny predmety tak to aktivujes napsanim vymen " + kratkyNazev ;
+        return popisVymeny + "\n pokud mas vsechny predmety tak to aktivujes napsanim vymen " + kratkyNazev ;
     }
 }

@@ -6,18 +6,18 @@ import java.text.Normalizer;
  *  Třída PrikazJdi implementuje pro hru příkaz jdi.
  *  Tato třída je součástí jednoduché textové hry.
  *  
- *@author     Jarmila Pavlickova, Luboš Pavlíček
- *@version    pro školní rok 2016/2017
+ * @author     Jarmila Pavlickova, Luboš Pavlíček
+ * @version    pro školní rok 2016/2017
  */
 public class PrikazJdi implements IPrikaz {
-    private static final String NAZEV = "jdi";
-    private Hra hra;
-    private HerniPlan plan;
+    private static final String NAZEV = "jdi"; //nazev prikazu a jeho zneni pro pouziti
+    private Hra hra; //instance tridy hra
+    private HerniPlan plan; //instance herniho planu
     
     /**
     *  Konstruktor třídy
     *  
-    *  @param hra hvrac9 objekt hry, ze které je možné získat herní plán"
+    *  @param hra objekt hry, ze které je možné získat herní plán
     */    
     public PrikazJdi(Hra hra) {
         this.hra = hra;
@@ -29,9 +29,9 @@ public class PrikazJdi implements IPrikaz {
      *  existuje, vstoupí se do nového prostoru. Pokud zadaný sousední prostor
      *  (východ) není, vypíše se chybové hlášení.
      *
-     *@param parametry - jako  parametr obsahuje jméno prostoru (východu),
+     * @param parametry - jako  parametr obsahuje jméno prostoru (východu),
      *                         do kterého se má jít.
-     *@return zpráva, kterou vypíše hra hráči
+     * @return zpráva, kterou vypíše hra hráči
      */ 
     @Override
     public String provedPrikaz(String... parametry) {
@@ -87,8 +87,8 @@ public class PrikazJdi implements IPrikaz {
     
     /**
      *  Metoda vrací název příkazu (slovo které používá hráč pro jeho vyvolání)
-     *  
-     *  @ return nazev prikazu
+     *
+     *  @return nazev prikazu
      */
     @Override
     public String getNazev() {

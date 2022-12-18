@@ -16,11 +16,11 @@ package logika;
  */
 public class HerniPlan {
     
-    private Prostor aktualniProstor;
-    private Prostor vyherniProstor;
-    private Prostor proherniProstor;
-    private Batoh batuzek = new Batoh(15);
-    private int pocetZivotu = 100;
+    private Prostor aktualniProstor; //prostor ve kterem se prave hrac nachazi
+    private Prostor vyherniProstor; //prostor ve kterem hrac automaticky vyhraje
+    private Prostor proherniProstor; //prostor ktery pro hrace ukonci hru
+    private Batoh batuzek = new Batoh(15); //zakladame instanci batohu s vybranou velikosti
+    private int pocetZivotu = 100; //nastaveni defaultniho poctu zivotu
     
      /**
      *  Konstruktor který vytváří jednotlivé prostory a propojuje je pomocí východů.
@@ -28,7 +28,6 @@ public class HerniPlan {
      */
     public HerniPlan() {
         inicializaceProstoru();
-
     }
 
     /**
@@ -59,6 +58,11 @@ public class HerniPlan {
         return vyherniProstor;
     }
 
+    /**
+     * Metoda vraci prostor, ve kterem hra skonci neuspesnym koncem
+     *
+     * @return prostor, kde hrac automaticky prohraje
+     */
     public Prostor getProherniProstor(){return proherniProstor;}
 
     /**
@@ -82,7 +86,7 @@ public class HerniPlan {
     /**
      * stanovuje o kolik by se mel snizit vlastnost zivoty pri vstupu do mistnosti
      *
-     * @param decrement - volba kolik bychom meli ubrat zivotu
+     * @param decrement - volba kolik bychom meli ubrat nebo pridat zivotu (default: ubrani)
      */
     public void uberZivoty(int decrement) {
         pocetZivotu -= decrement;
@@ -95,7 +99,7 @@ public class HerniPlan {
      */
     public void inicializaceProstoru(){
         // vytvářejí se jednotlivé prostory
-        Prostor hory = new Prostor("Hory", "TODO", this);
+        Prostor hory = new Prostor("Hory", "Tady jsi v horách, je tu pěkný výhled a všechno ale nic tu není", this);
         Prostor mesto = new Prostor("Město","Město - Tady se děje všechno svaté i nesvaté", this);
         Prostor stodola = new Prostor("Stodola", "Stodola - tady je seno a par vandraku, muzes se tu klidne i vyspat nebo tak", this);
         Prostor kostel = new Prostor("Kostel", "Kostel -  Místo, kde jsme blíže bohu a můžeme zde najít" , this);
@@ -107,10 +111,10 @@ public class HerniPlan {
         Prostor piratskaLod = new Prostor("PirátskáLoď", "PirátskáLoď - byl jsi napaden a obklíčen, piráti ti nabízejí výměnu lahveAlkoholu a meče za tvůj život.", this);
         Prostor carodejovaVez = new Prostor("ČarodějovaVěž", "ČarodějovaVěž - Vešel jsi dovnitř, kde tě napadl čaroděj, po dlouhé bitvě jsi ho svými magickými schopnostmi překonal. Přišel jsi o 70 životů.", this);
         Prostor tajnaPokladnice = new Prostor("TajnáPokladnice", "Vyhrál jsi", this);
-        Prostor les = new Prostor("Les", "TODO", this);
-        Prostor taborak = new Prostor("Táborák", "TODO", this);
+        Prostor les = new Prostor("Les", "Při vstupu do lesa ses praštil o větev a ubylo ti 10 zivotu, jejda", this);
+        Prostor taborak = new Prostor("Táborák", "Došel jsi k taboraku a nejakej pobuda ti tu nabizi nahrdelnik za pullitr, mec a nuz", this);
         Prostor pastStodola = new Prostor("Stodola", "past", this);
-
+        Prostor taboriste = new Prostor("Tábořiště", "Našel jsi opuštěné tábořiště, tak se tu kdyžtak zkus poohlédnout", this);
 
         //zalozeni veci
         Vec mrtvaKrysa = new Vec("MrtváKrysa", true, true);
@@ -132,6 +136,13 @@ public class HerniPlan {
         Vec kamen = new Vec("Kámen", true, true);
         Vec strom = new Vec("Strom", false, true);
         Vec klicHlubokyLes = new Vec("Klíč", true, false);
+        Vec stan = new Vec("Stan", false, true);
+        Vec klicTaboriste = new Vec("Klíč", true, false);
+        Vec lektvarLes = new Vec("MalýLektvarŽivota", true, false, Pouzitelnosti.Lektvar, 50);
+        Vec nahrdelnik = new Vec("Náhrdelník", true, true);
+        Vec parez = new Vec("Pařez", false, true);
+        Vec slama = new Vec("Sláma", true, true);
+        Vec seno = new Vec("Seno", true, true);
 
         //zalozeni vymen
         Vymena vymenaVesnice = new Vymena("zvláštní kupec ti nabizi za LahevAlkoholu svůj nůž a kámen", "lahev", "tak to byla naprosto silena vymena, jak myslis, dostals kamen a nuz, uzivej");
@@ -148,6 +159,11 @@ public class HerniPlan {
         zivotPiratskaLod.setTrestZaNesplneni(100);
         zivotPiratskaLod.setOdemceniMistnosti(pustina, carodejovaVez);
 
+        Vymena taborakVymena = new Vymena("Pobuda ti nabizi nahrdelnik za pullitr, mec a nuz", "nahrdelnik", "vymenil jsi bezcenny nahrdelnik za par veci, gratulace");
+        taborakVymena.setOcekavaneVeci(pullitr);
+        taborakVymena.setOcekavaneVeci(mec);
+        taborakVymena.setOcekavaneVeci(nuz);
+        taborakVymena.setNavratovaHodnota(nahrdelnik);
 
 
         stodola.zamknoutMistnost();
@@ -230,6 +246,41 @@ public class HerniPlan {
         tajnaPokladnice.setViditelnost(false);
         tajnaPokladnice.zamknoutMistnost();
         carodejovaVez.setVychod(tajnaPokladnice);
+
+        //taboriste setup
+        taboriste.setViditelnost(false);
+        taboriste.setVychod(les);
+        taboriste.vlozVec(stan);
+        taboriste.vlozVec(klicTaboriste);
+
+        //les setup
+        les.setVychod(taboriste);
+        les.setVychod(vesnice);
+        les.setVychod(hory);
+        les.setVychod(pustina);
+        les.vlozVec(klacek);
+        les.vlozVec(kamen);
+        les.vlozVec(strom);
+        les.setModifikatorZivotu(10);
+        les.vlozVec(lektvarLes);
+
+        //taborak setup
+        taborak.setVychod(hlubokyLes);
+        taborak.setVymena(taborakVymena);
+        taborak.vlozVec(parez);
+        taborak.vlozVec(klacek);
+
+        //hory setup
+        hory.setVychod(mesto);
+        hory.setVychod(les);
+        hory.setVychod(hlubokyLes);
+        hory.vlozVec(kamen);
+        hory.vlozVec(strom);
+
+        //stodola setup
+        stodola.setVychod(mesto);
+        stodola.vlozVec(seno);
+        stodola.vlozVec(slama);
 
 
         vyherniProstor = tajnaPokladnice;

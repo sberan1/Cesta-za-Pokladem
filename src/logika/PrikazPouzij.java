@@ -4,16 +4,23 @@ import java.text.Normalizer;
 
 public class PrikazPouzij implements IPrikaz{
 
-    final String NAZEV = "pouzij";
-    private HerniPlan plan;
+    final String NAZEV = "pouzij"; //nazev prikazu a jeho zneni pro pouziti
+    private HerniPlan plan; //instance herniho planu obsahujici
 
+    /**
+     * Konstruktor tridy
+     *
+     * @param plan herni plan obsahujici batoh a mistnosti
+     */
     public PrikazPouzij(HerniPlan plan) {
         this.plan = plan;
     }
 
     /**
+     * Co se stane pri exekuci prikazu
+     *
      * @param parametry počet parametrů závisí na konkrétním příkazu.
-     * @return
+     * @return textovy retezec obsahujici zpravu o tom co se stalo a dlouhy popis mistnosti
      */
     @Override
     public String provedPrikaz(String... parametry) {
@@ -33,14 +40,6 @@ public class PrikazPouzij implements IPrikaz{
                         return "Použil jsi " + item.getNazev() + "\n" + plan.getAktualniProstor().dlouhyPopis();
                     }
                 }
-                if (item.getTyp() == Pouzitelnosti.Brneni){
-                    int brneni = 0;
-                    brneni += item.getModifikator();
-                }
-                if (item.getTyp() == Pouzitelnosti.Zbran) {
-                    int poskozeni = 0;
-                    poskozeni += item.getModifikator();
-                }
                 }
                 }
         return "bud to nemas v batohu nebo to nemuzes pouzit";
@@ -50,7 +49,9 @@ public class PrikazPouzij implements IPrikaz{
 
 
     /**
-     * @return
+     *  Metoda vrací název příkazu (slovo které používá hráč pro jeho vyvolání)
+     *
+     *  @return nazev prikazu
      */
     @Override
     public String getNazev() {

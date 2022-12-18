@@ -11,9 +11,9 @@ package logika;
 
 public class PrikazKonec implements IPrikaz {
 
-    private static final String NAZEV = "konec";
+    private static final String NAZEV = "konec"; //nazev prikazu a jeho zneni ve hre
 
-    private Hra hra;
+    private Hra hra; //instance trida hra
 
     /**
      *  Konstruktor třídy
@@ -45,7 +45,7 @@ public class PrikazKonec implements IPrikaz {
     /**
      *  Metoda vrací název příkazu (slovo které používá hráč pro jeho vyvolání)
      *  
-     *  @ return nazev prikazu
+     *  @return nazev prikazu
      */
     @Override
     public String getNazev() {

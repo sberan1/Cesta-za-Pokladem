@@ -2,24 +2,25 @@ package logika;
 
 import java.text.Normalizer;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+
 
 public class Batoh {
-    private int velikostBatuzku;
-    private ArrayList<Vec> obsah;
+    private int velikostBatuzku; //nastavuje pocet veci co se vejde do batohu
+    private ArrayList<Vec> obsah; //list s vecmi co se nachazi v batohu
 
     /**
+     * konstruktor pro zalozeni instance kosicku
      *
-     * @param velikostKosicku
+     * @param velikostKosicku - nastavuje pocet veci co se vejdou do batohu
      */
     public Batoh(int velikostKosicku) {
         this.velikostBatuzku = velikostKosicku;
-        obsah = new ArrayList<Vec>();
+        obsah = new ArrayList<>();
     }
     /**
+     * funkce pro vlozeni instance veci do batohu
      *
-     * @return
+     * @return - vraci true/false jestli bylo vlozeni veci uspesne
      */
     public boolean vlozVec(Vec neco){
         if(obsah.size() < velikostBatuzku){
@@ -31,9 +32,10 @@ public class Batoh {
     }
 
     /**
+     * Odebere vec z batohu podle nazvu, prijma nazev, vraci t/f
      *
-     * @param nazev
-     * @return
+     * @param nazev - nazev veci v jakemokoliv formatu
+     * @return - true nebo false podle uspesnosti odebrani veci
      */
     public boolean odeberVec(String nazev){
         String normalizedNazev = Normalizer.normalize(nazev, Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "").toLowerCase();
@@ -46,28 +48,35 @@ public class Batoh {
         return false;
     }
     /**
+     * Vraci ciselnou hodnotu s velikosti batuzku
      *
-     * @return
+     * @return - velikost batohu
      */
     public int getVelikostBatuzku() {
         return obsah.size();
     }
 
     /**
+     * Vraci textovy retezec s nazvama veci
      *
-     * @return
+     * @return - text s nazvy predmetu v batohu
      */
     public String getPredmetyVBatohu(){
-        String predmety = "";
+        StringBuilder predmety = new StringBuilder();
         for (var item : obsah) {
-            predmety += " " + item.getNazev();
+            predmety.append(" ").append(item.getNazev());
         }
-        if (predmety.equals("")){
+        if (predmety.toString().equals("")){
             return " V batohu nemáš nic";
         }
-        return predmety;
+        return predmety.toString();
     }
 
+    /**
+     * Vraci naklonovany List s vecmi v batohu
+     *
+     * @return - kopii listu s obsahem batohu
+     */
     public ArrayList<Vec> getObsah(){
         return (ArrayList<Vec>) obsah.clone();
     }

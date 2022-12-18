@@ -4,16 +4,25 @@ import java.text.Normalizer;
 
 public class Vec {
 
-    private String nazev;
+    private String nazev; //nazev veci ktery se bude zobrazovat a se kterym budeme v programu pracovat
 
-    private boolean prenositelna;
+    private boolean prenositelna; //nastavuje prenositelnost nebo-li moznost ulozit si vec do batohu
 
-    private boolean viditelna;
+    private boolean viditelna; //viditelnost veci v mistnosti, pouzivano pro prikaz prozkoumej
 
-    private boolean pouzitelna;
-    private Pouzitelnosti typ;
-    private int modifikator;
+    private boolean pouzitelna; //pouzitelnost veci a funkce pro dva konstruktory
+    private Pouzitelnosti typ; //volba z Enumu Pouzitelnosti pro typ pouzitelne veci
+    private int modifikator; //modifikator kolik dane vlastnosti ma predmet pridat/ubrat
 
+    /**
+     * Konstruktor pro vytvoreni pouzitelne veci, pomaha nam zakladat instance pouzitelnych veci
+     *
+     * @param nazev - nazev veci
+     * @param prenositelna - prenositelnost veci
+     * @param viditelna - zakladni viditelnost veci v mistnosti
+     * @param typ - typ veci z Enumu Pouzitelnosti
+     * @param modifikator - ciselna hodnota kolik ma vec ubrat/pridat
+     */
     public Vec(String nazev, boolean prenositelna, boolean viditelna, Pouzitelnosti typ, int modifikator) {
         this.nazev = nazev;
         this.prenositelna = prenositelna;
@@ -24,10 +33,13 @@ public class Vec {
     }
 
     /**
+     * Konstruktor pro vytvoreni nepouzitelne veci, pomaha nam zakladat instance nepouzitelnych veci
      *
-     * @param nazev - nazev veci, jednoznacny identifikator
-     * @param prenositelnost - Parametr, ktery urcuje jestli je mozne vec umistit do batohu a prenaset
+     * @param nazev - nazev veci
+     * @param prenositelnost - prenositelnost veci
+     * @param viditelnost - zakladni viditelnost veci v mistnosti
      */
+
     public Vec(String nazev, boolean prenositelnost, boolean viditelnost) {
         this.nazev = nazev;
         this.prenositelna = prenositelnost;
@@ -72,19 +84,44 @@ public class Vec {
         this.viditelna = viditelna;
     }
 
+    /**
+     * Vraci normalizovany nazev veci pro lehci a intuitivnejsi pouziti aplikace
+     *
+     * @return - normalizovany nazev bez hacku a carek a vsechno malyma pismenama
+     */
     public String getNormalizedNazev(){
         return Normalizer.normalize(nazev, Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "").toLowerCase();
     }
 
+    /**
+     * Vraci true/false hodnotu urcujici pouzitelnost veci
+     *
+     * @return - pouzitelnost veci, ktera je urcena volbou konstruktoru
+     */
     public boolean isPouzitelna() {
         return pouzitelna;
     }
 
+    /**
+     * Vraci urcenou hodnotu z enumu pouzitelnosti
+     *
+     * @return - Typ veci z enumu pouzitelnosti
+     */
     public Pouzitelnosti getTyp() {
         return typ;
     }
 
+    /**
+     * Vraci modifikator pouzitelne veci nebo 0 pokud se nejedna o pouzitelnou vec
+     *
+     * @return - ciselnou hodnota modifikatoru
+     */
     public int getModifikator() {
-        return modifikator;
+        if (pouzitelna) {
+            return modifikator;
+        }
+        else{
+            return 0;
+        }
     }
 }

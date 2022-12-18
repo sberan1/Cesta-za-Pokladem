@@ -3,16 +3,23 @@ package logika;
 import java.text.Normalizer;
 
 public class PrikazVymen implements IPrikaz{
-    final String NAZEV = "vymen";
-    private HerniPlan plan;
+    final String NAZEV = "vymen"; //nazev prikazu a jeho zneni pro pouziti
+    private HerniPlan plan;//instance herniho planu
 
+    /**
+     * Konstruktor tridy
+     *
+     * @param plan herni plan obsahujici batoh a mistnosti
+     */
     public PrikazVymen(HerniPlan plan) {
         this.plan = plan;
     }
 
     /**
+     * Co se stane pri exekuci prikazu
+     *
      * @param parametry počet parametrů závisí na konkrétním příkazu.
-     * @return
+     * @return textovy retezec obsahujici zpravu o tom co se stalo a dlouhy popis mistnosti
      */
     @Override
     public String provedPrikaz(String... parametry) {
@@ -79,7 +86,9 @@ public class PrikazVymen implements IPrikaz{
     }
 
     /**
-     * @return
+     *  Metoda vrací název příkazu (slovo které používá hráč pro jeho vyvolání)
+     *
+     *  @return nazev prikazu
      */
     @Override
     public String getNazev() {

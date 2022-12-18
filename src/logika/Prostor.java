@@ -2,13 +2,10 @@ package logika;
 
 import java.text.Normalizer;
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * Trida Prostor - popisuje jednotlivé prostory (místnosti) hry
- *
  * Tato třída je součástí jednoduché textové hry.
- *
  * "Prostor" reprezentuje jedno místo (místnost, prostor, ..) ve scénáři hry.
  * Prostor může mít sousední prostory připojené přes východy. Pro každý východ
  * si prostor ukládá odkaz na sousedící prostor.
@@ -18,16 +15,16 @@ import java.util.stream.Collectors;
  */
 public class Prostor {
 
-    private String nazev;
-    private String popis;
+    private String nazev; //nazev mistnosti
+    private String popis; //popis mistnosti
     private ArrayList<Prostor> vychody;   // obsahuje sousední místnosti
     private boolean zamceno; //obsahuje informaci o tom, zda je mistnost zamcena
     private List<Vec> veciVMistnosti; //obsahuje seznam veci
     private int modifikatorZivotu; // obsahuje informaci o tom kolik je treba ubrat zivotu pri vstupu do mistnosti
-    private HerniPlan plan;
-    private boolean viditelny;
-    private int zivotnost;
-    private Vymena vymena;
+    private HerniPlan plan; //instance herniho planu
+    private boolean viditelny; //infromace o tom zda je prostor viditelny
+    private int zivotnost; //kolik pruchodu se bude mistnost zobrazovat
+    private Vymena vymena; //instance vymeny
 
     /**
      * Vytvoření prostoru se zadaným popisem, např. "kuchyň", "hala", "trávník
@@ -62,10 +59,11 @@ public class Prostor {
      *
      */
     public void setVychod(Prostor vedlejsi) {
-        boolean pomocna = false;
+       boolean pomocna = false;
        for(Prostor item : vychody){
-           if (item.equals(vedlejsi)){
+           if (item.equals(vedlejsi)) {
                pomocna = true;
+               break;
            }
        }
        if (!pomocna){
@@ -83,17 +81,14 @@ public class Prostor {
     }
 
     /**
+     * Metoda vraci informaci o tom zda tato mistnost obsahuje vec
      *
-     * @param vec
-     * @return
+     * @param vec nazev veci o ktere se ptame zda ji mistnost obsahuje
+     * @return true nebo false podle toho zda mistnost vec s timto nazvem obsahuje
      */
     public boolean obsahujeVec(String vec){
         for (Vec neco : veciVMistnosti){
-            if (Normalizer
-                    .normalize(neco.getNazev(), Normalizer.Form.NFD)
-                    .replaceAll("[^\\p{ASCII}]", "").toLowerCase().equals(Normalizer
-                            .normalize(vec, Normalizer.Form.NFD)
-                            .replaceAll("[^\\p{ASCII}]", "").toLowerCase())){
+            if (Normalizer.normalize(vec, Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "").equalsIgnoreCase(neco.getNormalizedNazev())){
                 return true;
             }
         }
@@ -101,18 +96,15 @@ public class Prostor {
     }
 
     /**
+     * Vytahne vec z mistnosti
      *
-     * @param nazev
-     * @return
+     * @param nazev nazev veci, kterou chceme vyndat z mistnosti
+     * @return vrati instanci veci kterou chceme vytahnout
      */
     public Vec vyberVeci(String nazev){
         Vec vybranaVec = null;
         for (Vec neco : veciVMistnosti) {
-            if (Normalizer
-                    .normalize(neco.getNazev(), Normalizer.Form.NFD)
-                    .replaceAll("[^\\p{ASCII}]", "").equalsIgnoreCase(Normalizer
-                            .normalize(nazev, Normalizer.Form.NFD)
-                            .replaceAll("[^\\p{ASCII}]", ""))) {
+            if (Normalizer.normalize(nazev, Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "").equalsIgnoreCase(neco.getNormalizedNazev())) {
                 vybranaVec = neco;
             }
         }
@@ -129,8 +121,10 @@ public class Prostor {
     }
 
     /**
+     * Vraci seznam veci v mistnosti jako textovy retezec, ktery je pak mozne vypsat
+     * Jedna se o pomocnou metodu
      *
-     * @return
+     * @return seznam veci v mistnosti jako textovy retezec
      */
     private String seznamVeci(){
         StringBuilder seznam = new StringBuilder();
@@ -148,7 +142,6 @@ public class Prostor {
      * Metoda equals pro porovnání dvou prostorů. Překrývá se metoda equals ze
      * třídy Object. Dva prostory jsou shodné, pokud mají stejný název. Tato
      * metoda je důležitá z hlediska správného fungování seznamu východů (Set).
-     *
      * Bližší popis metody equals je u třídy Object.
      *
      * @param o object, který se má porovnávat s aktuálním
@@ -211,9 +204,8 @@ public class Prostor {
     }
 
     /**
-     * Vrací "dlouhý" popis prostoru, který může vypadat následovně: Jsi v
-     * mistnosti/prostoru vstupni hala budovy VSE na Jiznim meste. vychody:
-     * chodba bufet ucebna
+     * Vrací "dlouhý" popis prostoru, který obsahuje
+     * veci v prostoru, kde se hrac nachazi, pocet zivotu, vychody z prostoru, predmety v batohu a kapacitu batohu
      *
      * @return Dlouhý popis prostoru
      */
@@ -259,8 +251,9 @@ public class Prostor {
     }
 
     /**
+     * Vraci textovy retezec s odemcenymi vychody
      *
-     * @return
+     * @return textovy retezec obsahujici odemcene vychody
      */
     public String getOdemceneVychody() {
         StringBuilder pomoc = new StringBuilder();
@@ -276,8 +269,9 @@ public class Prostor {
     }
 
     /**
+     * Vraci textovy retezec se zamcenymi vychody
      *
-     * @return
+     * @return textovy retezec obsahujici zamcene vychody
      */
     public String getZamceneVychody() {
         StringBuilder pomoc = new StringBuilder();
@@ -290,48 +284,45 @@ public class Prostor {
     }
 
     /**
+     * Vraci stav mistnosti, respektive informaci o tom zda je mistnost zamcena
      *
-     * @return
+     * @return t/f jestli je mistnost zamcena
      */
     public boolean getStav() {
         return zamceno;
     }
 
     /**
-     *
-     * @return
+     * funkce odemkne mistnost
      */
-    public boolean odemknoutMistnost() {
+    public void odemknoutMistnost() {
         if (this.zamceno){
             zamceno = false;
-            return true;
         }
-        return false;
     }
 
     /**
-     *
-     * @return
+     * funkce zamkne mistnost
      */
-    public boolean zamknoutMistnost() {
+    public void zamknoutMistnost() {
     if (!this.zamceno){
         zamceno = true;
-        return true;
     }
-    return false;
     }
 
     /**
+     * nastavuje modifikator zivotu pri vkroceni do mistnosti
      *
-     * @param modifikatorZivotu
+     * @param modifikatorZivotu ciselna hodnota kolik ubrat hraci po vstupu do mistnosti
      */
     public void setModifikatorZivotu(int modifikatorZivotu) {
         this.modifikatorZivotu = modifikatorZivotu;
     }
 
     /**
+     * Vraci integer s hodnotou modifikatoru zivotu
      *
-     * @return
+     * @return hodnotu modifkatoru zivotu
      */
     public int getModifikatorZivotu() {
         return modifikatorZivotu;
@@ -351,16 +342,18 @@ public class Prostor {
     }
 
     /**
+     * Vraci popis mistnoti nastaveny konstruktorem
      *
-     * @return
+     * @return textovy retezec s popisem mistnosti
      */
     public String getPopis() {
         return popis;
     }
 
     /**
+     * Vraci informaci o tom zda je mistnost zamcena
      *
-     * @return
+     * @return t/f informace o stavu mistnosti
      */
 
     public boolean isZamceno() {
@@ -368,24 +361,27 @@ public class Prostor {
     }
 
     /**
+     * Vraci informaci o tom zda je mistnost viditelna
      *
-     * @return
+     * @return t/f informace o stavu mistnosti
      */
     public boolean isViditelny() {
         return viditelny;
     }
 
     /**
+     * Moznost nastavit viditelnost mistonosti pomoci parametru
      *
-     * @param viditelnost
+     * @param viditelnost t/f hodnota s informaci o tom, zda chceme nebo nechceme mistnost videt
      */
     public void setViditelnost(boolean viditelnost) {
         this.viditelny = viditelnost;
     }
 
     /**
+     * Vraci novou kolekci se sousednimi prostory k instanci, ktere nejsou videt
      *
-     * @return
+     * @return List plny neviditelnych prostoru
      */
     public ArrayList<Prostor> schovaneProstory(){
         ArrayList<Prostor> mistni = new ArrayList<>();
@@ -398,10 +394,11 @@ public class Prostor {
     }
 
     /**
+     * Vraci List s vecmi, ktere v mistnosti nejdou videt
      *
-     * @return
+     * @return List s vecmi, ktere v mistnosti nejdou videt
      */
-    public ArrayList<Vec> getSchovaneSchovaneVeci() {
+    public ArrayList<Vec> getSchovaneVeci() {
         ArrayList<Vec> mistniList = new ArrayList<>();
         for (var item : veciVMistnosti){
             if (!item.isViditelna()){
@@ -412,25 +409,9 @@ public class Prostor {
     }
 
     /**
+     * Vraci novou kolekci se sousednimi prostory k instanci, ktere jsou zamcene
      *
-     * @param normalizovanyNazev
-     * @return
-     */
-    public String nazevVeciZpatky(String normalizovanyNazev){
-        for (var vec : veciVMistnosti){
-            if (Normalizer.normalize(vec.getNazev(), Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "").equalsIgnoreCase(Normalizer
-                    .normalize(normalizovanyNazev, Normalizer.Form.NFD)
-                    .replaceAll("[^\\p{ASCII}]", ""))) {
-                return vec.getNazev();
-            }
-
-        }
-        return normalizovanyNazev;
-    }
-
-    /**
-     *
-     * @return
+     * @return List plny zamcenych prostoru
      */
     public ArrayList<Prostor> zamceneProstoryList(){
         ArrayList<Prostor> mistni = new ArrayList<>();
@@ -443,32 +424,36 @@ public class Prostor {
     }
 
     /**
+     * Dovoluje nastavit zivotnost mistnosti, tj. kolikrat bude mistnost videt mezi sousednimi pri pruchodu mistnostmi
      *
-     * @param zivotnost
+     * @param zivotnost ciselna hodnota kolikrat bude mistnost videt (nutno zadat hodnotu o jedna vetsi)
      */
     public void nastavPast(int zivotnost){
         this.zivotnost = zivotnost;
     }
 
     /**
+     * vraci ciselnou hodnotu s zivotnosti mistnoti
      *
-     * @return
+     * @return zivotnost mistnosti
      */
     public int getZivotnost() {
         return zivotnost;
     }
 
     /**
+     * Vraci instanci tridy Vymena, ktera je v teto mistnosti
      *
-     * @return
+     * @return vymena dostupna v mistnosti
      */
     public Vymena getVymena() {
         return vymena;
     }
 
     /**
+     * Nastaveni hodnoty vlastnosti vymena, aneb Vymena ktera jde v mistnosti provest
      *
-     * @param vymena
+     * @param vymena vlozeni instance tridy vymena, ktera pujde v mistnosti provest
      */
     public void setVymena(Vymena vymena) {
         this.vymena = vymena;

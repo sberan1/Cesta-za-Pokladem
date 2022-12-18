@@ -1,19 +1,25 @@
 package logika;
 
-import java.text.Normalizer;
 
 public class PrikazPoloz implements IPrikaz{
 
-    public final String NAZEV = "poloz";
-    private HerniPlan plan;
+    public final String NAZEV = "poloz"; //nazev prikazu a jeho zneni pro pouziti
+    private HerniPlan plan; //instance tridy herni plan
 
+    /**
+     * Konstruktor tridy
+     *
+     * @param plan herni plan obsahujici batoh a mistnosti
+     */
     public PrikazPoloz(HerniPlan plan) {
         this.plan = plan;
     }
 
     /**
+     * Co se provede po exekuci prikazu
+     *
      * @param parametry počet parametrů závisí na konkrétním příkazu.
-     * @return
+     * @return textovy retezec, ktery navrati hra
      */
     @Override
     public String provedPrikaz(String... parametry) {
@@ -40,7 +46,8 @@ public class PrikazPoloz implements IPrikaz{
 
     /**
      *  Metoda vrací název příkazu (slovo které používá hráč pro jeho vyvolání)
-     *  @ return nazev prikazu
+     *
+     *  @return nazev prikazu
      */
     @Override
     public String getNazev() {

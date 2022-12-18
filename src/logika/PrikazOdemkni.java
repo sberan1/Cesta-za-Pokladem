@@ -4,16 +4,23 @@ import java.text.Normalizer;
 
 public class PrikazOdemkni implements IPrikaz{
 
-    final String NAZEV = "odemkni";
-    private HerniPlan plan;
+    final String NAZEV = "odemkni"; //nazev prikazu a jeho zneni pro pouziti
+    private HerniPlan plan; //instance tridy herni plan
 
+    /**
+     * Kontruktor tridy
+     *
+     * @param plan herni plan nesouci instance vsech mistnosti
+     */
     public PrikazOdemkni(HerniPlan plan) {
         this.plan = plan;
     }
 
     /**
+     * Co se provede po exekuci prikazu
+     *
      * @param parametry počet parametrů závisí na konkrétním příkazu.
-     * @return
+     * @return zprava kterou vypise hra hraci
      */
     @Override
     public String provedPrikaz(String... parametry) {

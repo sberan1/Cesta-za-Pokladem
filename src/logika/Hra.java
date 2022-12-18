@@ -14,8 +14,8 @@ package logika;
 
 public class Hra implements IHra {
     private SeznamPrikazu platnePrikazy;    // obsahuje seznam přípustných příkazů
-    private HerniPlan herniPlan;
-    private boolean konecHry = false;
+    private HerniPlan herniPlan; //obsahuje instanci herniho plan
+    private boolean konecHry = false; //nastavuje konec hry
     private String epilog = "Dohrál jsi tuto úžasnou hru, našel jsi ukradené zlato a je už jen na tobě, jestli si ho necháš, nebo ho půjdeš vrátit do města. Děkuji za zahrání!";
 
     /**
@@ -110,6 +110,12 @@ public class Hra implements IHra {
      public HerniPlan getHerniPlan(){
         return herniPlan;
      }
+
+    /**
+     * nastavi epilog
+     *
+     * @param epilog - text co ma hra vratit pri ukonceni hry
+     */
 
     public void setEpilog(String epilog) {
         this.epilog = epilog;

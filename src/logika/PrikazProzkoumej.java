@@ -4,19 +4,17 @@ import java.text.Normalizer;
 
 public class PrikazProzkoumej implements IPrikaz{
 
-    HerniPlan plan;
-    final String NAZEV = "prozkoumej";
+    private HerniPlan plan; //instance herniho planu obsahujici
+    final String NAZEV = "prozkoumej"; //nazev prikazu a jeho zneni pro pouziti
 
     public PrikazProzkoumej(HerniPlan plan) {
         this.plan = plan;
     }
 
     /**
-     *
-     *
+     * Konstruktor tridy
      *
      * @param parametry počet parametrů závisí na konkrétním příkazu.
-     *
      * @return textovy retezec obsahujici zpravu o tom co se stalo a dlouhy popis mistnosti
      */
     @Override
@@ -34,7 +32,7 @@ public class PrikazProzkoumej implements IPrikaz{
                 item.setViditelnost(true);
                 navratovaHodnota.append(" ").append(item.getNazev());
             }
-            for (var item : plan.getAktualniProstor().getSchovaneSchovaneVeci()) {
+            for (var item : plan.getAktualniProstor().getSchovaneVeci()) {
                 item.setViditelna(true);
                 navratovaHodnota.append(" ").append(item.getNazev());
             }
