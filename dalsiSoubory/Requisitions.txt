@@ -1,0 +1,32 @@
+A dále bude obsahovat následující:
+
+done 1.zadání hry (plánek, popis),
+done 2 zdrojové kódy s komentáři, musí být dodrženy konvence a zdrojové kódy musí být zkontrolovány pomocí PMD pmd a musí být upraveny tak,
+aby se při kontrole již nezobrazovala hlášení uvedená v seznamu dále na stránce.
+not enough time (: 3 . testy (otestují, že je možné vyhrát, že hráč unese omezený počet věcí, že není možné sebrat nepřenositelné věci atd...) -
+!!!!!!!!!!!!!!!!!!! ZDE BUDE I TEST VAŠEHO SCÉNÁŘE, KTERÝ JSTE ODEVZDALI V ZADÁNÍ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+done 4.spustitelný archiv .jar – musí být možné spouštět hru příkazem:
+               java –jar jmenoArchivu.jar
+5.uživatelskou příručku ke hře. Nemusí obsahovat návod jak vyhrát, ale instrukce jak hrát např. jaké příkazy je možné zadávat,
+ co je cílem hry, jak spouštět, atd. Upozorňuji, že zadání není uživatelská příručka. Zadání je určeno programátorovi
+ (představte si situaci, kdy by Váš cvičící řekl, že si zadání máte mezi sebou vyměnit a naprogramovat hru, kterou vymyslel někdo jiný).
+  Příručka je určena uživateli hry a má mu tedy objasnit, jak hrát.
+
+6.soubor README, který bude obsahovat
+         - popis programu (vemi stručný, není to zadání, obsahuje text
+           typu "jednoduchá hra s textovým rozhraním ...", "hra probíhá
+           v prostředí ...", "úkolem hráče je ..." apod.)
+         - jméno autora,
+         - označení verze,
+         - případné další komentáře k vytvořenému programu, může se jednat
+           i o poznámky, které chcete zkonzultovat během obhajoby (např.
+           "něco mi nešlo, je to v kódu zakomentováno", "PMD mi vypsalo
+           hlášku, které nerozumím" apod.)
+
+done 7. PMD výstup
+PMD ke stažení - https://pmd.github.io/
+Dokument jsou pravidla, které stažené PMD bude aplikovat na vaší kontrolovanou semestrální práci.
+Výstupem bude HTML dokument obsahující nalezené chyby. Aplikaci můžete spustit z příkazové řádky dle příkazů níže.
+Spuštění z příkazové řádky:
+cd "slozka s pravidly a složkou obsahující pmd"
+pmd-bin-6.23.0inpmd.bat -dir "cesta_k_vasi_semestrální_prácilogika" -f html -rulesets pmdrules.xml > vysledek.html

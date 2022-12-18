@@ -2,7 +2,7 @@ package logika;
 
 public class PrikazVymeny implements IPrikaz{
 
-    final String NAZEV = "vymena"; //nazev prikazu a jeho zneni pro pouziti
+    private static final String NAZEV = "vymena"; //nazev prikazu a jeho zneni pro pouziti
     private Prostor mistnost; //instance tridy Prostor
 
     /**

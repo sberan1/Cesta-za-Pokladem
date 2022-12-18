@@ -3,7 +3,7 @@ package logika;
 
 public class PrikazPoloz implements IPrikaz{
 
-    public final String NAZEV = "poloz"; //nazev prikazu a jeho zneni pro pouziti
+    private static final String NAZEV = "poloz"; //nazev prikazu a jeho zneni pro pouziti
     private HerniPlan plan; //instance tridy herni plan
 
     /**

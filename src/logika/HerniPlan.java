@@ -97,7 +97,7 @@ public class HerniPlan {
      *  Vytváří jednotlivé prostory a propojuje je pomocí východů.
      *  Jako výchozí aktuální prostor nastaví domeček.
      */
-    public void inicializaceProstoru(){
+    private void inicializaceProstoru(){
         // vytvářejí se jednotlivé prostory
         Prostor hory = new Prostor("Hory", "Tady jsi v horách, je tu pěkný výhled a všechno ale nic tu není", this);
         Prostor mesto = new Prostor("Město","Město - Tady se děje všechno svaté i nesvaté", this);
@@ -125,7 +125,7 @@ public class HerniPlan {
         Vec zezlo = new Vec("Žezlo", true, true);
         Vec lavice = new Vec("Lavice", false, true);
         Vec klicKostel = new Vec("Klíč", true, false);
-        Vec lektvarZivota = new Vec("LektvarŽivota", true, false, Pouzitelnosti.Lektvar, 100);
+        Vec lektvarZivota = new Vec("LektvarŽivota", true, false, Pouzitelnosti.LEKTVAR, 100);
         Vec mec = new Vec("Meč", true, true);
         Vec stul = new Vec("Stůl", false, true);
         Vec nuz = new Vec("Nůž", true, true);
@@ -138,7 +138,7 @@ public class HerniPlan {
         Vec klicHlubokyLes = new Vec("Klíč", true, false);
         Vec stan = new Vec("Stan", false, true);
         Vec klicTaboriste = new Vec("Klíč", true, false);
-        Vec lektvarLes = new Vec("MalýLektvarŽivota", true, false, Pouzitelnosti.Lektvar, 50);
+        Vec lektvarLes = new Vec("MalýLektvarŽivota", true, false, Pouzitelnosti.LEKTVAR, 50);
         Vec nahrdelnik = new Vec("Náhrdelník", true, true);
         Vec parez = new Vec("Pařez", false, true);
         Vec slama = new Vec("Sláma", true, true);
@@ -254,6 +254,7 @@ public class HerniPlan {
         taboriste.vlozVec(klicTaboriste);
 
         //les setup
+        les.setVychod(mesto);
         les.setVychod(taboriste);
         les.setVychod(vesnice);
         les.setVychod(hory);

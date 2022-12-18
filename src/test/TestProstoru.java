@@ -36,14 +36,10 @@ public class TestProstoru {
         Vec neco = new Vec("neco", true, true);
         Prostor prostor = new Prostor("nazev", "popis", null);
 
-
-        Object m = neco;
-        Object n = prostor;
         Object o = 20;
 
-
-        assertEquals(m.getClass().getName(), "logika.Vec");
-        assertEquals(n.getClass().getName(), "logika.Prostor");
+        assertEquals(((Object) neco).getClass().getName(), "logika.Vec");
+        assertEquals(((Object) prostor).getClass().getName(), "logika.Prostor");
         assertEquals(o.getClass().getName(), "java.lang.Integer");
     }
 }

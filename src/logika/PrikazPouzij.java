@@ -4,7 +4,7 @@ import java.text.Normalizer;
 
 public class PrikazPouzij implements IPrikaz{
 
-    final String NAZEV = "pouzij"; //nazev prikazu a jeho zneni pro pouziti
+    private static final String NAZEV = "pouzij"; //nazev prikazu a jeho zneni pro pouziti
     private HerniPlan plan; //instance herniho planu obsahujici
 
     /**
@@ -33,7 +33,7 @@ public class PrikazPouzij implements IPrikaz{
         for (var item : plan.getBatuzek().getObsah()) {
             if (Normalizer.normalize(parametry[0], Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "").equalsIgnoreCase(item.getNormalizedNazev()) && item.isPouzitelna()){
                 plan.getBatuzek().odeberVec(item.getNazev());
-                if (item.getTyp() == Pouzitelnosti.Lektvar){
+                if (item.getTyp() == Pouzitelnosti.LEKTVAR){
                     plan.uberZivoty(-item.getModifikator());
                     if (plan.getPocetZivotu() > 100){
                         plan.uberZivoty(plan.getPocetZivotu()-100);

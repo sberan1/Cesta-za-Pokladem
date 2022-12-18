@@ -3,7 +3,7 @@ package logika;
 import java.text.Normalizer;
 
 public class PrikazVymen implements IPrikaz{
-    final String NAZEV = "vymen"; //nazev prikazu a jeho zneni pro pouziti
+    private static final String NAZEV = "vymen"; //nazev prikazu a jeho zneni pro pouziti
     private HerniPlan plan;//instance herniho planu
 
     /**
