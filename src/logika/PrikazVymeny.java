@@ -1,5 +1,10 @@
 package logika;
 
+/**
+ * Trida PrikazVymeny - trida pro realizaci prikazu vymeny, ktery vypise informace o dostupne vymene
+ *
+ * @author sBeran1
+ */
 public class PrikazVymeny implements IPrikaz{
 
     private static final String NAZEV = "vymena"; //nazev prikazu a jeho zneni pro pouziti

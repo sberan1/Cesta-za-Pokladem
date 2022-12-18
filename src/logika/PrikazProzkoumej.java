@@ -1,7 +1,11 @@
 package logika;
 
 import java.text.Normalizer;
-
+/**
+ * Trida PrikazProzkoumej - trida pro realizaci prikazu prozkoumej, ktery dovoli videt schovane veci a mistnosti
+ *
+ * @author sBeran1
+ */
 public class PrikazProzkoumej implements IPrikaz{
 
     private HerniPlan plan; //instance herniho planu obsahujici

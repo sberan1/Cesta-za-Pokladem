@@ -3,7 +3,11 @@ package logika;
 import java.text.Normalizer;
 import java.util.ArrayList;
 
-
+/**
+ * Class Batoh - trida pro realizaci batohu na uchovavani predmetu
+ *
+ * @author sBeran1
+ */
 public class Batoh {
     private int velikostBatuzku; //nastavuje pocet veci co se vejde do batohu
     private ArrayList<Vec> obsah; //list s vecmi co se nachazi v batohu

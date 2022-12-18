@@ -2,6 +2,11 @@ package logika;
 
 import java.text.Normalizer;
 
+/**
+ * Trida PrikazOdemkni - trida pro realizaci prikazu odemkni, ktery odemyka mistnost
+ *
+ * @author sBeran1
+ */
 public class PrikazOdemkni implements IPrikaz{
 
     private static final String NAZEV = "odemkni"; //nazev prikazu a jeho zneni pro pouziti

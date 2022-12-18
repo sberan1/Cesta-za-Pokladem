@@ -1,7 +1,11 @@
 package logika;
 
 import java.text.Normalizer;
-
+/**
+ * Trida Vec - trida pro realizaci veci, ktere muzeme najit v mistnostech a ukladat je do batohu a prenaset je
+ *
+ * @author sBeran1
+ */
 public class Vec {
 
     private String nazev; //nazev veci ktery se bude zobrazovat a se kterym budeme v programu pracovat

@@ -1,7 +1,11 @@
 package logika;
 
 import java.util.ArrayList;
-
+/**
+ * Trida Vymena - trida pro realizaci vymen, ktera nam dovoluje vytvaret v kodu vymeny
+ *
+ * @author sBeran1
+ */
 public class Vymena {
     private String popisVymeny; //popis ktery se zobrazi hraci pri pouziti prikazu Vymeny
     private ArrayList<Vec> ocekavaneVeci= new ArrayList<>(); //list veci ktere prikaz prijma

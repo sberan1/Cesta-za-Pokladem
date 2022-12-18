@@ -1,7 +1,11 @@
 package logika;
 
 import java.text.Normalizer;
-
+/**
+ * Trida PrikazVymen - trida pro realizaci prikazu vymen, kter nam dovoluje uskutecnit vymenu, pokud se tam nejaka nachazi
+ *
+ * @author sBeran1
+ */
 public class PrikazVymen implements IPrikaz{
     private static final String NAZEV = "vymen"; //nazev prikazu a jeho zneni pro pouziti
     private HerniPlan plan;//instance herniho planu

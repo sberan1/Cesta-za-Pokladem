@@ -1,7 +1,11 @@
 package logika;
 
 import java.text.Normalizer;
-
+/**
+ * Trida PrikazSeber - trida pro realizaci prikazu seber, kterym sbirame veci ze zeme
+ *
+ * @author sBeran1
+ */
 public class PrikazSeber implements IPrikaz {
 
     private static final String NAZEV = "seber"; //nazev prikazu a jeho zneni pro pouziti

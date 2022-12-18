@@ -2,6 +2,11 @@ package logika;
 
 import java.text.Normalizer;
 
+/**
+ * Class Batoh - trida pro realizaci batohu na uchovavani predmetu
+ *
+ * @author sBeran1
+ */
 public class PrikazPouzij implements IPrikaz{
 
     private static final String NAZEV = "pouzij"; //nazev prikazu a jeho zneni pro pouziti

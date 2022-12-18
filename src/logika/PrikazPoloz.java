@@ -1,6 +1,10 @@
 package logika;
 
-
+/**
+ * Trida PrikazPoloz - trida pro realizaci prikazu poloz
+ *
+ * @author sBeran1
+ */
 public class PrikazPoloz implements IPrikaz{
 
     private static final String NAZEV = "poloz"; //nazev prikazu a jeho zneni pro pouziti
