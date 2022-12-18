@@ -8,15 +8,15 @@ package logika;
 public class PrikazVymeny implements IPrikaz{
 
     private static final String NAZEV = "vymena"; //nazev prikazu a jeho zneni pro pouziti
-    private Prostor mistnost; //instance tridy Prostor
+    private HerniPlan plan; //instance tridy Prostor
 
     /**
      * Konstruktor tridy
      *
-     * @param mistnost mistnost obsahujici vymenu
+     * @param plan Herni plan hry
      */
-    public PrikazVymeny(Prostor mistnost) {
-        this.mistnost = mistnost;
+    public PrikazVymeny(HerniPlan plan) {
+        this.plan = plan;
     }
 
     /**
@@ -27,9 +27,8 @@ public class PrikazVymeny implements IPrikaz{
      */
     @Override
     public String provedPrikaz(String... parametry) {
-        if (mistnost.getVymena() != null){
-            Vymena mistni = mistnost.getVymena();
-            return mistni.toString();
+        if (plan.getAktualniProstor().getVymena() != null){
+            return plan.getAktualniProstor().getVymena().toString();
         }
         return "tady nic nevymenis kamo";
     }

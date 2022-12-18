@@ -40,7 +40,9 @@ public class PrikazProzkoumej implements IPrikaz{
                 item.setViditelna(true);
                 navratovaHodnota.append(" ").append(item.getNazev());
             }
-
+            if (navratovaHodnota.isEmpty()){
+                return "V místnosti " + plan.getAktualniProstor().getNazev() + " jsi nenašel nic" + "\n" + plan.getAktualniProstor().dlouhyPopis();
+            }
             return "V místnosti " + plan.getAktualniProstor().getNazev() + " jsi našel" + navratovaHodnota + "\n" + plan.getAktualniProstor().dlouhyPopis();
         }
         return "tam nejsi, tak to prece nemuzes prozkoumat";
