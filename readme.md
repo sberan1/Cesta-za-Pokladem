@@ -1,4 +1,4 @@
-# Cesta pro poklad
+# Cesta za ukradeným zlatem
 ### Popis programu
 Jednoducha hra s textovym rozhranim. 
 Hra se odehrava v jednoduchem smyslenem svete (viz mapa) a ukolem hrace
