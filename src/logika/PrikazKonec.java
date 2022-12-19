@@ -11,6 +11,7 @@ package logika;
 
 public class PrikazKonec implements IPrikaz {
 
+    private int counter = 0; //pocita pouziti prikazu
     private static final String NAZEV = "konec"; //nazev prikazu a jeho zneni ve hre
 
     private Hra hra; //instance trida hra
@@ -33,6 +34,7 @@ public class PrikazKonec implements IPrikaz {
 
     @Override
     public String provedPrikaz(String... parametry) {
+        counter++;
         if (parametry.length > 0) {
             return "Ukončit co? Nechápu, proč jste zadal druhé slovo.";
         }
@@ -50,5 +52,15 @@ public class PrikazKonec implements IPrikaz {
     @Override
     public String getNazev() {
         return NAZEV;
+    }
+
+    /**
+     * Vraci ciselnou hodnotu s poctem pouziti prikazu, pouzivano pro statistiky a nove vypisy
+     *
+     * @return pocet pouziti prikazu
+     */
+    @Override
+    public int getCounter() {
+        return counter;
     }
 }

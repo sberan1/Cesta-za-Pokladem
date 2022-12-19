@@ -8,7 +8,7 @@ import java.text.Normalizer;
  * @author sBeran1
  */
 public class PrikazOdemkni implements IPrikaz{
-
+    private int counter = 0; //pocita pouziti prikazu
     private static final String NAZEV = "odemkni"; //nazev prikazu a jeho zneni pro pouziti
     private HerniPlan plan; //instance tridy herni plan
 
@@ -29,6 +29,7 @@ public class PrikazOdemkni implements IPrikaz{
      */
     @Override
     public String provedPrikaz(String... parametry) {
+        counter++;
         if (parametry.length == 0) {
             //pokud chybi nazev mistnosti kterou chce nekdo odemknout
             return "Musite mit jasno v tom co chcete odemknout, co sem vubec lezete takhle nepripravenej sakra";
@@ -56,5 +57,15 @@ public class PrikazOdemkni implements IPrikaz{
     @Override
     public String getNazev() {
         return NAZEV;
+    }
+
+    /**
+     * Vraci ciselnou hodnotu s poctem pouziti prikazu, pouzivano pro statistiky a nove vypisy
+     *
+     * @return pocet pouziti prikazu
+     */
+    @Override
+    public int getCounter() {
+        return counter;
     }
 }

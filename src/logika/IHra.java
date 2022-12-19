@@ -29,14 +29,14 @@ public interface IHra
      *  @return  vrací se řetězec, který se má vypsat na obrazovku
      */
     public String vratEpilog();
-    
-    /** 
+
+    /**
      * Vrací informaci o tom, zda hra již skončila, je jedno zda výhrou, prohrou nebo příkazem konec.
-     * 
+     *
      * @return   vrací true, pokud hra skončila
      */
      public boolean konecHry();
-     
+
       /**
      *  Metoda zpracuje řetězec uvedený jako parametr, rozdělí ho na slovo příkazu a další parametry.
      *  Pak otestuje zda příkaz je klíčovým slovem  např. jdi.
@@ -55,6 +55,7 @@ public interface IHra
      *  @return     odkaz na herní plán
      */
      public HerniPlan getHerniPlan();
+
     
     //== ZDĚDĚNÉ METODY ========================================================
     //== INTERNÍ DATOVÉ TYPY ===================================================

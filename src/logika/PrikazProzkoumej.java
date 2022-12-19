@@ -7,7 +7,7 @@ import java.text.Normalizer;
  * @author sBeran1
  */
 public class PrikazProzkoumej implements IPrikaz{
-
+    private int counter = 0; //pocita pouziti prikazu
     private HerniPlan plan; //instance herniho planu obsahujici
     private static final String NAZEV = "prozkoumej"; //nazev prikazu a jeho zneni pro pouziti
 
@@ -23,6 +23,7 @@ public class PrikazProzkoumej implements IPrikaz{
      */
     @Override
     public String provedPrikaz(String... parametry) {
+        counter++;
         if (parametry.length == 0) {
             return "musis napsat co mam prozkoumat sakra";
         }
@@ -38,6 +39,7 @@ public class PrikazProzkoumej implements IPrikaz{
             }
             for (var item : plan.getAktualniProstor().getSchovaneVeci()) {
                 item.setViditelna(true);
+                item.pridatVideniVeci();
                 navratovaHodnota.append(" ").append(item.getNazev());
             }
             if (navratovaHodnota.isEmpty()){
@@ -56,5 +58,15 @@ public class PrikazProzkoumej implements IPrikaz{
     @Override
     public String getNazev() {
         return NAZEV;
+    }
+
+    /**
+     * Vraci ciselnou hodnotu s poctem pouziti prikazu, pouzivano pro statistiky a nove vypisy
+     *
+     * @return pocet pouziti prikazu
+     */
+    @Override
+    public int getCounter() {
+        return counter;
     }
 }

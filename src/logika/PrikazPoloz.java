@@ -6,7 +6,7 @@ package logika;
  * @author sBeran1
  */
 public class PrikazPoloz implements IPrikaz{
-
+    private int counter = 0; //pocita pouziti prikazu
     private static final String NAZEV = "poloz"; //nazev prikazu a jeho zneni pro pouziti
     private HerniPlan plan; //instance tridy herni plan
 
@@ -27,6 +27,7 @@ public class PrikazPoloz implements IPrikaz{
      */
     @Override
     public String provedPrikaz(String... parametry) {
+        counter++;
         if (parametry.length == 0) {
             // pokud chybí druhé slovo (Vec co vyndat z batohu), tak ....
             return "Coze mam z toho batohu jako vyndat?";
@@ -56,5 +57,15 @@ public class PrikazPoloz implements IPrikaz{
     @Override
     public String getNazev() {
         return NAZEV;
+    }
+
+    /**
+     * Vraci ciselnou hodnotu s poctem pouziti prikazu, pouzivano pro statistiky a nove vypisy
+     *
+     * @return pocet pouziti prikazu
+     */
+    @Override
+    public int getCounter() {
+        return counter;
     }
 }

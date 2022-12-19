@@ -1,5 +1,6 @@
 package logika;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -71,11 +72,26 @@ public class SeznamPrikazu {
      *  @return     Řetězec, který obsahuje seznam přípustných příkazů
      */
     public String vratNazvyPrikazu() {
-        String seznam = "";
+        StringBuilder seznam = new StringBuilder();
         for (String slovoPrikazu : mapaSPrikazy.keySet()){
-            seznam += slovoPrikazu + " ";
+            seznam.append(slovoPrikazu).append(" ");
         }
-        return seznam;
+        return seznam.toString();
+    }
+
+    /**
+     * Vraci seznam zatim nepouzitych prikazu v textovem retezci
+     *
+     * @return text s nepouzitymi prikazy
+     */
+    public String vypisSeznamNepouzitychPrikazu(){
+        StringBuilder placeholder = new StringBuilder();
+        for(Map.Entry<String, IPrikaz> item : mapaSPrikazy.entrySet()){
+            if(item.getValue().getCounter() == 0){
+                placeholder.append(item.getValue().getNazev()).append(" ");
+            }
+        }
+        return placeholder.toString();
     }
     
 }

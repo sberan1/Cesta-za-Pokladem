@@ -7,6 +7,7 @@ import java.text.Normalizer;
  * @author sBeran1
  */
 public class PrikazVymen implements IPrikaz{
+    private int counter = 0; //pocita pouziti prikazu
     private static final String NAZEV = "vymen"; //nazev prikazu a jeho zneni pro pouziti
     private HerniPlan plan;//instance herniho planu
 
@@ -27,7 +28,8 @@ public class PrikazVymen implements IPrikaz{
      */
     @Override
     public String provedPrikaz(String... parametry) {
-        int counter = 0; //pomocna promenna pro zjisteni, zda ma uzivatel vsechny potrebne veci u sebe
+        counter++;
+        int pocitadlo = 0; //pomocna promenna pro zjisteni, zda ma uzivatel vsechny potrebne veci u sebe
         Vymena vymena = plan.getAktualniProstor().getVymena(); //ulehceni pristupu k vymene v aktualnim prostoru
         if (vymena != null) {
             if (parametry.length == 0) {
@@ -40,10 +42,10 @@ public class PrikazVymen implements IPrikaz{
                 //zkoumame, jestli ma uzivatel vsechny potrebne veci a podle toho inicializujeme prikaz
                 for (var item : vymena.getOcekavaneVeci()){
                    if(plan.getBatuzek().getObsah().contains(item)){
-                       counter++;
+                       pocitadlo++;
                    }
                 }
-                if (counter == vymena.getOcekavaneVeci().size()){
+                if (pocitadlo == vymena.getOcekavaneVeci().size()){
                     for (var item : vymena.getOcekavaneVeci()){
                         plan.getBatuzek().odeberVec(item.getNazev());
                     }
@@ -52,7 +54,9 @@ public class PrikazVymen implements IPrikaz{
                             plan.uberZivoty((Integer) item);
                         }
                         if (item.getClass().getName().equals("logika.Vec")){
-                            plan.getBatuzek().vlozVec((Vec) item);
+                            Vec neco = ((Vec) item);
+                            neco.pridatVideniVeci();
+                            plan.getBatuzek().vlozVec(neco);
                         }
                         if (item.getClass().getName().equals("logika.Prostor")){
                             Prostor placeholder = (Prostor) item;
@@ -97,6 +101,16 @@ public class PrikazVymen implements IPrikaz{
     @Override
     public String getNazev() {
         return NAZEV;
+    }
+
+    /**
+     * Vraci ciselnou hodnotu s poctem pouziti prikazu, pouzivano pro statistiky a nove vypisy
+     *
+     * @return pocet pouziti prikazu
+     */
+    @Override
+    public int getCounter() {
+        return counter;
     }
 }
 

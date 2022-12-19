@@ -7,10 +7,9 @@ import java.text.Normalizer;
  * @author sBeran1
  */
 public class PrikazSeber implements IPrikaz {
-
+    private int counter = 0; //pocita pouziti prikazu
     private static final String NAZEV = "seber"; //nazev prikazu a jeho zneni pro pouziti
-
-    public HerniPlan plan; //instance herniho planu
+    private HerniPlan plan; //instance herniho planu
 
     /**
      * Konstruktor tridy
@@ -29,6 +28,7 @@ public class PrikazSeber implements IPrikaz {
      */
     @Override
     public String provedPrikaz(String... parametry) {
+        counter++;
         if (parametry.length == 0){
             return "Coze mam sebrat? Vyber si!";
         }
@@ -68,5 +68,15 @@ public class PrikazSeber implements IPrikaz {
     @Override
     public String getNazev() {
         return NAZEV;
+    }
+
+    /**
+     * Vraci ciselnou hodnotu s poctem pouziti prikazu, pouzivano pro statistiky a nove vypisy
+     *
+     * @return pocet pouziti prikazu
+     */
+    @Override
+    public int getCounter() {
+        return counter;
     }
 }

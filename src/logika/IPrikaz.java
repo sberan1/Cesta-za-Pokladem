@@ -9,24 +9,30 @@ package logika;
  *  
  */
 interface IPrikaz {
-	
+
+
 	/**
      *  Metoda pro provedení příkazu ve hře.
      *  Počet parametrů je závislý na konkrétním příkazu,
      *  např. příkazy konec a napoveda nemají parametry
      *  příkazy jdi, seber, polož mají jeden parametr
-     *  příkaz pouzij může mít dva parametry.
      *  
      *  @param parametry počet parametrů závisí na konkrétním příkazu.
      *  
      */
-    public String provedPrikaz(String... parametry);
+    String provedPrikaz(String... parametry);
     
     /**
      *  Metoda vrací název příkazu (slovo které používá hráč pro jeho vyvolání)
      *  
      *  @return nazev prikazu
      */
-	public String getNazev();
-	
+    String getNazev();
+
+    /**
+     * Vraci ciselnou hodnotu s poctem pouziti prikazu, pouzivano pro statistiky a nove vypisy
+     *
+     * @return pocet pouziti prikazu
+     */
+    int getCounter();
 }

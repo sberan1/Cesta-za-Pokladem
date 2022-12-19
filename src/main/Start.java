@@ -21,8 +21,19 @@ public class Start
      */
     public static void main(String[] args)
     {
-        IHra hra = new Hra();
-        TextoveRozhrani ui = new TextoveRozhrani(hra);
-        ui.hraj();
+        if (args.length == 0){
+            IHra hra = new Hra();
+            TextoveRozhrani ui = new TextoveRozhrani(hra);
+            ui.hraj();
+        }
+        if (args[0].equals("vypis")) {
+            IHra hra = new Hra();
+            hra.getHerniPlan().setDlouhyVypis(true);
+            TextoveRozhrani ui = new TextoveRozhrani(hra);
+            ui.hraj();
+        }
+        else {
+            System.out.println("chyba");
+        }
     }
 }

@@ -10,6 +10,7 @@ import java.text.Normalizer;
  * @version    pro školní rok 2016/2017
  */
 public class PrikazJdi implements IPrikaz {
+    private int counter = 0; //pocita pouziti prikazu
     private static final String NAZEV = "jdi"; //nazev prikazu a jeho zneni pro pouziti
     private Hra hra; //instance tridy hra
     private HerniPlan plan; //instance herniho planu
@@ -35,6 +36,7 @@ public class PrikazJdi implements IPrikaz {
      */ 
     @Override
     public String provedPrikaz(String... parametry) {
+        counter++;
         if (parametry.length == 0) {
             // pokud chybí druhé slovo (sousední prostor), tak ....
             return "Kam mám jít? Musíš zadat jméno východu";
@@ -52,7 +54,6 @@ public class PrikazJdi implements IPrikaz {
         // zkoušíme přejít do sousedního prostoru
         Prostor sousedniProstor = plan.getAktualniProstor().vratSousedniProstor(smer);
 
-
         if (sousedniProstor == null) {
             return "Tam se odsud jít nedá!";
         }
@@ -62,6 +63,8 @@ public class PrikazJdi implements IPrikaz {
             return "Tam se odsud jít nedá!";
         } else {
             plan.setAktualniProstor(sousedniProstor);
+            sousedniProstor.pridatPruchod();
+            sousedniProstor.videtVeciVMistnosti();
             if (sousedniProstor.equals(plan.getVyherniProstor())){
                 hra.setKonecHry(true);
                 return "Vyhrál jsi\n"+ hra.vratEpilog();
@@ -69,14 +72,11 @@ public class PrikazJdi implements IPrikaz {
             if (sousedniProstor.equals(plan.getProherniProstor())){
                 hra.setEpilog("Skocils na starej, jednoduchej trik a prohrals troubo");
                 hra.setKonecHry(true);
-                return "zkus to radsi znovu, jo?";
+                return "zkus to radsi znovu, jo?\n" + hra.vratEpilog();
             }
             plan.uberZivoty(sousedniProstor.getModifikatorZivotu());
             for (var item : sousedniProstor.getVychody()){
-                if (item.getZivotnost() == 999){
-
-                }
-                else {
+                if (item.getZivotnost() != 999){
                     item.nastavPast(item.getZivotnost()-1);
                 }
             }
@@ -95,4 +95,13 @@ public class PrikazJdi implements IPrikaz {
         return NAZEV;
     }
 
+    /**
+     * Vraci ciselnou hodnotu s poctem pouziti prikazu, pouzivano pro statistiky a nove vypisy
+     *
+     * @return pocet pouziti prikazu
+     */
+    @Override
+    public int getCounter() {
+        return counter;
+    }
 }

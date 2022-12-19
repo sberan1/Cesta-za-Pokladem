@@ -1,5 +1,7 @@
 package logika;
 
+import java.util.Collections;
+
 /**
  *  Třída Hra - třída představující logiku adventury.
  * 
@@ -13,9 +15,8 @@ package logika;
  */
 
 public class Hra implements IHra {
-    private SeznamPrikazu platnePrikazy;    // obsahuje seznam přípustných příkazů
     private HerniPlan herniPlan; //obsahuje instanci herniho plan
-    private boolean konecHry = false; //nastavuje konec hry
+    private static boolean konecHry = false; //nastavuje konec hry
     private String epilog = "Dohrál jsi tuto úžasnou hru, našel jsi ukradené zlato a je už jen na tobě, jestli si ho necháš, nebo ho půjdeš vrátit do města. Děkuji za zahrání!";
 
     /**
@@ -23,17 +24,16 @@ public class Hra implements IHra {
      */
     public Hra() {
         herniPlan = new HerniPlan();
-        platnePrikazy = new SeznamPrikazu();
-        platnePrikazy.vlozPrikaz(new PrikazNapoveda(platnePrikazy));
-        platnePrikazy.vlozPrikaz(new PrikazJdi(this));
-        platnePrikazy.vlozPrikaz(new PrikazKonec(this));
-        platnePrikazy.vlozPrikaz(new PrikazSeber(herniPlan));
-        platnePrikazy.vlozPrikaz(new PrikazProzkoumej(herniPlan));
-        platnePrikazy.vlozPrikaz(new PrikazOdemkni(herniPlan));
-        platnePrikazy.vlozPrikaz(new PrikazPoloz(herniPlan));
-        platnePrikazy.vlozPrikaz(new PrikazVymen(herniPlan));
-        platnePrikazy.vlozPrikaz(new PrikazVymeny(herniPlan));
-        platnePrikazy.vlozPrikaz(new PrikazPouzij(herniPlan));
+        herniPlan.getPlatnePrikazy().vlozPrikaz(new PrikazNapoveda(herniPlan.getPlatnePrikazy()));
+        herniPlan.getPlatnePrikazy().vlozPrikaz(new PrikazJdi(this));
+        herniPlan.getPlatnePrikazy().vlozPrikaz(new PrikazKonec(this));
+        herniPlan.getPlatnePrikazy().vlozPrikaz(new PrikazSeber(herniPlan));
+        herniPlan.getPlatnePrikazy().vlozPrikaz(new PrikazProzkoumej(herniPlan));
+        herniPlan.getPlatnePrikazy().vlozPrikaz(new PrikazOdemkni(herniPlan));
+        herniPlan.getPlatnePrikazy().vlozPrikaz(new PrikazPoloz(herniPlan));
+        herniPlan.getPlatnePrikazy().vlozPrikaz(new PrikazVymen(herniPlan));
+        herniPlan.getPlatnePrikazy().vlozPrikaz(new PrikazVymeny(herniPlan));
+        herniPlan.getPlatnePrikazy().vlozPrikaz(new PrikazPouzij(herniPlan));
     }
 
     /**
@@ -57,7 +57,7 @@ public class Hra implements IHra {
     /** 
      * Vrací true, pokud hra skončila.
      */
-     public boolean konecHry() {
+     public  boolean konecHry() {
         return konecHry;
     }
 
@@ -78,8 +78,8 @@ public class Hra implements IHra {
            	parametry[i]= slova[i+1];  	
         }
         String textKVypsani;
-            if (platnePrikazy.jePlatnyPrikaz(slovoPrikazu)) {
-                IPrikaz prikaz = platnePrikazy.vratPrikaz(slovoPrikazu);
+            if (herniPlan.getPlatnePrikazy().jePlatnyPrikaz(slovoPrikazu)) {
+                IPrikaz prikaz = herniPlan.getPlatnePrikazy().vratPrikaz(slovoPrikazu);
                 textKVypsani = prikaz.provedPrikaz(parametry);
             } else {
                 textKVypsani = "Nevím co tím myslíš? Tento příkaz neznám. ";
@@ -120,5 +120,6 @@ public class Hra implements IHra {
     public void setEpilog(String epilog) {
         this.epilog = epilog;
     }
+
 }
 

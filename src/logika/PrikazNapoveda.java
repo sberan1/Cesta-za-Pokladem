@@ -9,7 +9,7 @@ package logika;
  *  
  */
 public class PrikazNapoveda implements IPrikaz {
-    
+    private int counter = 0; //pocita pouziti prikazu
     private static final String NAZEV = "nápověda"; //nazev prikazu a jeho zneni pro pouziti
     private SeznamPrikazu platnePrikazy; //instance tridy seznamPrikazu
     
@@ -33,6 +33,7 @@ public class PrikazNapoveda implements IPrikaz {
      */
     @Override
     public String provedPrikaz(String... parametry) {
+        counter++;
         return "Tvým úkolem je dojit do tajne pokladnice v carodejove vezi\n"
         + "cestu najdes na piratske lodi\n"
         + "\n"
@@ -50,4 +51,13 @@ public class PrikazNapoveda implements IPrikaz {
         return NAZEV;
      }
 
+    /**
+     * Vraci ciselnou hodnotu s poctem pouziti prikazu, pouzivano pro statistiky a nove vypisy
+     *
+     * @return pocet pouziti prikazu
+     */
+    @Override
+    public int getCounter() {
+        return counter;
+    }
 }

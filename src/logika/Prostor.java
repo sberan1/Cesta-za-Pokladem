@@ -14,7 +14,7 @@ import java.util.*;
  * @version pro školní rok 2016/2017
  */
 public class Prostor {
-
+    private int counter = 0;
     private String nazev; //nazev mistnosti
     private String popis; //popis mistnosti
     private ArrayList<Prostor> vychody;   // obsahuje sousední místnosti
@@ -25,7 +25,6 @@ public class Prostor {
     private boolean viditelny; //infromace o tom zda je prostor viditelny
     private int zivotnost; //kolik pruchodu se bude mistnost zobrazovat
     private Vymena vymena; //instance vymeny
-
     /**
      * Vytvoření prostoru se zadaným popisem, např. "kuchyň", "hala", "trávník
      * před domem"
@@ -210,6 +209,32 @@ public class Prostor {
      * @return Dlouhý popis prostoru
      */
     public String dlouhyPopis() {
+        SeznamPrikazu seznamPrikazu = plan.getPlatnePrikazy();
+        if (plan.isDlouhyVypis()){
+            if (getZamceneVychody().equals(""))
+            {
+            return "Počet životů " + plan.getPocetZivotu() +"/100"+ "\n"
+                    + "Momentálně se nacházíš v prostoru: " + this.getNazev() + "\n"
+                    + "Věci v místnosti:" + seznamVeci() + "\n"
+                    + "Východy:" + getOdemceneVychody() + "\n"
+                    + "Aktuální předměty v batohu:" + plan.getBatuzek().getPredmetyVBatohu() + "\n"
+                    + "Kapacita batohu: " + plan.getBatuzek().getVelikostBatuzku() + "/15\n"
+                    + "Zatim nepouzite prikazy: " + seznamPrikazu.vypisSeznamNepouzitychPrikazu() + "\n"
+                    + "Zatim neprochazene prostory: " + plan.vypisSeznamNeprojitychMistnosti() + "\n"
+                    + "Zatim nevidene veci: " + plan.vypisSeznamNepotkanychVeci();
+            }
+            return "Počet životů " + plan.getPocetZivotu() +"/100"+ "\n"
+                    + "Momentálně se nacházíš v prostoru: " + this.getNazev() + "\n"
+                    + "Věci v místnosti:" + seznamVeci() + "\n"
+                    + "Východy:" + getOdemceneVychody() + "\n"
+                    + "Zamčené východy:" + getZamceneVychody() + "\n"
+                    + "Aktuální předměty v batohu:" + plan.getBatuzek().getPredmetyVBatohu() + "\n"
+                    + "Kapacita batohu: " + plan.getBatuzek().getVelikostBatuzku() + "/15\n"
+                    + "Zatim nepouzite prikazy: " + seznamPrikazu.vypisSeznamNepouzitychPrikazu() + "\n"
+                    + "Zatim neprochazene prostory: " + plan.vypisSeznamNeprojitychMistnosti() + "\n"
+                    + "Zatim nevidene veci: " + plan.vypisSeznamNepotkanychVeci();
+
+        }
         if (getZamceneVychody().equals(""))
         {
            return "Počet životů " + plan.getPocetZivotu() +"/100"+ "\n"
@@ -219,6 +244,7 @@ public class Prostor {
                     + "Aktuální předměty v batohu:" + plan.getBatuzek().getPredmetyVBatohu() + "\n"
                     + "Kapacita batohu: " + plan.getBatuzek().getVelikostBatuzku() + "/15";
         }
+
         return  "Počet životů " + plan.getPocetZivotu() +"/100"+ "\n"
                 + "Momentálně se nacházíš v prostoru: " + this.getNazev() + "\n"
                 + "Věci v místnosti:" + seznamVeci() + "\n"
@@ -409,6 +435,17 @@ public class Prostor {
     }
 
     /**
+     * prida vecem v mistnosti jedno videni
+     */
+    public void videtVeciVMistnosti() {
+        for (var item : veciVMistnosti){
+            if (item.isViditelna()){
+                item.pridatVideniVeci();
+            }
+        }
+    }
+
+    /**
      * Vraci novou kolekci se sousednimi prostory k instanci, ktere jsou zamcene
      *
      * @return List plny zamcenych prostoru
@@ -458,4 +495,22 @@ public class Prostor {
     public void setVymena(Vymena vymena) {
         this.vymena = vymena;
     }
+
+    /**
+     * Vraci pocet pruchodu mistnosti
+     *
+     * @return pocet pruchodu
+     */
+    public int getCounter() {
+        return counter;
+    }
+
+    /**
+     * prida pruchod
+     */
+    public void pridatPruchod() {
+        counter++;
+    }
+
+
 }

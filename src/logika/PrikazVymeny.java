@@ -6,7 +6,7 @@ package logika;
  * @author sBeran1
  */
 public class PrikazVymeny implements IPrikaz{
-
+    private int counter = 0; //pocita pouziti prikazu
     private static final String NAZEV = "vymena"; //nazev prikazu a jeho zneni pro pouziti
     private HerniPlan plan; //instance tridy Prostor
 
@@ -27,8 +27,9 @@ public class PrikazVymeny implements IPrikaz{
      */
     @Override
     public String provedPrikaz(String... parametry) {
+        counter++;
         if (plan.getAktualniProstor().getVymena() != null){
-            return plan.getAktualniProstor().getVymena().toString();
+            return plan.getAktualniProstor().getVymena().toString() + "\n" + plan.getAktualniProstor().dlouhyPopis();
         }
         return "tady nic nevymenis kamo";
     }
@@ -41,5 +42,15 @@ public class PrikazVymeny implements IPrikaz{
     @Override
     public String getNazev() {
         return NAZEV;
+    }
+
+    /**
+     * Vraci ciselnou hodnotu s poctem pouziti prikazu, pouzivano pro statistiky a nove vypisy
+     *
+     * @return pocet pouziti prikazu
+     */
+    @Override
+    public int getCounter() {
+        return counter;
     }
 }

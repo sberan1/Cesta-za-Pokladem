@@ -7,7 +7,7 @@ import java.text.Normalizer;
  * @author sBeran1
  */
 public class Vec {
-
+    private int counter = 0; //pocita, kolikrat jsi jednotlive instance videl
     private String nazev; //nazev veci ktery se bude zobrazovat a se kterym budeme v programu pracovat
 
     private boolean prenositelna; //nastavuje prenositelnost nebo-li moznost ulozit si vec do batohu
@@ -127,5 +127,21 @@ public class Vec {
         else{
             return 0;
         }
+    }
+
+    /**
+     * Vraci pocet videni veci
+     *
+     * @return videni veci
+     */
+    public int getCounter() {
+        return counter;
+    }
+
+    /**
+     * prida videni
+     */
+    public void pridatVideniVeci() {
+        counter++;
     }
 }

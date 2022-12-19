@@ -1,7 +1,9 @@
 package logika;
 
-
-
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  *  Class HerniPlan - třída představující mapu a stav adventury.
@@ -15,19 +17,43 @@ package logika;
  *@version    pro školní rok 2016/2017
  */
 public class HerniPlan {
-    
+    private boolean dlouhyVypis;
     private Prostor aktualniProstor; //prostor ve kterem se prave hrac nachazi
     private Prostor vyherniProstor; //prostor ve kterem hrac automaticky vyhraje
     private Prostor proherniProstor; //prostor ktery pro hrace ukonci hru
+    private List<Prostor> prostory = new ArrayList<>(); //kolekce se vsemi prostory ve hre
+    private List<Vec> veci = new ArrayList<>(); //kolekce se vsemi vecmi ve hre
     private Batoh batuzek = new Batoh(15); //zakladame instanci batohu s vybranou velikosti
     private int pocetZivotu = 100; //nastaveni defaultniho poctu zivotu
+    private SeznamPrikazu platnePrikazy;
+
     
      /**
      *  Konstruktor který vytváří jednotlivé prostory a propojuje je pomocí východů.
      *  Jako výchozí aktuální prostor nastaví halu.
      */
     public HerniPlan() {
+        platnePrikazy = new SeznamPrikazu();
         inicializaceProstoru();
+        dlouhyVypis = false;
+    }
+
+    /**
+     * Vraci informaci o tom, zda vypisovat dlouhy(aktualizovany) vypis s predmety, prostory a prikazy co hrac jeste nepouzil/nevidel
+     *
+     * @return t/f hodnotu, jestli vypisovat dlouhy(aktualizovany) vypis
+     */
+    public boolean isDlouhyVypis() {
+        return dlouhyVypis;
+    }
+
+    /**
+     * Dovoluje nam nastavit, jestli chceme pouzit rozsahly vypis nebo kratky vypis
+     *
+     * @param dlouhyVypis t/f hodnota s informaci o tom, zda chceme dlouhy vypis
+     */
+    public void setDlouhyVypis(boolean dlouhyVypis) {
+        this.dlouhyVypis = dlouhyVypis;
     }
 
     /**
@@ -116,33 +142,77 @@ public class HerniPlan {
         Prostor pastStodola = new Prostor("Stodola", "past", this);
         Prostor taboriste = new Prostor("Tábořiště", "Našel jsi opuštěné tábořiště, tak se tu kdyžtak zkus poohlédnout", this);
 
+        prostory.add(hory);
+        prostory.add(mesto);
+        prostory.add(stodola);
+        prostory.add(kostel);
+        prostory.add(dumKovare);
+        prostory.add(hospoda);
+        prostory.add(hlubokyLes);
+        prostory.add(pustina);
+        prostory.add(vesnice);
+        prostory.add(piratskaLod);
+        prostory.add(carodejovaVez);
+        prostory.add(tajnaPokladnice);
+        prostory.add(les);
+        prostory.add(taborak);
+        prostory.add(pastStodola);
+        prostory.add(taboriste);
+
+
         //zalozeni veci
         Vec mrtvaKrysa = new Vec("MrtváKrysa", true, true);
+        veci.add(mrtvaKrysa);
         Vec strepy = new Vec("Střepy", true, true);
+        veci.add(strepy);
         Vec barel = new Vec("Barel", false, true);
+        veci.add(barel);
         Vec lampa = new Vec("Lampa", false, true);
+        veci.add(lampa);
         Vec roba = new Vec("Róba", true, true);
+        veci.add(roba);
         Vec zezlo = new Vec("Žezlo", true, true);
+        veci.add(zezlo);
         Vec lavice = new Vec("Lavice", false, true);
+        veci.add(lavice);
         Vec klicKostel = new Vec("Klíč", true, false);
+        veci.add(klicKostel);
         Vec lektvarZivota = new Vec("LektvarŽivota", true, false, Pouzitelnosti.LEKTVAR, 100);
+        veci.add(lektvarZivota);
         Vec mec = new Vec("Meč", true, true);
+        veci.add(mec);
         Vec stul = new Vec("Stůl", false, true);
+        veci.add(stul);
         Vec nuz = new Vec("Nůž", true, true);
+        veci.add(nuz);
         Vec pullitr = new Vec("Půllitr", true, true);
+        veci.add(pullitr);
         Vec zidle = new Vec("Židle", false, true);
+        veci.add(zidle);
         Vec lahevAlkoholu = new Vec("LahevAlkoholu", true, true);
+        veci.add(lahevAlkoholu);
         Vec klacek = new Vec("Klacek", true, true);
+        veci.add(klacek);
         Vec kamen = new Vec("Kámen", true, true);
+        veci.add(kamen);
         Vec strom = new Vec("Strom", false, true);
+        veci.add(strom);
         Vec klicHlubokyLes = new Vec("Klíč", true, false);
+        veci.add(klicHlubokyLes);
         Vec stan = new Vec("Stan", false, true);
+        veci.add(stan);
         Vec klicTaboriste = new Vec("Klíč", true, false);
+        veci.add(klicTaboriste);
         Vec lektvarLes = new Vec("MalýLektvarŽivota", true, false, Pouzitelnosti.LEKTVAR, 50);
+        veci.add(lektvarLes);
         Vec nahrdelnik = new Vec("Náhrdelník", true, true);
+        veci.add(nahrdelnik);
         Vec parez = new Vec("Pařez", false, true);
+        veci.add(parez);
         Vec slama = new Vec("Sláma", true, true);
+        veci.add(slama);
         Vec seno = new Vec("Seno", true, true);
+        veci.add(seno);
 
         //zalozeni vymen
         Vymena vymenaVesnice = new Vymena("zvláštní kupec ti nabizi za LahevAlkoholu svůj nůž a kámen", "lahev", "tak to byla naprosto silena vymena, jak myslis, dostals kamen a nuz, uzivej");
@@ -172,6 +242,7 @@ public class HerniPlan {
         // přiřazují se průchody mezi prostory (sousedící prostory)
 
         //mesto setup
+        mesto.pridatPruchod();
         mesto.setVychod(hory);
         mesto.setVychod(les);
         mesto.setVychod(hlubokyLes);
@@ -180,9 +251,13 @@ public class HerniPlan {
         mesto.setVychod(dumKovare);
         mesto.setVychod(stodola);
         mesto.vlozVec(mrtvaKrysa);
+        mrtvaKrysa.pridatVideniVeci();
         mesto.vlozVec(strepy);
+        strepy.pridatVideniVeci();
         mesto.vlozVec(barel);
+        barel.pridatVideniVeci();
         mesto.vlozVec(lampa);
+        lampa.pridatVideniVeci();
 
         //kostel setup
         kostel.setVychod(mesto);
@@ -291,4 +366,38 @@ public class HerniPlan {
 
     }
 
+    public String vypisSeznamNeprojitychMistnosti(){
+        StringBuilder placeholder = new StringBuilder();
+        for(Prostor item : prostory){
+            if(item.getCounter() == 0){
+                placeholder.append(item.getNazev()).append(" ");
+            }
+        }
+        if (placeholder.isEmpty()){
+            return "Uz jsi prosel vsechno";
+        }
+        return placeholder.toString();
+    }
+
+    public String vypisSeznamNepotkanychVeci(){
+        StringBuilder placeholder = new StringBuilder();
+        for(Vec item : veci){
+            if(item.getCounter() == 0){
+                placeholder.append(item.getNazev()).append(" ");
+            }
+        }
+        if (placeholder.isEmpty()){
+            return "Uz jsi videl vsechno";
+        }
+        return placeholder.toString();
+    }
+
+    /**
+     * vraci modifikovatelnou kolekci platnych prikazu
+     *
+     * @return kolekci platnych prikazy
+     */
+    public SeznamPrikazu getPlatnePrikazy() {
+        return platnePrikazy;
+    }
 }
