@@ -47,9 +47,11 @@ public class PrikazSeber implements IPrikaz {
             Vec pozadovanaVec = aktualniProstor.vyberVeci(nazevVeci);
             if (pozadovanaVec == null){
                 return parametry[0] + " je moc tezka, tu neuneses";
-            } else if (!pozadovanaVec.isViditelna()) {
+            }
+            if (!pozadovanaVec.isViditelna()) {
                 return parametry[0] + " tu neni ty blazne";
-            } else {
+            }
+            else {
                 if (plan.getBatuzek().vlozVec(pozadovanaVec))
                 {
                 return "Sebral jsi " + pozadovanaVec.getNazev() +"\n"+ plan.getAktualniProstor().dlouhyPopis();

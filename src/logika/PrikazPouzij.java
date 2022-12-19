@@ -39,15 +39,16 @@ public class PrikazPouzij implements IPrikaz{
         for (var item : plan.getBatuzek().getObsah()) {
             if (Normalizer.normalize(parametry[0], Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "").equalsIgnoreCase(item.getNormalizedNazev()) && item.isPouzitelna()){
                 plan.getBatuzek().odeberVec(item.getNazev());
-                if (item.getTyp() == Pouzitelnosti.LEKTVAR){
+                if (item.getTyp() == Pouzitelnosti.LEKTVAR && plan.getPocetZivotu() <= 100) {
                     plan.uberZivoty(-item.getModifikator());
-                    if (plan.getPocetZivotu() > 100){
+                }
+                if (item.getTyp() == Pouzitelnosti.LEKTVAR && plan.getPocetZivotu() > 100){
                         plan.uberZivoty(plan.getPocetZivotu()-100);
                         return "Použil jsi " + item.getNazev() + "\n" + plan.getAktualniProstor().dlouhyPopis();
                     }
                 }
                 }
-                }
+
         return "bud to nemas v batohu nebo to nemuzes pouzit";
             }
 

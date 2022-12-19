@@ -61,11 +61,9 @@ public class PrikazVymen implements IPrikaz{
                         if (item.getClass().getName().equals("logika.Prostor")){
                             Prostor placeholder = (Prostor) item;
                             for (var prostor : placeholder.getVychody()){
-                                if (prostor.getZivotnost() == 999){
-
-                                }
-                                else {
+                                if (prostor.getZivotnost() != 999){
                                     prostor.nastavPast(prostor.getZivotnost()-1);
+
                                 }
                             }
                             plan.setAktualniProstor((Prostor) item);
@@ -112,5 +110,6 @@ public class PrikazVymen implements IPrikaz{
     public int getCounter() {
         return counter;
     }
+
 }
 

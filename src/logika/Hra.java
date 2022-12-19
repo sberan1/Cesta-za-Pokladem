@@ -1,6 +1,5 @@
 package logika;
 
-import java.util.Collections;
 
 /**
  *  Třída Hra - třída představující logiku adventury.

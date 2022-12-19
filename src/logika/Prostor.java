@@ -129,7 +129,7 @@ public class Prostor {
         StringBuilder seznam = new StringBuilder();
         for(Vec neco : veciVMistnosti){
             if (neco.isViditelna()){
-            seznam.append(" ").append(neco.getNazev());
+            seznam.append(' ').append(neco.getNazev());
             }
         }
         if (seznam.isEmpty()){
@@ -213,48 +213,44 @@ public class Prostor {
         if (plan.isDlouhyVypis()){
             if (getZamceneVychody().equals(""))
             {
-            return "Počet životů " + plan.getPocetZivotu() +"/100"+ "\n"
-                    + "Momentálně se nacházíš v prostoru: " + this.getNazev() + "\n"
-                    + "Věci v místnosti:" + seznamVeci() + "\n"
-                    + "Východy:" + getOdemceneVychody() + "\n"
-                    + "Aktuální předměty v batohu:" + plan.getBatuzek().getPredmetyVBatohu() + "\n"
-                    + "Kapacita batohu: " + plan.getBatuzek().getVelikostBatuzku() + "/15\n"
-                    + "Zatim nepouzite prikazy: " + seznamPrikazu.vypisSeznamNepouzitychPrikazu() + "\n"
-                    + "Zatim neprochazene prostory: " + plan.vypisSeznamNeprojitychMistnosti() + "\n"
-                    + "Zatim nevidene veci: " + plan.vypisSeznamNepotkanychVeci();
+            return vypisZacatek()
+                    + vypisKonec()
+                    + vypisSpecial(seznamPrikazu);
             }
-            return "Počet životů " + plan.getPocetZivotu() +"/100"+ "\n"
-                    + "Momentálně se nacházíš v prostoru: " + this.getNazev() + "\n"
-                    + "Věci v místnosti:" + seznamVeci() + "\n"
-                    + "Východy:" + getOdemceneVychody() + "\n"
+            return vypisZacatek()
                     + "Zamčené východy:" + getZamceneVychody() + "\n"
-                    + "Aktuální předměty v batohu:" + plan.getBatuzek().getPredmetyVBatohu() + "\n"
-                    + "Kapacita batohu: " + plan.getBatuzek().getVelikostBatuzku() + "/15\n"
-                    + "Zatim nepouzite prikazy: " + seznamPrikazu.vypisSeznamNepouzitychPrikazu() + "\n"
-                    + "Zatim neprochazene prostory: " + plan.vypisSeznamNeprojitychMistnosti() + "\n"
-                    + "Zatim nevidene veci: " + plan.vypisSeznamNepotkanychVeci();
+                    + vypisKonec()
+                    + vypisSpecial(seznamPrikazu);
 
         }
         if (getZamceneVychody().equals(""))
         {
-           return "Počet životů " + plan.getPocetZivotu() +"/100"+ "\n"
-                    + "Momentálně se nacházíš v prostoru: " + this.getNazev() + "\n"
-                    + "Věci v místnosti:" + seznamVeci() + "\n"
-                    + "Východy:" + getOdemceneVychody() + "\n"
-                    + "Aktuální předměty v batohu:" + plan.getBatuzek().getPredmetyVBatohu() + "\n"
-                    + "Kapacita batohu: " + plan.getBatuzek().getVelikostBatuzku() + "/15";
+           return vypisZacatek()
+                    + vypisKonec();
         }
 
-        return  "Počet životů " + plan.getPocetZivotu() +"/100"+ "\n"
+        return  vypisZacatek() +
+                 "Zamčené východy:" + getZamceneVychody() + "\n"
+                + vypisKonec();
+    }
+
+    private String vypisZacatek(){
+       return "Počet životů " + plan.getPocetZivotu() +"/100"+ "\n"
                 + "Momentálně se nacházíš v prostoru: " + this.getNazev() + "\n"
                 + "Věci v místnosti:" + seznamVeci() + "\n"
-                + "Východy:" + getOdemceneVychody() + "\n"
-                + "Zamčené východy:" + getZamceneVychody() + "\n"
-                + "Aktuální předměty v batohu:" + plan.getBatuzek().getPredmetyVBatohu() + "\n"
+                + "Východy:" + getOdemceneVychody() + "\n";
+    }
+    private String vypisKonec(){
+        return "Aktuální předměty v batohu:" + plan.getBatuzek().getPredmetyVBatohu() + "\n"
                 + "Kapacita batohu: " + plan.getBatuzek().getVelikostBatuzku() + "/15";
     }
 
+    private String vypisSpecial(SeznamPrikazu seznamPrikazu){
+        return "\n" + "Zatim nepouzite prikazy: " + seznamPrikazu.vypisSeznamNepouzitychPrikazu() + "\n"
+                + "Zatim neprochazene prostory: " + plan.vypisSeznamNeprojitychMistnosti() + "\n"
+                + "Zatim nevidene veci: " + plan.vypisSeznamNepotkanychVeci();
 
+    }
     /**
      * Vrací prostor, který sousedí s aktuálním prostorem a jehož název je zadán
      * jako parametr. Pokud prostor s udaným jménem nesousedí s aktuálním
@@ -285,7 +281,7 @@ public class Prostor {
         StringBuilder pomoc = new StringBuilder();
         for (var item : vychody){
             if (!item.getStav() && item.zivotnost > 0 && item.isViditelny()){
-            pomoc.append(" ").append(item.getNazev());
+            pomoc.append(' ').append(item.getNazev());
             }
         }
         if (vychody.isEmpty()){
@@ -303,7 +299,7 @@ public class Prostor {
         StringBuilder pomoc = new StringBuilder();
         for (var item : vychody){
             if (item.getStav() && item.zivotnost > 0 && item.isViditelny()){
-                pomoc.append(" ").append(item.getNazev());
+                pomoc.append(' ').append(item.getNazev());
             }
         }
         return pomoc.toString();
@@ -409,7 +405,7 @@ public class Prostor {
      *
      * @return List plny neviditelnych prostoru
      */
-    public ArrayList<Prostor> schovaneProstory(){
+    public List<Prostor> schovaneProstory(){
         ArrayList<Prostor> mistni = new ArrayList<>();
         for (var item : vychody){
             if (!item.isViditelny()){
@@ -424,7 +420,7 @@ public class Prostor {
      *
      * @return List s vecmi, ktere v mistnosti nejdou videt
      */
-    public ArrayList<Vec> getSchovaneVeci() {
+    public List<Vec> getSchovaneVeci() {
         ArrayList<Vec> mistniList = new ArrayList<>();
         for (var item : veciVMistnosti){
             if (!item.isViditelna()){

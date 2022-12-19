@@ -1,6 +1,8 @@
 package logika;
 
 import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Trida Vymena - trida pro realizaci vymen, ktera nam dovoluje vytvaret v kodu vymeny
  *
@@ -8,8 +10,8 @@ import java.util.ArrayList;
  */
 public class Vymena {
     private String popisVymeny; //popis ktery se zobrazi hraci pri pouziti prikazu Vymeny
-    private ArrayList<Vec> ocekavaneVeci= new ArrayList<>(); //list veci ktere prikaz prijma
-    private ArrayList<Object> navratoveHodnoty = new ArrayList<>(); //list objektu, ktere budou navrat
+    private ArrayList<Vec> ocekavaneVeci; //list veci ktere prikaz prijma
+    private ArrayList<Object> navratoveHodnoty; //list objektu, ktere budou navrat
     private String kratkyNazev; //kratky nazev pouzivany k vyvolani prikazu
     private Object trestZaNesplneni; //co se ma stat, pokud hrac nebude mit dostupne objekty
     private String textKZobrazeni; //text k zobrazeni po uspesne vymene
@@ -28,6 +30,8 @@ public class Vymena {
         this.textKZobrazeni = textKZobrazeni;
         this.trestZaNesplneni = null;
         odemceniMistnosti = new Prostor[2];
+        ocekavaneVeci = new ArrayList<>();
+        navratoveHodnoty = new ArrayList<>();
     }
 
     /**
@@ -54,7 +58,7 @@ public class Vymena {
      *
      * @return kopii listu s ocekavanymi vecmi
      */
-    public ArrayList<Vec> getOcekavaneVeci() {
+    public List<Vec> getOcekavaneVeci() {
         return (ArrayList<Vec>) ocekavaneVeci.clone();
     }
 
@@ -63,7 +67,7 @@ public class Vymena {
      *
      * @return kopii listu s vracenymi objekty
      */
-    public ArrayList<Object> getNavratoveHodnoty() {
+    public List<Object> getNavratoveHodnoty() {
         return (ArrayList<Object>) navratoveHodnoty.clone();
     }
 

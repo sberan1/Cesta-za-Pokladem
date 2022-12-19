@@ -68,7 +68,7 @@ public class Batoh {
     public String getPredmetyVBatohu(){
         StringBuilder predmety = new StringBuilder();
         for (var item : obsah) {
-            predmety.append(" ").append(item.getNazev());
+            predmety.append(' ').append(item.getNazev());
         }
         if (predmety.toString().equals("")){
             return " V batohu nemáš nic";

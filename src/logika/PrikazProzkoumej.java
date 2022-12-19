@@ -35,12 +35,12 @@ public class PrikazProzkoumej implements IPrikaz{
             StringBuilder navratovaHodnota = new StringBuilder();
             for (var item : plan.getAktualniProstor().schovaneProstory()) {
                 item.setViditelnost(true);
-                navratovaHodnota.append(" ").append(item.getNazev());
+                navratovaHodnota.append(' ').append(item.getNazev());
             }
             for (var item : plan.getAktualniProstor().getSchovaneVeci()) {
                 item.setViditelna(true);
                 item.pridatVideniVeci();
-                navratovaHodnota.append(" ").append(item.getNazev());
+                navratovaHodnota.append(' ').append(item.getNazev());
             }
             if (navratovaHodnota.isEmpty()){
                 return "V místnosti " + plan.getAktualniProstor().getNazev() + " jsi nenašel nic" + "\n" + plan.getAktualniProstor().dlouhyPopis();

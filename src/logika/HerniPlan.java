@@ -1,9 +1,8 @@
 package logika;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+
 
 /**
  *  Class HerniPlan - třída představující mapu a stav adventury.
@@ -370,7 +369,7 @@ public class HerniPlan {
         StringBuilder placeholder = new StringBuilder();
         for(Prostor item : prostory){
             if(item.getCounter() == 0){
-                placeholder.append(item.getNazev()).append(" ");
+                placeholder.append(item.getNazev()).append(' ');
             }
         }
         if (placeholder.isEmpty()){
@@ -383,7 +382,7 @@ public class HerniPlan {
         StringBuilder placeholder = new StringBuilder();
         for(Vec item : veci){
             if(item.getCounter() == 0){
-                placeholder.append(item.getNazev()).append(" ");
+                placeholder.append(item.getNazev()).append(' ');
             }
         }
         if (placeholder.isEmpty()){
