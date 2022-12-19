@@ -1,0 +1,208 @@
+<?xml version="1.0"?>
+
+<ruleset name="Favorites" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../etc/ruleset_xml_schema.xml">
+  <description>
+	Seznam pravidel používaný na VŠE pro kontrolovu konvencí a pro upozornění na
+	problematické konstrukce v kódu.
+  </description>
+
+  <rule ref="category/java/errorprone.xml/EmptyCatchBlock" message="Nepoužívejte prázdné bloky 'catch'"> </rule>
+  <rule ref="category/java/errorprone.xml/EmptyIfStmt" message="Nepoužívejte prázdné bloky 'if'"> </rule>
+  <rule ref="category/java/errorprone.xml/EmptyWhileStmt" message="Nepoužívejte prázdné cykly 'while'"> </rule>
+  <rule ref="category/java/errorprone.xml/EmptyTryBlock" message="Nepoužívejte prázdné bloky 'try'"> </rule>
+  <rule ref="category/java/errorprone.xml/EmptyFinallyBlock" message="Nepoužívejte prázdné bloky 'finally'"> </rule>
+  <rule ref="category/java/errorprone.xml/EmptySwitchStatements" message="Nepoužívejte prázdné příkazy 'switch'"> </rule>
+  <rule ref="category/java/errorprone.xml/JumbledIncrementer" message="Nepoužívejte iterační proměnnou vnějšího cyklu v podmínce vnitřního cyklu"> </rule>
+  <rule ref="category/java/codestyle.xml/ForLoopShouldBeWhileLoop" message="Tento cyklus 'for' by byl přehlednějši jako 'while'"> </rule>
+  <rule ref="category/java/errorprone.xml/UnnecessaryConversionTemporary" message="Primitivní datové typy převádějte na String přes konstrukci typu Integer.toString(x)"> </rule>
+  <rule ref="category/java/errorprone.xml/OverrideBothEqualsAndHashcode" message="Postarejte se, aby vždy byly překryty obě metody hashCode() a equals()"> </rule>
+  <rule ref="category/java/multithreading.xml/DoubleCheckedLocking" message="Dvakrát kontrolovaná podmínka není v Javě pro vlákna bezpečná"> </rule>
+  <rule ref="category/java/errorprone.xml/ReturnFromFinallyBlock" message="V bloku 'finnaly' nepoužívejte příkaz 'return' - ztracejí se výjimky."> </rule>
+  <rule ref="category/java/errorprone.xml/EmptySynchronizedBlock" message="Nepoužívejte prázdné synchronizační bloky"> </rule>
+  <rule ref="category/java/codestyle.xml/UnnecessaryReturn" message="Na tomto místě je příkaz return zbytečný"> </rule>
+  <rule ref="category/java/errorprone.xml/UnconditionalIfStatement" message="Nepoužívejte příkaz 'if' pokud výsledek podmínky je vždy true či false"> </rule>
+  <rule ref="category/java/errorprone.xml/EmptyStatementNotInLoop" message="Za ukončovací složenou závorkou nemusí být uveden středník."> </rule>
+  <rule ref="category/java/performance.xml/BooleanInstantiation" message="Nevytvářejte instance třídy Boolean; většinou je výhodnější použít metodu Boolean.valueOf()."> </rule>
+  <rule ref="category/java/design.xml/CollapsibleIfStatements" message="Doporučujeme spojit dva příkazy if do jednoho - spojte podmínky."> </rule>
+  <rule ref="category/java/design.xml/UselessOverridingMethod" message="Zbytečné přetěžování metody předka."> </rule>
+  <rule ref="category/java/errorprone.xml/AvoidDecimalLiteralsInBigDecimalConstructor" message="Nevytvářejte instance BigDecimal s konstantou typu double ci float. Použijte String."> </rule>
+  <rule ref="category/java/errorprone.xml/UselessOperationOnImmutable" message="Operace na neměnných objektech (BigDecimal, BigInteger, ...) nemění obsah objektu - výsledek přiřaďte."> </rule>
+  <rule ref="category/java/errorprone.xml/MisplacedNullCheck" message="Chybně umístěna kontrola na null; před provedením kontroly vznikne NullPointerException."> </rule>
+  <rule ref="category/java/errorprone.xml/UnusedNullCheckInEquals" message="Porovnání na hodnotu není nutné uvádět, kontrola se provede uvnitř metody equals."></rule>
+  <rule ref="category/java/multithreading.xml/AvoidThreadGroup" message="Nepoužívejte ThreadGroup, nemá vláknově bezpečné metody."> </rule>
+  <rule ref="category/java/errorprone.xml/BrokenNullCheck" message="Kontrola na null není dostatečná, stále může vzniknout NullPointerException (pravděpodobně záměna || a &amp;&amp;).."> </rule>
+  <rule ref="category/java/performance.xml/BigIntegerInstantiation" message="Nevytvářejte instance již existujících hodnot (ZERO, ONE, TEN)."> </rule>
+  <rule ref="category/java/errorprone.xml/AvoidUsingOctalValues" message="Nepoužívejte číselné konstanty začínající 0. Jsou interpretovány jako oktalové."> </rule>
+  <rule ref="category/java/errorprone.xml/AvoidMultipleUnaryOperators" message="Více unárních operátorů za sebou je pravděpodobně chyba (minimálně je to nepřehledné)."> </rule>
+  <rule ref="category/java/errorprone.xml/EmptyInitializer" message="Prázdný inicializační blok je zbytečný"></rule>
+  <rule ref="category/java/multithreading.xml/DontCallThreadRun" message="Pro spuštění vlánka nevolejte metodu run(), ale metodu start()."></rule>
+  
+  <rule ref="category/java/codestyle.xml/IfStmtsMustUseBraces" message="Nepoužívejte příkaz 'if' bez složených závorek"> </rule>
+  <rule ref="category/java/codestyle.xml/WhileLoopsMustUseBraces" message="Nepoužívejte příkaz 'while' bez složených závorek"> </rule>
+  <rule ref="category/java/codestyle.xml/IfElseStmtsMustUseBraces" message="Nepoužívejte větev 'else' bez složených závorek"> </rule>
+  <rule ref="category/java/codestyle.xml/ForLoopsMustUseBraces" message="Nepoužívejte příkaz 'for' bez složených závorek"> </rule>
+  
+  <rule ref="category/java/errorprone.xml/ProperCloneImplementation" message="Metoda clone() by měla obsahovat voláni super.clone()"> </rule>
+  <rule ref="category/java/errorprone.xml/CloneThrowsCloneNotSupportedException" message="Metoda clone() by měla podporovat/vytvářet výjimku CloneNotSupportedException"> </rule>
+  <rule ref="category/java/errorprone.xml/CloneMethodMustImplementCloneable" message="Metoda clone() by se měla používat pouze, pokud se implementuje rozhraní Cloneable"> </rule>
+
+  <rule ref="category/java/design.xml/NPathComplexity" message="Různých cest průchodu metodou ''{0}()'' je {1}, doporučený limit je 200 (NPath complexity)."> </rule>
+  <rule ref="category/java/design.xml/ExcessiveMethodLength" message="Metoda má příliš mnoho řádek (limit=100).">
+    <properties>
+        <property name="minimum" value="100"/>
+    </properties>  
+  </rule>
+  <rule ref="category/java/design.xml/ExcessiveParameterList" message="Nepoužívejte metody, které mají příliš mnoho parametrů (limit=10)."> </rule>
+  <rule ref="category/java/design.xml/ExcessiveClassLength" message="Tato třída má příliš mnoho řádek, zkuste ji rozdělit (limit=1000).">
+  </rule>
+  <rule ref="category/java/design.xml/CyclomaticComplexity" message = "{0} ''{1}'' je příliš složitá (Cyclomatic Complexity je {2}).">
+      <properties>
+      <property name="reportLevel" description="The Cyclomatic Complexity reporting threshold"  value="15"/>
+      </properties>
+  </rule>
+
+  <rule ref="category/java/design.xml/ExcessivePublicCount" message="Příliš vysoký počet veřejných metod a datových atributů objektu (limit=45)."> </rule>
+  <rule ref="category/java/design.xml/TooManyFields" message="Příliš mnoho datových atributů (limit=20).">
+      <properties>
+       <property name="maxfields" value="20"/>
+      </properties>
+  </rule>
+  <rule ref="category/java/design.xml/NcssMethodCount" message="Metoda {0}() má příliš mnoho příkazů: {1} (limit=50)."> 
+    <properties>
+        <property name="minimum" value="50"/>
+    </properties>  
+  </rule>
+	<rule ref="category/java/design.xml/NcssTypeCount" message="Třída má příliš mnoho příkazů: {0} (limit=800).">
+    <properties>
+        <property name="minimum" value="800"/>
+    </properties>  
+	</rule>
+	<rule ref="category/java/design.xml/NcssConstructorCount" message="Konstruktor se {0} parametry má příliš mnoho příkazů: {1} (limit=50)">
+    <properties>
+        <property name="minimum" value="50"/>
+    </properties>
+	</rule>
+  <rule ref="category/java/design.xml/TooManyMethods" message="Metoda má příliš mnoho metod (limit=15)."> 
+	    <properties>
+          <property name="maxmethods" value="15"/>
+		</properties>
+  </rule>
+
+  <rule ref="category/java/design.xml/CouplingBetweenObjects" message="Velký počet různých typů datových atributů je příznakem přilišné závislosti třídy na jiných."> </rule>
+  <rule ref="category/java/design.xml/ExcessiveImports" message="Velký počet importů je příznakem přílišné závislosti třídy na jiných."> </rule>
+  <rule ref="category/java/bestpractices.xml/LooseCoupling" message="Pro označeni typu proměnné nepoužívejte konkretní třídu ''{0}''; vhodnějši je použít rozhraní (interface)."> </rule>
+
+  <!-- <rule ref="rulesets/design.xml/UseSingleton" message="All methods are static.  Consider using Singleton instead.  Alternatively, you could add a private constructor or make the class abstract to silence this warning."> </rule> -->
+  <rule ref="category/java/design.xml/SimplifyBooleanReturns" message="Příkaz if..then..else je zbytečný pokud se uvnitř pouze vrací hodnota boolean."> </rule>
+  <rule ref="category/java/design.xml/SimplifyBooleanExpressions" message="Vyhněte se zbytečnému porovnávání booleovských výrazů."> </rule>
+  <rule ref="category/java/bestpractices.xml/SwitchStmtsShouldHaveDefault" message="Příkaz 'switch' by měl obsahovat návěští 'default'."> </rule>
+  <rule ref="category/java/design.xml/AvoidDeeplyNestedIfStmts"  message="Mnoho vnořených příkazů if..then se špatně čte."> </rule>
+  <rule ref="category/java/bestpractices.xml/AvoidReassigningParameters" message="Přiřazování nové hodnoty do parametru ''{0}'' je problematické. Použijte lokální proměnné."> </rule>
+  <rule ref="category/java/design.xml/SwitchDensity" message="V příkazu 'switch' je velké množství příkazů za návěštími. Zkuste refaktorovat."> </rule>
+  <rule ref="category/java/errorprone.xml/ConstructorCallsOverridableMethod" message="Z konstruktoru nevolejte metody, ktere je možné překrýt v potomkovi."> </rule>
+  <rule ref="category/java/bestpractices.xml/AccessorClassGeneration" message="Nevytvářejte instance tříd s privátním konstrukterem z vnitřních tříd."> </rule>
+  <rule ref="category/java/design.xml/FinalFieldCouldBeStatic" message="Datový atribut final by měl být většinou i static - ušetří se místo v paměti."> </rule>
+  <rule ref="category/java/errorprone.xml/CloseResource" message="Zajistěte, aby se objekt {0} z SQL po použití vždy uzavíral (zavolala metoda close() )."> </rule>
+  <rule ref="category/java/errorprone.xml/NonStaticInitializer" message="Vyhněte se používání nestatických inicializačních bloku."> </rule>
+  <rule ref="category/java/bestpractices.xml/DefaultLabelNotLastInSwitchStmt" message="V příkazu 'switch' by návěští 'default' mělo být poslední."> </rule>
+  <rule ref="category/java/errorprone.xml/NonCaseLabelInSwitchStatement" message="Uvnitř příkazu switch by neměla být umístěna návěští pro skoky."> </rule>
+  <!-- <rule ref="rulesets/design.xml/OptimizableToArrayCall" message="This call to Collection.toArray() may be optimizable"> </rule> -->
+  <rule ref="category/java/errorprone.xml/BadComparison" message="Porovnávání s hodnotou Double.NaN je obvykle logickou chybou návrhu."> </rule>
+  <rule ref="category/java/errorprone.xml/EqualsNull" message="Pro porovnáváni s hodnotout null nepoužívejte equals()"> </rule>
+  <rule ref="category/java/codestyle.xml/ConfusingTernary" message="V příkazu if (x != y) ..; else ..; otočte podmínku a bloky, aby byl čitelnější."> </rule>
+  <rule ref="category/java/errorprone.xml/InstantiationToGetClass" message="Většinou je vhodnější pro vytváření instancí používat člen .class než metodu getClass()"> </rule>
+  <rule ref="category/java/errorprone.xml/IdempotentOperations" message="Vyhněte se idempotentním (zbytečným) operacím (např. x = x)"> </rule>
+  <rule ref="category/java/errorprone.xml/SimpleDateFormatNeedsLocale" message="Při vytváření instance SimpleDateFormat je potřeba specifikovat Locale"> </rule>
+  <!-- <rule ref="rulesets/design.xml/ImmutableField" message="Private field could be made final.  It is only initialized in the declaration or constructor."> </rule> -->
+  <!-- <rule ref="rulesets/design.xml/UseLocaleWithCaseConversions" message="Pri pouzivani metod String.toLowerCase()/toUpperCase() pouzivejte Locale (nastaveni vhodneho narodniho prostredi)"> </rule> -->
+  <rule ref="category/java/codestyle.xml/AvoidProtectedFieldInFinalClass" message="Používání modifikátoru 'protected' ve třídách označených 'final' nemá význam."> </rule>
+  <rule ref="category/java/errorprone.xml/MissingStaticMethodInNonInstantiatableClass" message="Třída má privátní konstruktor a žádnou statickou metodu či statickou konstantu. Nelze použít."> </rule>
+  <rule ref="category/java/design.xml/SimplifyConditional" message="Test na hodnotu null je zbytečný, provádí ho též použitý operátor instanceof"> </rule>
+  <rule ref="category/java/errorprone.xml/CompareObjectsWithEquals" message="Pro porovnání referečních typů používejte equals() a ne ==."> </rule>
+  <rule ref="category/java/codestyle.xml/UnnecessaryLocalBeforeReturn" message="Zbytečné přiřazení do lokalní proměnné ''{0}'' před zavoláním příkazu return."> </rule>
+  <rule ref="category/java/documentation.xml/UncommentedEmptyMethodBody" message="Pokud prázdnou metodu potřebujete, doplňte do ní komentář, proč je prázdná."> </rule>
+  <rule ref="category/java/documentation.xml/UncommentedEmptyConstructor"  message="Pokud prázdný konstruktor potřebujete, doplňte do něj komentář, proč je prázdný."> </rule>
+  <rule ref="category/java/bestpractices.xml/PreserveStackTrace"  message="Při vytváření nové výjimky v bloku catch by se měla předat odchycená výjimka jako parametr."> </rule>
+  <rule ref="category/java/bestpractices.xml/UseCollectionIsEmpty" message="Místo porovnání size() == 0 (či size() != 0) použijte metodu isEmpty()"> </rule>
+  <rule ref="category/java/design.xml/ClassWithOnlyPrivateConstructorsShouldBeFinal" message="Třída s privátním konstruktorem by měla být označena final."> </rule>
+  <rule ref="category/java/design.xml/SingularField" message="Datový atribut ''{0}'' se používá pouze v jedné metodě. Pravděpodobně se může změnit na lokální proměnnou metody.">
+	<properties>
+		<property name="disallowNotAssignment" value="true" description="Disallow violations where the first usage is not an assignment"/>
+	</properties>
+   </rule>
+  <rule ref="category/java/errorprone.xml/ReturnEmptyArrayRatherThanNull" message="Vhodnější je vracet prázdné pole než hodnotu null."> </rule>
+
+  <rule ref="category/java/errorprone.xml/EmptyFinalizer" message="Prázdné metody finalize() nemají smysl"> </rule>
+  <rule ref="category/java/errorprone.xml/FinalizeOnlyCallsSuperFinalize" message="Metoda finalize() by neměla pouze volat super.finalize()"> </rule>
+  <rule ref="category/java/errorprone.xml/FinalizeOverloaded"  message="Metoda finalize() by se neměla přetěžovat"> </rule>
+  <rule ref="category/java/errorprone.xml/FinalizeDoesNotCallSuperFinalize" message="Posledním příkazem metody finalize() by mělo být volání super.finalize()"> </rule>
+  <rule ref="category/java/errorprone.xml/AvoidCallingFinalize" message="Metoda finalize() by se neměla přímo volat (volá ji Garbage Collector)"> </rule>
+  <rule ref="category/java/errorprone.xml/FinalizeShouldBeProtected" message="Metoda finalize() by měla být přístupná potomkům (tj. protected)"> </rule>
+
+  <rule ref="category/java/codestyle.xml/DuplicateImports" message="Vyvarujte se duplicitním importům jako ''{0}''"> </rule>
+  <rule ref="category/java/codestyle.xml/DontImportJavaLang" message="Není vhodné importovat z balíčku 'java.lang'"> </rule>
+  <rule ref="category/java/bestpractices.xml/UnusedImports" message="Zrušte nevyužité importy jako ''{0}''"> </rule>
+  <rule ref="category/java/errorprone.xml/ImportFromSamePackage" message="Není potřeba importovat třídy/rozhraní ze stejného balíčku."> </rule>
+  <rule ref="category/java/codestyle.xml/TooManyStaticImports" message="Příliš mnoho (>4) statických importů vede k nepřehlednému kódu."> </rule>
+
+  <rule ref="category/java/errorprone.xml/JUnitStaticSuite" message="Metoda suite() není public static, takže ji nelze v testech JUnit zavolat."> </rule>
+  <rule ref="category/java/errorprone.xml/JUnitSpelling" message="Název metody se příliš podobá metodám setUp a tearDown z JUnit."> </rule>
+  <!-- <rule ref="rulesets/junit.xml/JUnitAssertionsShouldIncludeMessage" message="Pri volani metod assert* z JUnit je vhodne uvadet zpravu popisujici chybu."> </rule> -->
+  <rule ref="category/java/bestpractices.xml/JUnitTestsShouldIncludeAssert" message="Testy JUnit by měly obsahovat volání assert...() ci fail()"> </rule>
+  <rule ref="category/java/errorprone.xml/TestClassWithoutTestCases" message="Jméno třídy evokuje JUnit testy a přitom neobsahuje testy. Změňte jméno třídy či doplňte testy."> </rule>
+  <rule ref="category/java/bestpractices.xml/UseAssertEqualsInsteadOfAssertTrue" message="Pro porovnání hodnot použijte assertEquals a ne assertTrue či assertFalse s metodou equals."> </rule>
+  <rule ref="category/java/bestpractices.xml/UseAssertSameInsteadOfAssertTrue" message="Pro porovnání identity použijte assertSame a ne assertTrue či assertFalse se ==."> </rule>
+  <rule ref="category/java/bestpractices.xml/UseAssertNullInsteadOfAssertTrue" message="Pro test na hodnotu null použijte assertNull či assertNotNull a ne assertTrue či assertFalse."> </rule>
+  <rule ref="category/java/codestyle.xml/LongVariable" message="Nepoužívejte dlouhé názvy proměnných jako ''{0}'' (limit=20).">
+    <properties>
+        <property name="minimum" value="20" />
+    </properties>
+</rule>
+  <rule ref="category/java/codestyle.xml/ShortVariable" message="Nepoužívejte krátké názvy proměnných jako ''{0}'' (minimum=3)."> </rule>
+  <rule ref="category/java/codestyle.xml/ShortMethodName" message="Nepoužívejte krátké názvy metod (minimum=3)."> </rule>
+  <!-- <rule ref="rulesets/naming.xml/VariableNamingConventions" message="{0} variable {1} should begin with {2}"> </rule> -->
+  <rule ref="category/java/codestyle.xml/MethodNamingConventions" message="Název metody nezačíná malým písmenem."> </rule>
+  <rule ref="category/java/codestyle.xml/ClassNamingConventions" message="Jméno třídy by mělo začínat velkým písmenem."> </rule>
+  <rule ref="category/java/codestyle.xml/AbstractNaming" message="Jméno abstraktní třídy by mělo být dle vzoru 'AbstractXXX'"> </rule>
+  <rule ref="category/java/codestyle.xml/AvoidDollarSigns" message="Nepoužívejte znak dolaru ve jménu proměnné/metody/třídy/rozhraní"> </rule>
+  <rule ref="category/java/errorprone.xml/MethodWithSameNameAsEnclosingClass" message="Třídy by neměly mít metody se stejným názvem jako jméno třídy - neplatí pro konstruktory."> </rule>
+  <rule ref="category/java/errorprone.xml/SuspiciousHashcodeMethodName" message="Název metody se příliš podobá metodě hasCode()."> </rule>
+  <rule ref="category/java/codestyle.xml/SuspiciousConstantFieldName" message="Jméno proměnné vypadá jako konstanta, ale nemá příslušné modifikátory (final, static)"> </rule>
+  <rule ref="category/java/codestyle.xml/SuspiciousConstantFieldName" message="Hlavička metody se příliě podobá metodě equals(Object o)."> </rule>
+  <rule ref="category/java/codestyle.xml/PackageCase" message="Jméno balíčku nemá obsahovat velká písmena."> </rule>
+  
+  <rule ref="category/java/errorprone.xml/AvoidCatchingThrowable" message="Při specifikaci odchytávaných výjimek by se neměl používat předek Throwable"> </rule>
+  <rule ref="category/java/design.xml/SignatureDeclareThrowsException" message="V hlavičce konstruktoru či metody by se neměla vyhazovat výjimka Exception, ale konkretní potomek"> </rule>
+  <rule ref="category/java/design.xml/ExceptionAsFlowControl" message="Nepoužívejte výjimky pro řízeni běhu programu"> </rule>
+  <rule ref="category/java/errorprone.xml/AvoidCatchingNPE" message="Neodchytávejte NullPointerException; upravte kód tak, aby tato výjimka nenastala."> </rule>
+  <rule ref="category/java/design.xml/AvoidThrowingRawExceptionTypes" message="Vyhněte se vyvolávání obecných výjimek či NullPointerException."> </rule>
+  <rule ref="category/java/design.xml/AvoidThrowingNullPointerException" message="Nevytvářejte NullPointerException, vhodnější je použít IllegalArgumentException."> </rule>
+  <rule ref="category/java/design.xml/DoNotExtendJavaLangError" message="Nevytvářejte potomky java.lang.Error."> </rule>
+  <rule ref="category/java/errorprone.xml/DoNotThrowExceptionInFinally" message="Nevyvolávejte výjimky v bloku finally, obtížně se poté sleduje průběh programu."> </rule>
+  <rule ref="category/java/design.xml/AvoidCatchingGenericException" message="Neodchytávejte obecné výjimky jako Exception či RuntimeException."> </rule>
+
+  <rule ref="category/java/errorprone.xml/AvoidDuplicateLiterals" message="Řetězec {0} je v souboru {1} krát; první výskyt je na řádku {2}. Použijte pojmenovanou konstantu.">
+   <properties>
+    <property name="maxDuplicateLiterals" description="The number of duplicate literals reporting threshold" value="4"/>
+    <property name="skipAnnotations" description="Skip literals within Annotations" value="false"/>
+    <property name="exceptionList" description="Strings in that list are skipped"/>
+    <property name="separator" description="Separator used in the exceptionlist" value=","/>
+   </properties>
+  </rule>
+  <rule ref="category/java/performance.xml/StringInstantiation" message="Obvykle je zbytečné vytvářet instance třídy String pomocí konstruktoru."> </rule>
+  <rule ref="category/java/performance.xml/StringToString" message="Nevolejte metodu toString() u instance třídy String; je to zbytečné."> </rule>
+  <rule ref="category/java/performance.xml/InefficientStringBuffering" message="Nespojujte řetězce pomocí + v konstruktoru třídy StringBuffer (a StringBuilder) či v metodě append těchto tříd."> </rule>
+  <rule ref="category/java/errorprone.xml/UnnecessaryCaseChange" message="Zbytečný převod na malá/velká písmena - pro porovnání je vhodnější použít String.equalsIgnore() než String.toUpperCase().equals()."> </rule>  
+  <rule ref="category/java/errorprone.xml/UseEqualsToCompareStrings" message="Pro porovnání obsahu řetězců použijte equals(), nepoužívejte ''=='' ci ''!=''."> </rule>  
+  <rule ref="category/java/performance.xml/AppendCharacterWithChar" message="Pokud chcete přidat jeden znak, napište ho jako char a ne jako String"> </rule>
+  
+ <!-- <rule ref="rulesets/sunsecure.xml/MethodReturnsInternalArray" message="Nevracejte primo vnitrni pole ''{0}'', vratte kopii pole."> </rule> -->
+
+  <rule ref="category/java/bestpractices.xml/UnusedPrivateField" message="Privátní proměnná ''{0}'' není nikde v kódu použita"> </rule>
+  <rule ref="category/java/bestpractices.xml/UnusedLocalVariable" message="Lokální proměnná ''{0}'' není nikde v metodě použita"> </rule>
+  <rule ref="category/java/bestpractices.xml/UnusedPrivateMethod" message="Vyhněte se vytváření privátních metod, které nejsou nikde použity jako ''{0}''"> </rule>
+  <rule ref="category/java/bestpractices.xml/UnusedFormalParameter" message="Nedeklarujte formalní parametry metody jako ''{1}'', které poté v metodě nepoužijete."> </rule>
+
+</ruleset>
+
