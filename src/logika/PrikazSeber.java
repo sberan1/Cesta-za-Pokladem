@@ -56,6 +56,7 @@ public class PrikazSeber implements IPrikaz {
                 {
                 return "Sebral jsi " + pozadovanaVec.getNazev() +"\n"+ plan.getAktualniProstor().dlouhyPopis();
                 }
+                plan.getAktualniProstor().vlozVec(pozadovanaVec);
                 return "Tam už se nic nevejde hele";
             }
         }
