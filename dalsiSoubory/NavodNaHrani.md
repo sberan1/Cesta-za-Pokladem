@@ -35,3 +35,5 @@ Odkaz ke stahnuti: https://www.oracle.com/java/technologies/javase/jdk19-archive
 - jdi - pokud vidíš místnost, která s místností, ve které jsi, sousedí, tak do ní můžeš jít zadáním příkazu `jdi [nazev mistnosti]`
 - seber - pokud vidíš v místnosti předmět co by se ti líbil, tak ho můžeš sebrat zadáním příkazu `seber [nazev predmetu]`
 - konec - jestli tě už hra nebaví, tak ji tímto příkazem ukončíš
+- ulož - dovolí uložit hru do speciálního souboru
+- načti - dovolí ze speciálního souboru hru načíst

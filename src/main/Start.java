@@ -26,7 +26,7 @@ public class Start
             TextoveRozhrani ui = new TextoveRozhrani(hra);
             ui.hraj();
         }
-        if (args[0].equals("vypis")) {
+        else if (args[0].equals("vypis")) {
             IHra hra = new Hra();
             hra.getHerniPlan().setDlouhyVypis(true);
             TextoveRozhrani ui = new TextoveRozhrani(hra);

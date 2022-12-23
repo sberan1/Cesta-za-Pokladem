@@ -25,4 +25,4 @@ Odkaz ke stahnuti: https://www.oracle.com/java/technologies/javase/jdk19-archive
 ### Jméno autora
 Štěpán Beran
 ### Označení verze
-v1.01
+v1.02

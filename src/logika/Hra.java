@@ -1,6 +1,13 @@
 package logika;
 
 
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *  Třída Hra - třída představující logiku adventury.
  * 
@@ -17,9 +24,10 @@ public class Hra implements IHra {
     private HerniPlan herniPlan; //obsahuje instanci herniho plan
     private static boolean konecHry = false; //nastavuje konec hry
     private String epilog = "Dohrál jsi tuto úžasnou hru, našel jsi ukradené zlato a je už jen na tobě, jestli si ho necháš, nebo ho půjdeš vrátit do města. Děkuji za zahrání!";
+    private List<String> pouzitePrikazy;
 
     /**
-     *  Vytváří hru a inicializuje místnosti (prostřednictvím třídy HerniPlan) a seznam platných příkazů.
+     * Vytváří hru a inicializuje místnosti (prostřednictvím třídy HerniPlan) a seznam platných příkazů.
      */
     public Hra() {
         herniPlan = new HerniPlan();
@@ -33,61 +41,101 @@ public class Hra implements IHra {
         herniPlan.getPlatnePrikazy().vlozPrikaz(new PrikazVymen(herniPlan));
         herniPlan.getPlatnePrikazy().vlozPrikaz(new PrikazVymeny(herniPlan));
         herniPlan.getPlatnePrikazy().vlozPrikaz(new PrikazPouzij(herniPlan));
+        herniPlan.getPlatnePrikazy().vlozPrikaz(new PrikazUloz(this));
+        herniPlan.getPlatnePrikazy().vlozPrikaz(new PrikazNacti(this));
+        pouzitePrikazy = new ArrayList<>();
     }
 
     /**
-     *  Vrátí úvodní zprávu pro hráče.
+     * Vrátí úvodní zprávu pro hráče.
      */
     public String vratUvitani() {
         return "Vítej v adventuře, kde je tvým cílem dojít do zamčené " +
                 "shované místnosti v čarodějově věži kde čaroděj shovává všechno ukradené zlato.\n" +
                 "Čeká tě těžký průchod a budeš muset cestou posbírat několik předmětů.\n " +
                 "Napište 'nápověda', pokud si nevíte rady, jak hrát dál. \n" +
-               herniPlan.getAktualniProstor().dlouhyPopis();
+                herniPlan.getAktualniProstor().dlouhyPopis();
     }
-    
+
     /**
-     *  Vrátí závěrečnou zprávu pro hráče.
+     * Vrátí závěrečnou zprávu pro hráče.
      */
     public String vratEpilog() {
         return epilog;
     }
-    
-    /** 
+
+    /**
      * Vrací true, pokud hra skončila.
      */
-     public  boolean konecHry() {
+    public boolean konecHry() {
         return konecHry;
     }
 
     /**
-     *  Metoda zpracuje řetězec uvedený jako parametr, rozdělí ho na slovo příkazu a další parametry.
-     *  Pak otestuje zda příkaz je klíčovým slovem  např. jdi.
-     *  Pokud ano spustí samotné provádění příkazu.
+     * Metoda zpracuje řetězec uvedený jako parametr, rozdělí ho na slovo příkazu a další parametry.
+     * Pak otestuje zda příkaz je klíčovým slovem  např. jdi.
+     * Pokud ano spustí samotné provádění příkazu.
      *
-     *@param  radek  text, který zadal uživatel jako příkaz do hry.
-     *@return          vrací se řetězec, který se má vypsat na obrazovku
+     * @param radek text, který zadal uživatel jako příkaz do hry.
+     * @return vrací se řetězec, který se má vypsat na obrazovku
      */
-     public String zpracujPrikaz(String radek) {
-         if (herniPlan.getPocetZivotu() > 0) {
-        String [] slova = radek.split("[ \t]+");
+    public String zpracujPrikaz(String radek) {
+        if (!radek.equals("ulož")){
+        pouzitePrikazy.add(radek);
+        }
+        String[] slova = radek.split("[ \t]+");
         String slovoPrikazu = slova[0];
-        String []parametry = new String[slova.length-1];
-        for(int i=0 ;i<parametry.length;i++){
-           	parametry[i]= slova[i+1];  	
+        String[] parametry = new String[slova.length - 1];
+        for (int i = 0; i < parametry.length; i++) {
+            parametry[i] = slova[i + 1];
         }
         String textKVypsani;
-            if (herniPlan.getPlatnePrikazy().jePlatnyPrikaz(slovoPrikazu)) {
-                IPrikaz prikaz = herniPlan.getPlatnePrikazy().vratPrikaz(slovoPrikazu);
-                textKVypsani = prikaz.provedPrikaz(parametry);
-            } else {
-                textKVypsani = "Nevím co tím myslíš? Tento příkaz neznám. ";
-            }
-            return textKVypsani;
+        if (herniPlan.getPlatnePrikazy().jePlatnyPrikaz(slovoPrikazu)) {
+            IPrikaz prikaz = herniPlan.getPlatnePrikazy().vratPrikaz(slovoPrikazu);
+            textKVypsani = prikaz.provedPrikaz(parametry);
+        } else {
+            textKVypsani = "Nevím co tím myslíš? Tento příkaz neznám. ";
         }
-        konecHry = true;
-        return "umrel jsi, zkus to znovu kamo";
+        if (herniPlan.getPocetZivotu() <= 0) {
+            konecHry = true;
+            return "prohrals!";
+        }
+        return textKVypsani;
     }
+
+    // save the game
+    public void ulozHru(String filePath) {
+        try {
+            FileWriter writer = new FileWriter(filePath, false);
+            for (String action : pouzitePrikazy) {
+                writer.write(action + "\n");
+            }
+            writer.close();
+        } catch (IOException e) {
+            // handle exception
+        }
+    }
+
+    // load the game
+    public void nactiHru(String filePath) {
+        try {
+            pouzitePrikazy = new ArrayList<>();
+            FileReader reader = new FileReader(filePath);
+            StringBuilder str = new StringBuilder();
+            int ch;
+            while ((ch = reader.read()) != -1) {
+                str.append((char) ch);
+            }
+            reader.close();
+            String[] actionStrings = str.toString().split("\n");
+            for (String actionString : actionStrings) {
+                zpracujPrikaz(actionString);
+            }
+        } catch (IOException e) {
+            // handle exception
+        }
+    }
+
     
     
      /**
