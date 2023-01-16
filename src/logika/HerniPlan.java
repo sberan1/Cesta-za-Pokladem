@@ -124,7 +124,7 @@ public class HerniPlan {
      */
     private void inicializaceProstoru(){
         // vytvářejí se jednotlivé prostory
-        Prostor hory = new Prostor("Hory", "Tady jsi v horách, je tu pěkný výhled a všechno ale nic tu není", this);
+        Prostor hory = new Prostor( "Hory", "Tady jsi v horách, je tu pěkný výhled a všechno ale nic tu není", this);
         Prostor mesto = new Prostor("Město","Město - Tady se děje všechno svaté i nesvaté", this);
         Prostor stodola = new Prostor("Stodola", "Stodola - tady je seno a par vandraku, muzes se tu klidne i vyspat nebo tak", this);
         Prostor kostel = new Prostor("Kostel", "Kostel -  Místo, kde jsme blíže bohu a můžeme zde najít" , this);
@@ -157,7 +157,6 @@ public class HerniPlan {
         prostory.add(taborak);
         prostory.add(pastStodola);
         prostory.add(taboriste);
-
 
         //zalozeni veci
         Vec mrtvaKrysa = new Vec("MrtváKrysa", true, true);
@@ -216,15 +215,14 @@ public class HerniPlan {
         //zalozeni vymen
         Vymena vymenaVesnice = new Vymena("zvláštní kupec ti nabizi za LahevAlkoholu svůj nůž a kámen", "lahev", "tak to byla naprosto silena vymena, jak myslis, dostals kamen a nuz, uzivej");
         vymenaVesnice.setOcekavaneVeci(lahevAlkoholu);
-        vymenaVesnice.setNavratovaHodnota(nuz);
-        vymenaVesnice.setNavratovaHodnota(kamen);
+        vymenaVesnice.setNavratovaHodnota(new PridaniVeciDoInvenatare(batuzek, nuz, kamen));
 
         Vymena zivotPiratskaLod = new Vymena(" piráti ti nabízejí výměnu lahveAlkoholu a meče za tvůj život", "zivot", "Když tě piráti okrádali tak jsi jim začal utíkat do Vesnice, zvládl jsi jednomu z nich ukrást klíč, přišel jsi o věci co po tobě chtěli a byl jsi postřelen za 50 životů.");
         zivotPiratskaLod.setOcekavaneVeci(lahevAlkoholu);
         zivotPiratskaLod.setOcekavaneVeci(mec);
-        zivotPiratskaLod.setNavratovaHodnota(50);
-        zivotPiratskaLod.setNavratovaHodnota(klicHlubokyLes);
-        zivotPiratskaLod.setNavratovaHodnota(vesnice);
+        zivotPiratskaLod.setNavratovaHodnota(new ModifikaceZivota(this, 50));
+        zivotPiratskaLod.setNavratovaHodnota(new PridaniVeciDoInvenatare(batuzek, klicHlubokyLes));
+        zivotPiratskaLod.setNavratovaHodnota(new PrenosDoJineMistnosti(this, vesnice));
         zivotPiratskaLod.setTrestZaNesplneni(100);
         zivotPiratskaLod.setOdemceniMistnosti(pustina, carodejovaVez);
 
@@ -232,7 +230,7 @@ public class HerniPlan {
         taborakVymena.setOcekavaneVeci(pullitr);
         taborakVymena.setOcekavaneVeci(mec);
         taborakVymena.setOcekavaneVeci(nuz);
-        taborakVymena.setNavratovaHodnota(nahrdelnik);
+        taborakVymena.setNavratovaHodnota(new PridaniVeciDoInvenatare(batuzek, nahrdelnik));
 
 
         stodola.zamknoutMistnost();

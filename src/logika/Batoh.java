@@ -61,7 +61,7 @@ public class Batoh {
     }
 
     /**
-     * Vraci textovy retezec s nazvama veci
+     * Vraci textovy         retezec s nazvama veci
      *
      * @return - text s nazvy predmetu v batohu
      */

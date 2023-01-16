@@ -11,7 +11,7 @@ import java.util.List;
 public class Vymena {
     private String popisVymeny; //popis ktery se zobrazi hraci pri pouziti prikazu Vymeny
     private ArrayList<Vec> ocekavaneVeci; //list veci ktere prikaz prijma
-    private ArrayList<Object> navratoveHodnoty; //list objektu, ktere budou navrat
+    private ArrayList<INavrat> navratoveHodnoty; //list objektu, ktere budou navrat
     private String kratkyNazev; //kratky nazev pouzivany k vyvolani prikazu
     private Object trestZaNesplneni; //co se ma stat, pokud hrac nebude mit dostupne objekty
     private String textKZobrazeni; //text k zobrazeni po uspesne vymene
@@ -49,7 +49,7 @@ public class Vymena {
      *
      * @param navratovaHodnota Objekt, ktery chceme vlozit do listu vracenych objektu
      */
-    public void setNavratovaHodnota(Object navratovaHodnota) {
+    public void setNavratovaHodnota(INavrat navratovaHodnota) {
         navratoveHodnoty.add(navratovaHodnota);
     }
 
@@ -67,8 +67,8 @@ public class Vymena {
      *
      * @return kopii listu s vracenymi objekty
      */
-    public List<Object> getNavratoveHodnoty() {
-        return (ArrayList<Object>) navratoveHodnoty.clone();
+    public List<INavrat> getNavratoveHodnoty() {
+        return (ArrayList<INavrat>) navratoveHodnoty.clone();
     }
 
     /**
@@ -88,7 +88,7 @@ public class Vymena {
     public void setTrestZaNesplneni(Object trestZaNesplneni) {
         this.trestZaNesplneni = trestZaNesplneni;
     }
-
+    
     /**
      * Vraci Objekt, ktery bude trest za nespleneni
      *

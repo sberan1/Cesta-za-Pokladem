@@ -50,24 +50,7 @@ public class PrikazVymen implements IPrikaz{
                         plan.getBatuzek().odeberVec(item.getNazev());
                     }
                     for (var item : vymena.getNavratoveHodnoty()){
-                        if (item.getClass().getName().equals("java.lang.Integer")) {
-                            plan.uberZivoty((Integer) item);
-                        }
-                        if (item.getClass().getName().equals("logika.Vec")){
-                            Vec neco = ((Vec) item);
-                            neco.pridatVideniVeci();
-                            plan.getBatuzek().vlozVec(neco);
-                        }
-                        if (item.getClass().getName().equals("logika.Prostor")){
-                            Prostor placeholder = (Prostor) item;
-                            for (var prostor : placeholder.getVychody()){
-                                if (prostor.getZivotnost() != 999){
-                                    prostor.nastavPast(prostor.getZivotnost()-1);
-
-                                }
-                            }
-                            plan.setAktualniProstor((Prostor) item);
-                        }
+                        item.navratovaHodnota();
                     }
                     if (vymena.getOdemceniMistnosti()[0] != null && vymena.getOdemceniMistnosti()[1] != null){
                         vymena.getOdemceniMistnosti()[0].setVychod(vymena.getOdemceniMistnosti()[1]);
